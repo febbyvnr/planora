@@ -17,21 +17,15 @@ export default function App() {
     const currentMonth = baseDate.getMonth();
     const currentYear = baseDate.getFullYear();
     const todayDate = today.getDate();
-
     const firstDay = new Date(currentYear, currentMonth, 1).getDay();
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-
-    // convert sunday=0 → monday start
     const startOffset = firstDay === 0 ? 6 : firstDay - 1;
-
     const days = [];
 
-    // empty cells
     for (let i = 0; i < startOffset; i++) {
         days.push(null);
     }
 
-    // days of month
     for (let i = 1; i <= daysInMonth; i++) {
         days.push(i);
     }
@@ -60,7 +54,6 @@ export default function App() {
     return (
         <div className="min-h-screen bg-gray-50">
         <div className="max-w-[1200px] mx-auto px-6 py-10 space-y-8">
-            {/* HEADER */}
             <div>
                 <h1 className="text-3xl font-bold text-gray-900">
                     What's On Your Agenda?
@@ -70,13 +63,9 @@ export default function App() {
                 </p>
             </div>
 
-            {/* MAIN GRID */}
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
-            {/* ========== LEFT SIDE ========== */}
                 <div className="space-y-8">
-                    {/* CALENDAR SPACES GRID */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    {/* Academic Planner */}
                     <div 
                         onClick={() => navigate("/scheduler/detailed")}
                         className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_rgb(99,133,229)] hover:-translate-y-1 transition cursor-pointer"
@@ -85,10 +74,8 @@ export default function App() {
                             className="h-44 bg-cover bg-center bg-gradient-to-br from-blue-100 via-blue-50 to-white p-4 flex flex-col relative overflow-hidden"
                             style={{ backgroundImage: `url(${cardBg})` }}
                             >
-                            {/* GRADIENT OVERLAY */}
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-400/50 via-blue-300/30 to-transparent"></div>
 
-                            {/* CONTENT */}
                             <div className="relative z-10">
                                 <p className="text-blue-700 font-semibold">
                                     Academic Planner
@@ -109,7 +96,6 @@ export default function App() {
                         </div>
                     </div>
 
-                    {/* Committee */}
                     <div className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_#6954CD] hover:-translate-y-1 transition cursor-pointer">
                         <div
                             className="h-44 bg-cover bg-center bg-gradient-to-br from-purple-100 via-purple-50 to-white p-4 flex flex-col relative overflow-hidden"
@@ -135,7 +121,6 @@ export default function App() {
                         </div>
                     </div>
 
-                    {/* Design Club */}
                     <div className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_#F5B944] hover:-translate-y-1 transition cursor-pointer">
                         <div
                             className="h-44 bg-cover bg-center bg-gradient-to-br from-yellow-100 via-yellow-50 to-white p-4 flex flex-col relative overflow-hidden"
@@ -159,7 +144,6 @@ export default function App() {
                         </div>
                     </div>
 
-                    {/* CREATE CALENDAR SPACE */}
                     <div
                         onClick={() => setPopupOpen(true)}
                         className="rounded-3xl border-2 border-dashed flex flex-col items-center justify-center text-center p-10 text-gray-500 hover:bg-gray-50 cursor-pointer transition"
@@ -174,9 +158,7 @@ export default function App() {
                         </p>
                     </div>
                     </div>
-                    {/* END CALENDAR SPACES GRID */}
 
-                    {/* PRODUCTIVITY BANNER */}
                     <div className="bg-[#C9D4F1] rounded-3xl p-8 flex justify-between items-center">
                         <div>
                             <h3 className="text-xl font-bold">
@@ -191,15 +173,11 @@ export default function App() {
                         <div className="text-5xl">⭐</div>
                     </div>
                 </div>
-                {/* ========== END LEFT SIDE ========== */}
-
-                {/* ========== RIGHT SIDE ========== */}
+                
                 <div className="space-y-8 lg:border-l lg:pl-8">
-                    {/* UPCOMING SCHEDULE */}
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Upcoming Schedule</h3>
                         <div className="bg-white rounded-2xl p-5 border space-y-4">
-                            {/* MONTH NAV */}
                             <div className="flex justify-between items-center">
                                 <button
                                     className="p-2 border rounded-lg hover:bg-gray-50 transition"
@@ -218,7 +196,6 @@ export default function App() {
                                 </button>
                             </div>
 
-                            {/* WEEK DAYS */}
                             <div className="grid grid-cols-7 text-xs text-gray-500 text-center">
                                 <span>Mo</span>
                                 <span>Tu</span>
@@ -229,14 +206,12 @@ export default function App() {
                                 <span>Su</span>
                             </div>
 
-                            {/* CALENDAR DAYS */}
                             <div className="grid grid-cols-7 text-center gap-y-3 text-sm">
                                 {days.map((day, index) => {
                                     const isToday =
                                     day === todayDate &&
                                     currentMonth === today.getMonth() &&
                                     currentYear === today.getFullYear();
-
                                     return (
                                         <span
                                             key={index}
@@ -256,7 +231,6 @@ export default function App() {
                         </div>
                     </div>
 
-                    {/* UPCOMING TODAY */}
                     <div>
                         <div className="flex justify-between items-center mb-3">
                             <h3 className="font-semibold">Upcoming Today</h3>
@@ -265,7 +239,6 @@ export default function App() {
                             </button>
                         </div>
                         <div className="space-y-3">
-                            {/* EVENT 1 */}
                             <div className="border rounded-xl p-4 flex gap-3 items-start bg-white shadow-[-6px_0px_0px_#6385E5]">
                                 <div className="w-1.5 bg-blue-500 rounded"></div>
                                 <div>
@@ -273,7 +246,6 @@ export default function App() {
                                     <p className="text-sm text-gray-500">10:00 AM - 12:00 PM</p>
                                 </div>
                                 </div>
-                                {/* EVENT 2 */}
                                 <div className="border rounded-xl p-4 flex gap-3 items-start bg-white shadow-[-6px_0px_0px_#6954CD]">
                                 <div className="w-1.5 bg-purple-500 rounded"></div>
                                 <div>
@@ -281,7 +253,6 @@ export default function App() {
                                     <p className="text-sm text-gray-500">04:00 PM - 07:00 PM</p>
                                 </div>
                                 </div>
-                                {/* EVENT 3 */}
                                 <div className="border rounded-xl p-4 flex gap-3 items-start bg-white shadow-[-6px_0px_0px_#F5B944]">
                                 <div className="w-1.5 bg-yellow-500 rounded"></div>
                                 <div>
@@ -292,16 +263,12 @@ export default function App() {
                         </div>
                     </div>
                 </div>
-                {/* ========== END RIGHT SIDE ========== */}
                 </div>
-                {/* END MAIN GRID */}
             </div>
 
-            {/* ========== POPUP ========== */}
             {popupOpen && (
                 <div className="fixed inset-0 bg-black/30 flex justify-center items-center z-50">
                     <div className="bg-white rounded-2xl w-[380px] p-6 relative shadow-lg">
-                        {/* Close button */}
                         <button
                             className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition"
                             onClick={() => {
@@ -314,7 +281,6 @@ export default function App() {
                         </button>
                         <h2 className="text-lg font-bold mb-4">Calendar Space</h2>
 
-                        {/* Tab buttons: Create (left) | Join (right) */}
                         <div className="flex mb-5 gap-2">
                             <button
                                 className={`flex-1 py-2.5 rounded-lg font-medium transition ${
@@ -338,7 +304,6 @@ export default function App() {
                             </button>
                         </div>
 
-                        {/* Tab content */}
                         {popupTab === "create" && (
                             <div className="space-y-4">
                                 <div>
@@ -389,7 +354,6 @@ export default function App() {
                     </div>
                 </div>
             )}
-            {/* ========== END POPUP ========== */}
         </div>
     );
 }
