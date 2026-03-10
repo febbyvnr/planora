@@ -1,35 +1,29 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import MainLayout from "./layouts/MainLayout";
+import Materials from "./pages/Materials";
+import MaterialFolder from "./pages/MaterialFolder";
+import Tasks from "./pages/Tasks";
+import Dashboard from "./pages/Dashboard";
+import Scheduler from "./pages/Scheduler";
+import SchedulerDetailed from "./pages/Scheduler_Detailed";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <BrowserRouter>
+      <MainLayout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/materials" element={<Materials />} />
+          <Route path="/materials/mathematics" element={<MaterialFolder />} />
+          <Route path="/tasks" element={<Tasks />} />
+          <Route path="/scheduler" element={<Scheduler />} />
+          <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Routes>
+      </MainLayout>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
