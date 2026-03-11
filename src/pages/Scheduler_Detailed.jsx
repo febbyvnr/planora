@@ -3,17 +3,74 @@ import restImg from "../assets/images/scheduler-rest.png";
 import { useState } from "react";
 
 export default function Scheduler_Detailed() {
-    const days = [
-        { day: "MON", date: 23 },
-        { day: "TUE", date: 24 },
-        { day: "WED", date: 25 },
-        { day: "THU", date: 26 },
-        { day: "FRI", date: 27 },
-        { day: "SAT", date: 28 },
-        { day: "SUN", date: 29 },
-    ];
+    const getWeekDays = (date) => {
+    const weekDays = [];
+    const dayOfWeek = date.getDay();
+    const diffToMon = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const monday = new Date(date);
+    monday.setDate(date.getDate() + diffToMon);
+
+    const dayNames = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+        for (let i = 0; i < 7; i++) {
+            const d = new Date(monday);
+            d.setDate(monday.getDate() + i);
+            weekDays.push({
+            day: dayNames[d.getDay()],
+            date: d.getDate(),
+            fullDate: d,
+            });
+        }
+        return weekDays;
+    };
     const times = ["08:00", "09:00", "10:00", "11:00", "12:00"];
     const [view, setView] = useState("week");
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const days = getWeekDays(currentDate);
+
+    const monthNames = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
+    const getWeekRange = (date) => {
+        const day = date.getDay();
+        const diffToMon = day === 0 ? -6 : 1 - day;
+        const monday = new Date(date);
+        monday.setDate(date.getDate() + diffToMon);
+        const sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+
+        const formatDate = (d) => `${monthNames[d.getMonth()]} ${d.getDate()}`;
+        return `${formatDate(monday)} - ${formatDate(sunday)}, ${sunday.getFullYear()}`;
+    };
+
+    const getMonthDates = (date) => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const firstDay = new Date(year, month, 1).getDay();
+        const lastDate = new Date(year, month + 1, 0).getDate();
+
+        const dates = [];
+        const paddingStart = firstDay === 0 ? 6 : firstDay - 1;
+        for (let i = 0; i < paddingStart; i++) dates.push(null);
+        for (let d = 1; d <= lastDate; d++) dates.push(d);
+        while (dates.length % 7 !== 0) dates.push(null);
+        return dates;
+    };
+
+    const renderMonthDates = (year, month) => {
+        const firstDay = new Date(year, month, 1).getDay();
+        const lastDate = new Date(year, month + 1, 0).getDate();
+        const dates = [];
+        const paddingStart = firstDay === 0 ? 6 : firstDay - 1;
+        for (let i = 0; i < paddingStart; i++) dates.push(null);
+        for (let d = 1; d <= lastDate; d++) dates.push(d);
+        while (dates.length % 7 !== 0) dates.push(null);
+        return dates;
+    };
+
+    const monthDates = renderMonthDates(2026, 2);
+    const weekRangeText = getWeekRange(currentDate);
 
     return (
         <div className="space-y-8 pt-9">
@@ -24,7 +81,7 @@ export default function Scheduler_Detailed() {
                 <div className="flex gap-4 items-center">
                     <button className="flex items-center gap-2 border rounded-full px-4 py-2 bg-white">
                         <ChevronLeft size={16}/>
-                        <span>Mar 23 - Mar 29, 2026</span>
+                        <span>{view === "week" ? weekRangeText : `${monthNames[currentDate.getMonth()]} ${currentDate.getFullYear()}`}</span>
                         <ChevronRight size={16}/>
                     </button>
                     <div className="bg-gray-200 rounded-full p-1 flex">
@@ -268,24 +325,220 @@ export default function Scheduler_Detailed() {
             )}
             {view === "month" && (
                 <div className="bg-white rounded-3xl border p-6">
-                    <div className="grid grid-cols-7 text-center text-gray-500 text-sm mb-4">
-                        <p>Mon</p>
-                        <p>Tue</p>
-                        <p>Wed</p>
-                        <p>Thu</p>
-                        <p>Fri</p>
-                        <p>Sat</p>
-                        <p>Sun</p>
+                    <div className="grid grid-cols-7 text-center text-gray-500 text-sm mb-2 py-2">
+                        {["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].map((day) => (
+                            <div key={day}>{day}</div>
+                        ))}
                     </div>
-                    <div className="grid grid-cols-7 gap-4">
-                    {Array.from({ length: 35 }).map((_, i) => (
-                        <div
-                            key={i}
-                            className="h-28 border rounded-xl flex items-start p-2 text-sm text-gray-400"
-                        >
-                            {i + 1}
-                        </div>
-                    ))}
+                    <div className="grid grid-cols-7 gap-3 text-sm text gray-700">
+                        {monthDates.map((date, i) => (
+                            <div
+                                key={i}
+                                className="h-32 border rounded-xl flex items-start p-2 text-sm text-gray-400 relative"
+                            >
+                                {date && <p className="font-semibold">{date}</p>}
+                                
+                                {date === 1 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#488AEC] bg-[rgba(72,138,236,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#6385E5]">
+                                        <p className="font-medium">Academic Prep</p>
+                                    </div>
+                                )}
+                                {date === 2 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#488AEC] bg-[rgba(72,138,236,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#6385E5]">
+                                        <p className="font-medium">Calculus Lecturer</p>
+                                    </div>
+                                )}
+                                {date === 3 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#9333EA] bg-[rgba(147,51,234,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                        <p className="font-medium">Cognitive Pshycology Seminar</p>
+                                    </div>
+                                )}
+                                {date === 4 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#A16207] bg-[rgba(253,224,71,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                        <p className="font-medium">Ancient Civilizations Lecture</p>
+                                    </div>
+                                )}
+                                {date === 5 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#10B981] bg-[rgba(16,185,129,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                        <p className="font-medium">Biology Lab Session</p>
+                                    </div>
+                                )}
+                                {date === 6 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#488AEC] bg-[rgba(72,138,236,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#6385E5]">
+                                        <p className="font-medium">Algebra Quiz</p>
+                                    </div>
+                                )}
+                                {date === 7 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-2 -mr-1">
+                                        <div className="flex bg-[rgba(253,224,71,0.18)] text-[#A16207] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                            <p className="font-medium">History Reading Review</p>
+                                        </div>
+
+                                        <div className="flex bg-[rgba(147,51,234,0.18)] text-[#9333EA] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                            <p className="font-medium">Study Group Discussion</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {date === 8 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#10B981] bg-[rgba(16,185,129,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                        <p className="font-medium">Biology Notes Review</p>
+                                    </div>
+                                )}
+                                {date === 9 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#488AEC] bg-[rgba(72,138,236,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#6385E5]">
+                                        <p className="font-medium">Problem Solving Workshop</p>
+                                    </div>
+                                )}
+                                {date === 10 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-3 -mr-1">
+                                        <div className="flex bg-[rgba(147,51,234,0.18)] text-[#9333EA] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                            <p className="font-medium">Behavioral Psychology Lecture</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(253,224,71,0.18)] text-[#A16207] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                            <p className="font-medium">History Seminar</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {date === 11 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#10B981] bg-[rgba(16,185,129,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                        <p className="font-medium">Genetics Discussion</p>
+                                    </div>
+                                )}
+                                {date === 12 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-3 -mr-1">
+                                        <div className="flex bg-[rgba(72,138,236,0.18)] text-[#488AEC] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#488AEC]">
+                                            <p className="font-medium">Statistic Lecture</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(147,51,234,0.18)] text-[#9333EA] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                            <p className="font-medium">Research Methods Meeting</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(253,224,71,0.18)] text-[#A16207] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                            <p className="font-medium">History Lecture</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {date === 13 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#A16207] bg-[rgba(253,224,71,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                        <p className="font-medium">History Essay Draft Due</p>
+                                    </div>
+                                )}
+                                {date === 14 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-3 -mr-1">
+                                        <div className="flex bg-[rgba(72,138,236,0.18)] text-[#488AEC] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#488AEC]">
+                                            <p className="font-medium">Math Practice session</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(147,51,234,0.18)] text-[#9333EA] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                            <p className="font-medium">Group Study: Pshycology</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {date === 15 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#10B981] bg-[rgba(16,185,129,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                        <p className="font-medium">Biology Concept Review</p>
+                                    </div>
+                                )}
+                                {date === 16 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#10B981] bg-[rgba(16,185,129,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                        <p className="font-medium">Biology Midterm</p>
+                                    </div>
+                                )}
+                                {date === 17 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#9333EA] bg-[rgba(147,51,234,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                        <p className="font-medium">Intro to Social Pshycology</p>
+                                    </div>
+                                )}
+                                {date === 18 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#A16207] bg-[rgba(253,224,71,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                        <p className="font-medium">Historical Analysis Workshop</p>
+                                    </div>
+                                )}
+                                {date === 19 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#488AEC] bg-[rgba(72,138,236,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#6385E5]">
+                                        <p className="font-medium">Calculus Problem Review</p>
+                                    </div>
+                                )}
+                                {date === 20 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#A16207] bg-[rgba(253,224,71,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                        <p className="font-medium">Art & Cultural History Lecture</p>
+                                    </div>
+                                )}
+                                {date === 21 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-3 -mr-1">
+                                        <div className="flex bg-[rgba(72,138,236,0.18)] text-[#488AEC] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#488AEC]">
+                                            <p className="font-medium">Math Study Group</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(16,185,129,0.18)] text-[#10B981] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                            <p className="font-medium">Biology Lap Prep</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {date === 22 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#9333EA] bg-[rgba(147,51,234,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                        <p className="font-medium">Pshycology Reading</p>
+                                    </div>
+                                )}
+                                {date === 23 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#9333EA] bg-[rgba(147,51,234,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                        <p className="font-medium">Pshycology Research Meeting</p>
+                                    </div>
+                                )}
+                                {date === 24 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#488AEC] bg-[rgba(72,138,236,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#6385E5]">
+                                        <p className="font-medium">Statistic Exam</p>
+                                    </div>
+                                )}
+                                {date === 25 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#A16207] bg-[rgba(253,224,71,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                        <p className="font-medium">History Presentation Prep</p>
+                                    </div>
+                                )}
+                                {date === 26 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#10B981] bg-[rgba(16,185,129,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                        <p className="font-medium">Biology Lab Report</p>
+                                    </div>
+                                )}
+                                {date === 27 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#488AEC] bg-[rgba(72,138,236,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#6385E5]">
+                                        <p className="font-medium">Mathematics Course Wrap</p>
+                                    </div>
+                                )}
+                                {date === 28 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-3 -mr-1">
+                                        <div className="flex bg-[rgba(253,224,71,0.18)] text-[#A16207] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                            <p className="font-medium">History Study Review</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(147,51,234,0.18)] text-[#9333EA] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                            <p className="font-medium">Psychology Discussion Group</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {date === 29 && (
+                                    <div className="absolute top-7 left-2 right-2 text-[#10B981] bg-[rgba(16,185,129,0.18)] rounded-[8px] p-0 pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                        <p className="font-medium">Weekly Biology Review</p>
+                                    </div>
+                                )}
+                                {date === 30 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-3 -mr-1">
+                                        <div className="flex bg-[rgba(72,138,236,0.18)] text-[#488AEC] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#488AEC]">
+                                            <p className="font-medium">Calculus Review Session</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(16,185,129,0.18)] text-[#10B981] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#10B981]">
+                                            <p className="font-medium">Biology Study Notes</p>
+                                        </div>
+                                    </div>
+                                )}
+                                {date === 31 && (
+                                    <div className="flex flex-col gap-1 mt-5 w-full -ml-3 -mr-1">
+                                        <div className="flex bg-[rgba(147,51,234,0.18)] text-[#9333EA] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#9333EA]">
+                                            <p className="font-medium">Pshycology Reflection Meeting</p>
+                                        </div>
+                                        <div className="flex bg-[rgba(253,224,71,0.18)] text-[#A16207] rounded-[8px] pl-1 text-[14px] shadow-[-3px_0px_0px_#FDE047]">
+                                            <p className="font-medium">History Reading Wrap-up</p>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        ))}
                     </div>
                 </div>
             )}
