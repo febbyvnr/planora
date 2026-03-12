@@ -8,7 +8,8 @@ import {
     Brain,
     Image,
     FileSpreadsheet,
-    Video
+    Video, 
+    CheckCircle
 } from "lucide-react";
 
 import MaterialCard from "../components/MaterialCard";
@@ -18,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import FolderModal from "../components/FolderModal";
 import UploadModal from "../components/UploadModal";
 import deleteImg from "../assets/images/materials-delete.png";
+import footer from "../assets/images/Materials-footer.png";
 
 export default function Materials() {
     const [openModal, setOpenModal] = useState(false);
@@ -28,6 +30,14 @@ export default function Materials() {
     const fileInputRef = useRef(null);
     const [openUpload, setOpenUpload] = useState(false);
     const navigate = useNavigate();
+    const [toast, setToast] = useState(null);
+
+    const showToast = (message) => {
+        setToast(message);
+        setTimeout(() => {
+            setToast(null);
+        }, 1500);
+    };
 
     const handleUploadClick = () => {
         fileInputRef.current.click();
@@ -36,25 +46,24 @@ export default function Materials() {
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-
-        alert(`Uploaded: ${file.name}`);
+        showToast(`File renamed to ${newName}`);
     };
 
     const handleDeleteFolder = () => {
-        alert(`${deleteFolder} folder deleted successfully`);
+        showToast(`${deleteFolder} folder deleted successfully`);
         setDeleteFolder(null);
     };
 
     const handleDeleteFile = () => {
-        alert(`${deleteFile} deleted successfully`);
+        showToast(`${deleteFile} deleted successfully`);
         setDeleteFile(null);
     };
 
     const handleSaveFolder = (data, mode) => {
         if (mode === "create") {
-            alert(`Folder "${data.name}" created successfully`);
+            showToast(`Folder "${data.name}" created successfully`);
         } else {
-            alert(`Folder "${data.name}" updated successfully`);
+            showToast(`Folder "${data.name}" updated successfully`);
         }
     };
 
@@ -233,18 +242,12 @@ export default function Materials() {
                     />
                 </div>
             </div>
-            <div className="bg-teal-50 rounded-2xl p-8 flex justify-between items-center">
-                <div>
-                    <h3 className="text-xl font-bold">
-                        You're a productivity star!
-                    </h3>
-                    <p className="text-gray-600">
-                        You have stored over 104 files this semester.
-                    </p>
-                </div>
-                <div className="flex gap-4 text-4xl">
-                    ⭐ 📚 💡
-                </div>
+            <div className="rounded-3xl overflow-hidden">
+                <img
+                    src={footer}
+                    alt="Materials Storage Footer"
+                    className="w-full h-auto"
+                />
             </div>
             <FolderModal
                 open={openModal}
@@ -253,7 +256,7 @@ export default function Materials() {
                 onSave={(data) => handleSaveFolder(data, "create")}
             />
             {deleteFolder && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
+                <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
                     <div className="bg-white rounded-xl p-6 w-96 text-center">
                         <img
                             src={deleteImg}
@@ -283,7 +286,7 @@ export default function Materials() {
                 </div>
             )}
             {deleteFile && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
+                <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
                     <div className="bg-white rounded-xl p-6 w-96 text-center">
                         <img
                             src={deleteImg}
@@ -321,7 +324,7 @@ export default function Materials() {
             />
             {editFile && (
                 <div
-                    className="fixed inset-0 bg-black/30 flex items-center justify-center"
+                    className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn"
                     onClick={() => setEditFile(null)}
                 >
                     <div
@@ -347,7 +350,7 @@ export default function Materials() {
                             <button
                                 onClick={() => {
                                     const newName = document.getElementById("editFileInput").value;
-                                    alert(`File renamed to ${newName}`);
+                                    showToast(`File renamed to ${newName}`);
                                     setEditFile(null);
                                 }}
                                 className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
@@ -361,8 +364,18 @@ export default function Materials() {
             <UploadModal
                 open={openUpload}
                 onClose={() => setOpenUpload(false)}
-                folder="Mathematics"
+                folder="Main Folder"
             />
+            {toast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {toast}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Calculator, Brain, BookOpen, Sprout, Folder, FlaskConical } from "lucide-react";
+import confetti from "canvas-confetti";
+import { CheckCircle } from "lucide-react";
 
 export default function FolderModal({
     open,
@@ -15,6 +17,7 @@ export default function FolderModal({
     const [openCollaborator, setOpenCollaborator] = useState(false);
     const [search, setSearch] = useState("");
     const [selectedFriend, setSelectedFriend] = useState(null);
+    const [toast, setToast] = useState(null);
 
     useEffect(() => {
         if (mode === "edit" && folder) {
@@ -65,27 +68,56 @@ export default function FolderModal({
             icon: selectedIcon,
             color: selectedColor
         };
+
+        confetti({
+            particleCount: 120,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        setToast(
+            mode === "create"
+                ? "Folder created successfully"
+                : "Folder updated successfully"
+        );
+
         onSave(data);
-        onClose();
+
+        setTimeout(() => {
+            onClose();
+            setToast(null);
+        }, 300);
     };
 
     const handleAddCollaborator = () => {
         if (!selectedFriend) return;
-        alert(`${selectedFriend.username} added as collaborator`);
+
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 }
+        });
+
+        setToast(`${selectedFriend.username} added as collaborator`);
+
         setSelectedFriend(null);
         setOpenCollaborator(false);
+
+        setTimeout(() => {
+            setToast(null);
+        }, 300);
     };
+
+    const isFormValid = name.trim() !== "" && selectedIcon !== null;
 
     return (
         <>
-            <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+            <div className="fixed inset-0 -top-[80px] bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
                 <div className="bg-white w-[425px] rounded-3xl p-8 space-y-6">
-                    {/* TITLE */}
                     <div className="flex justify-between items-center">
                         <h2 className="text-2xl font-bold">
                             {mode === "create" ? "Create Folder" : "Edit Folder"}
                         </h2>
-                        {/* collaborators only for edit */}
                         {mode === "edit" ? (
                             <div className="flex items-center">
                                 <div className="flex -space-x-3">
@@ -110,7 +142,6 @@ export default function FolderModal({
                         )}
                     </div>
 
-                    {/* INPUT */}
                     <div>
                         <p className="text-sm text-gray-500 mb-2">FOLDER NAME</p>
                         <input
@@ -122,7 +153,6 @@ export default function FolderModal({
                         />
                     </div>
 
-                    {/* ICON SELECT */}
                     <div>
                         <p className="text-sm text-gray-500 mb-3">SELECT ICON</p>
                         <div className="flex gap-3 flex-wrap">
@@ -141,7 +171,6 @@ export default function FolderModal({
                             ))}
                         </div>
                     </div>
-                    {/* COLOR */}
                     <div>
                         <p className="text-sm text-gray-500 mb-3">CHOOSE COLOR</p>
                         <div className="flex gap-3 flex-wrap">
@@ -160,7 +189,6 @@ export default function FolderModal({
                         </div>
                     </div>
 
-                    {/* BUTTON */}
                     <div className="flex justify-between items-center pt-4">
                         <button
                             onClick={onClose}
@@ -170,7 +198,12 @@ export default function FolderModal({
                         </button>
                         <button
                             onClick={handleSave}
-                            className="bg-indigo-600 text-white px-6 py-2 rounded-xl"
+                            disabled={!isFormValid}
+                            className={`px-6 py-2 rounded-xl text-white transition
+                                ${isFormValid
+                                    ? "bg-indigo-600 hover:bg-indigo-700"
+                                    : "bg-gray-300 cursor-not-allowed"}
+                            `}
                         >
                             {mode === "create" ? "Create Folder" : "Save Changes"}
                         </button>
@@ -178,9 +211,8 @@ export default function FolderModal({
                 </div>
             </div>
 
-            {/* ADD COLLABORATOR MODAL */}
             {openCollaborator && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
+                <div className="fixed inset-0 -top-[80px] bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
                     <div className="bg-white w-[400px] rounded-2xl p-6 space-y-5">
                         <h3 className="text-lg font-semibold">
                             Add Collaborator
@@ -221,6 +253,16 @@ export default function FolderModal({
                                 Add
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+            {toast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {toast}
+                        </p>
                     </div>
                 </div>
             )}

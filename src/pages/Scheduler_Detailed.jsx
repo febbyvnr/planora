@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, Link } from "lucide-react";
 import restImg from "../assets/images/scheduler-rest.png";
 import { useState } from "react";
+import footer from "../assets/images/schedule_detailed-footer.png"
 
 export default function Scheduler_Detailed() {
     const getWeekDays = (date) => {
@@ -542,20 +543,12 @@ export default function Scheduler_Detailed() {
                     </div>
                 </div>
             )}
-            <div className="bg-[#C9D4F1] rounded-3xl p-8 flex justify-between items-center">
-                <div>
-                    <h3 className="text-xl font-bold">
-                        You're doing great, Olivia!
-                    </h3>
-                    <p className="text-gray-700 text-sm mt-1">
-                        You've completed 85% of your weekly study goals
-                        <br/>
-                        Your consistency is in the top 3% of Planora users
-                    </p>
-                </div>
-                <div className="text-5xl">
-                    ⭐
-                </div>
+            <div className="rounded-3xl overflow-hidden">
+                <img
+                    src={footer}
+                    alt="Schedule_Detailed footer"
+                    className="w-full h-auto"
+                />
             </div>
         </div>
     );

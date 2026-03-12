@@ -4,3 +4,104 @@
 body {
     font-family: "Outfit", sans-serif;
 }
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes tabFade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.25s ease-out;
+}
+
+.animate-tabFade {
+  animation: tabFade 0.3s ease;
+}
+
+@keyframes toastSlide {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes toast {
+  0% { opacity:0; transform:translate(-50%, -20px) scale(0.9);}
+  100% { opacity:1; transform:translate(-50%, 0) scale(1);}
+}
+.animate-toast{
+  animation: toast 0.3s ease;
+}
+@keyframes confetti {
+  0% {
+    transform: translateY(-100vh) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.animate-confetti {
+  animation: confetti 1.5s linear forwards;
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.35s ease;
+}
+@keyframes fadeIn {
+  from { opacity:0; transform: translateY(-3px);}
+  to { opacity:1; transform: translateY(0);}
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease;
+}
+@keyframes subtle-shake {
+0%,100% { transform: translateX(0); }
+20% { transform: translateX(-3px); }
+40% { transform: translateX(3px); }
+60% { transform: translateX(-2px); }
+80% { transform: translateX(2px); }
+}
+
+.animate-shake {
+animation: subtle-shake 0.35s ease;
+}

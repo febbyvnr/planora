@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import deleteImg from "../assets/images/tasks-delete.png";
+import footer from "../assets/images/tasks-footer.png";
+import confetti from "canvas-confetti";
 import {
     Plus,
     SlidersHorizontal,
@@ -10,7 +12,8 @@ import {
     Calendar,
     MoreHorizontal,
     Pencil,
-    Trash2
+    Trash2,
+    CheckCircle
 } from "lucide-react";
 
 export default function Tasks() {
@@ -318,9 +321,24 @@ const [priority,setPriority] = useState("Low");
 const [tagColor,setTagColor] = useState("#6385E5");
 const [editMode,setEditMode] = useState(false);
 const [editIndex,setEditIndex] = useState(null);
-const subjects = ["Mathematics","Biology","Psychology","History"];
 const [showDeleteModal,setShowDeleteModal] = useState(false);
 const [deleteTask,setDeleteTask] = useState(null);
+const [toast,setToast] = useState(null);
+
+const showToast = (msg) => {
+    setToast(msg);
+
+    confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 },
+        zIndex: 9999
+    });
+
+    setTimeout(() => {
+        setToast(null);
+    }, 3000);
+};
 
 const colors = [
     "#6385E5",
@@ -349,430 +367,455 @@ const [subjectList,setSubjectList] = useState([
     "History"
 ]);
 
-    return(
-        <div className="space-y-10 pt-10">
-            <div className="flex justify-between items-center">
-                <div>
-                    <h1 className="text-3xl font-bold">
-                        Tasks Management
-                    </h1>
-                    <p className="text-gray-500">
-                        Hey Olivia! You have <span className="text-indigo-600 font-semibold">8 tasks</span> waiting for you
-                    </p>
-                </div>
+const isFormValid =
+    taskTitle.trim() !== "" &&
+    agenda.trim() !== "" &&
+    subject.trim() !== "" &&
+    dueDate.trim() !== "";
 
-                <div className="flex gap-3 relative" ref={filterRef}>
-                    <button
-                        onClick={()=>setOpenFilter(!openFilter)}
-                        className="flex items-center gap-2 px-4 py-2 border rounded-xl"
-                    >
-                        <SlidersHorizontal size={18}/>
-                        Filters
-                    </button>
-                    {openFilter &&(
-                        <div className="absolute right-0 top-12 bg-white border rounded-xl shadow-lg w-52 z-50">
-                            <div className="flex flex-col text-sm">
-                                <button onClick={()=>setStatusFilter("In Progress")} className="px-4 py-2 hover:bg-gray-100">In Progress</button>
-                                <button onClick={()=>setStatusFilter("High")} className="px-4 py-2 hover:bg-gray-100">High Priority</button>
-                                <button onClick={()=>setStatusFilter("Medium")} className="px-4 py-2 hover:bg-gray-100">Medium Priority</button>
-                                <button onClick={()=>setStatusFilter("Low")} className="px-4 py-2 hover:bg-gray-100">Low Priority</button>
-                                <button onClick={()=>setStatusFilter("Completed")} className="px-4 py-2 hover:bg-gray-100">Completed</button>
-                                <button onClick={()=>setStatusFilter("Overdue")} className="px-4 py-2 hover:bg-gray-100">Overdue</button>
-                                <div className="border-t"></div>
-                                <button
-                                    onClick={()=>{
-                                        setStatusFilter(null);
-                                        setAgendaFilter(null);
-                                    }}
-                                    className="px-4 py-2 hover:bg-gray-100 text-indigo-600"
-                                >
-                                    Reset Filter
-                                </button>
-                            </div>
-                        </div>  
-                    )}
-                    <button
-                        onClick={()=>{
-                            setEditMode(false);
-                            setShowModal(true);
-                        }}
-                        className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl"
-                    >
-                        <Plus size={18}/>
-                        New Task
-                    </button>
-                </div>
-            </div>
-            <div className="grid grid-cols-4 gap-6">
-                <div
-                    className="flex items-center gap-4 p-5 rounded-2xl border border-blue-200 cursor-pointer"
-                    onClick={()=>setStatusFilter("In Progress")}
-                >
-                    <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
-                        <Clock className="text-blue-600"/>
-                    </div>
+    return(
+        <div className="min-h-screen pt-10">
+            <div className="space-y-10">
+                <div className="flex justify-between items-center">
                     <div>
-                        <p className="text-gray-500 text-sm">In Progress</p>
-                        <p className="font-bold text-lg">12</p>
-                    </div>
-                </div>
-                <div
-                    className="flex items-center gap-4 p-5 rounded-2xl border border-yellow-200 cursor-pointer"
-                    onClick={()=>setStatusFilter("High")}
-                >
-                    <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
-                        <AlertTriangle className="text-yellow-600"/>
-                    </div>
-                    <div>
-                        <p className="text-gray-500 text-sm">High Priority</p>
-                        <p className="font-bold text-lg">1</p>
-                    </div>
-                </div>
-                <div
-                    className="flex items-center gap-4 p-5 rounded-2xl border border-green-200 cursor-pointer"
-                    onClick={()=>setStatusFilter("Completed")}
-                >
-                    <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
-                        <CheckCircle2 className="text-green-600"/>
-                    </div>
-                    <div>
-                        <p className="text-gray-500 text-sm">Completed</p>
-                        <p className="font-bold text-lg">17</p>
-                    </div>
-                </div>
-                <div
-                    className="flex items-center gap-4 p-5 rounded-2xl border border-red-200 cursor-pointer"
-                    onClick={()=>setStatusFilter("Overdue")}
-                >
-                    <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
-                        <CalendarX className="text-red-500"/>
-                    </div>
-                    <div>
-                        <p className="text-gray-500 text-sm">Overdue</p>
-                        <p className="font-bold text-lg">2</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <h2 className="text-2xl font-semibold mb-4">
-                    Active Tasks
-                </h2>
-                <div className="flex gap-3 mb-6 flex-wrap">
-                    <button
-                        onClick={()=>setAgendaFilter(null)}
-                            className={`px-4 py-2 rounded-full text-sm ${
-                            agendaFilter===null ? "bg-indigo-600 text-white" : "border"
-                        }`}
-                    >
-                        All Agenda
-                    </button>
-                    {agendas.map(a=>(
-                        <button
-                            key={a}
-                            onClick={()=>setAgendaFilter(a)}
-                                className={`px-4 py-2 rounded-full text-sm ${
-                                agendaFilter===a ? "bg-indigo-600 text-white" : "border"
-                            }`}
-                        >
-                            {a}
-                        </button>
-                    ))}
-                </div>
-                <div className="bg-white rounded-3xl border divide-y">
-                    {displayedTasks.map((task,index)=>(
-                        <div key={index} className="flex justify-between items-center px-6 py-5 relative"><div>
-                            <p className="font-semibold text-lg">
-                                {task.title}
-                            </p>
-                            <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
-                                <span className="px-2 py-1 bg-gray-100 rounded text-xs font-semibold">
-                                    {task.category}
-                                </span>
-                                <span className="flex items-center gap-1">
-                                    <Calendar size={14}/>
-                                    {task.date}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-6">
-                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${agendaColor(task.agenda)}`}>
-                                {task.agenda}
-                            </span>
-                            <span className={`px-3 py-1 rounded-full text-xs font-semibold ${priorityColor(task.priority)}`}>
-                                {task.priority}
-                            </span>
-                            <button
-                                onClick={() =>
-                                    setMenuIndex(menuIndex === index ? null : index)
-                                }
-                            >
-                                <MoreHorizontal size={18}/>
-                            </button>
-                            {menuIndex === index && (
-                                <div className="absolute right-6 top-14 bg-white border rounded-xl shadow w-32 z-20">
-                                    <button
-                                        onClick={()=>{
-                                            setMenuIndex(null);
-                                            setEditMode(true);
-                                            setEditIndex(index);
-                                            setShowModal(true);
-                                            setTaskTitle(task.title);
-                                            setAgenda(task.agenda);
-                                            setSubject(task.category);
-                                            setPriority(task.priority);
-                                            setDueDate(task.date);
-                                        }}
-                                        className="flex gap-2 p-2 text-sm hover:bg-gray-100 w-full"
-                                    >
-                                        <Pencil size={16}/> Edit
-                                    </button>
-                                    <button
-                                        onClick={()=>{
-                                            setMenuIndex(null);
-                                            setDeleteTask(task);
-                                            setShowDeleteModal(true);
-                                        }}
-                                        className="flex gap-2 p-2 text-sm text-red-500 hover:bg-red-50 w-full"
-                                    >
-                                        <Trash2 size={16}/> Delete
-                                    </button>
-                                </div>
-                            )}
-                        </div>
-                        </div>
-                    ))}
-                {filteredTasks.length>3 &&(
-                    <div
-                        onClick={()=>setShowAll(!showAll)}
-                        className="text-center py-4 text-indigo-600 text-sm cursor-pointer"
-                    >
-                        {showAll?"Show Less":"Show More Tasks"}
-                    </div>
-                )}
-                </div>
-            </div>
-            <div className="bg-[#F2E6D8] rounded-3xl p-10 flex items-center justify-between">
-                <div className="flex items-center gap-8">
-                    <div className="text-6xl">
-                        ⏱️
-                    </div>
-                    <div>
-                        <h3 className="text-xl font-bold">
-                            Task master in action!
-                        </h3>
-                        <p className="text-gray-600">
-                            You completed 12 tasks ahead of schedule this month.
-                            <br/>
-                            Your productivity is in the top 5% of all students!
+                        <h1 className="text-3xl font-bold">
+                            Tasks Management
+                        </h1>
+                        <p className="text-gray-500">
+                            Hey Olivia! You have <span className="text-indigo-600 font-semibold">12 tasks</span> waiting for you
                         </p>
                     </div>
+
+                    <div className="flex gap-3 relative" ref={filterRef}>
+                        <button
+                            onClick={()=>setOpenFilter(!openFilter)}
+                            className="flex items-center gap-2 px-4 py-2 border rounded-xl"
+                        >
+                            <SlidersHorizontal size={18}/>
+                            Filters
+                        </button>
+                        {openFilter &&(
+                            <div className="absolute right-0 top-12 bg-white border rounded-xl shadow-lg w-52 z-50">
+                                <div className="flex flex-col text-sm">
+                                    <button onClick={()=>setStatusFilter("In Progress")} className="px-4 py-2 hover:bg-gray-100">In Progress</button>
+                                    <button onClick={()=>setStatusFilter("High")} className="px-4 py-2 hover:bg-gray-100">High Priority</button>
+                                    <button onClick={()=>setStatusFilter("Medium")} className="px-4 py-2 hover:bg-gray-100">Medium Priority</button>
+                                    <button onClick={()=>setStatusFilter("Low")} className="px-4 py-2 hover:bg-gray-100">Low Priority</button>
+                                    <button onClick={()=>setStatusFilter("Completed")} className="px-4 py-2 hover:bg-gray-100">Completed</button>
+                                    <button onClick={()=>setStatusFilter("Overdue")} className="px-4 py-2 hover:bg-gray-100">Overdue</button>
+                                    <div className="border-t"></div>
+                                    <button
+                                        onClick={()=>{
+                                            setStatusFilter(null);
+                                            setAgendaFilter(null);
+                                        }}
+                                        className="px-4 py-2 hover:bg-gray-100 text-indigo-600"
+                                    >
+                                        Reset Filter
+                                    </button>
+                                </div>
+                            </div>  
+                        )}
+                        <button
+                            onClick={()=>{
+                                setEditMode(false);
+                                setShowModal(true);
+                            }}
+                            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-xl"
+                        >
+                            <Plus size={18}/>
+                            New Task
+                        </button>
+                    </div>
                 </div>
-                <div className="flex gap-10 text-6xl">
-                    🏅 📊
-                </div>
-            </div>
-            {showModal && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-                    <div className="bg-[#F7F7F7] w-[460px] rounded-[28px] p-6 space-y-5">
-                        <h2 className="text-3xl font-bold">
-                            {editMode ? "Edit Task" : "Add New Task"}
-                        </h2>
-                        <div>
-                            <p className="text-gray-500 text-sm mb-2">TASK TITLE</p>
-                            <input
-                                value={taskTitle}
-                                onChange={(e)=>setTaskTitle(e.target.value)}
-                                placeholder="e.g., Calculus Assignment 5 : Derivatives II"
-                                className="w-full px-4 py-3 rounded-2xl bg-gray-200 focus:bg-white border-2 border-transparent focus:border-indigo-500 outline-none transition"
-                            />
+                <div className="grid grid-cols-4 gap-6">
+                    <div
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-blue-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        onClick={()=>setStatusFilter("In Progress")}
+                    >
+                        <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                            <Clock className="text-blue-600"/>
                         </div>
-                        <div className="relative">
-                            <p className="text-gray-500 text-sm mb-2">
-                                AGENDA
-                            </p>
-                            <div
-                                onClick={()=>setOpenAgenda(!openAgenda)}
-                                className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
+                        <div>
+                            <p className="text-gray-500 text-sm">In Progress</p>
+                            <p className="font-bold text-lg">12</p>
+                        </div>
+                    </div>
+                    <div
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-yellow-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        onClick={()=>setStatusFilter("High")}
+                    >
+                        <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
+                            <AlertTriangle className="text-yellow-600"/>
+                        </div>
+                        <div>
+                            <p className="text-gray-500 text-sm">High Priority</p>
+                            <p className="font-bold text-lg">1</p>
+                        </div>
+                    </div>
+                    <div
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-green-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        onClick={()=>setStatusFilter("Completed")}
+                    >
+                        <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
+                            <CheckCircle2 className="text-green-600"/>
+                        </div>
+                        <div>
+                            <p className="text-gray-500 text-sm">Completed</p>
+                            <p className="font-bold text-lg">17</p>
+                        </div>
+                    </div>
+                    <div
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-red-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        onClick={()=>setStatusFilter("Overdue")}
+                    >
+                        <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
+                            <CalendarX className="text-red-500"/>
+                        </div>
+                        <div>
+                            <p className="text-gray-500 text-sm">Overdue</p>
+                            <p className="font-bold text-lg">2</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 className="text-2xl font-semibold mb-4">
+                        Active Tasks
+                    </h2>
+                    <div className="flex gap-3 mb-6 flex-wrap">
+                        <button
+                            onClick={()=>setAgendaFilter(null)}
+                                className={`px-4 py-2 rounded-full text-sm ${
+                                agendaFilter===null ? "bg-indigo-600 text-white" : "border"
+                            }`}
+                        >
+                            All Agenda
+                        </button>
+                        {agendas.map(a=>(
+                            <button
+                                key={a}
+                                onClick={()=>setAgendaFilter(a)}
+                                    className={`px-4 py-2 rounded-full text-sm ${
+                                    agendaFilter===a ? "bg-indigo-600 text-white" : "border"
+                                }`}
                             >
-                                <span>{agenda}</span>
-                                <span className="text-gray-500 text-lg leading-none">
-                                    ▾
-                                </span>
+                                {a}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="bg-white rounded-3xl border divide-y">
+                        {displayedTasks.map((task,index)=>(
+                            <div
+                                key={index}
+                                className="flex justify-between items-center px-6 py-5 relative transition-all duration-200 hover:bg-indigo-50 hover:shadow-md"
+                            >
+                                <div>
+                                    <p className="font-semibold text-lg">
+                                        {task.title}
+                                    </p>
+                                    <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                                    <span className="px-2 py-1 bg-gray-100 rounded text-xs font-semibold">
+                                        {task.category}
+                                    </span>
+                                    <span className="flex items-center gap-1">
+                                        <Calendar size={14}/>
+                                        {task.date}
+                                    </span>
+                                </div>
                             </div>
-                            {openAgenda && (
-                                <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
-                                    {agendaList.map(a => (
-                                        <div
-                                            key={a}
+                            <div className="flex items-center gap-6">
+                                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${agendaColor(task.agenda)}`}>
+                                    {task.agenda}
+                                </span>
+                                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${priorityColor(task.priority)}`}>
+                                    {task.priority}
+                                </span>
+                                <button
+                                    onClick={() =>
+                                        setMenuIndex(menuIndex === index ? null : index)
+                                    }
+                                >
+                                    <MoreHorizontal size={18}/>
+                                </button>
+                                {menuIndex === index && (
+                                    <div className="absolute right-6 top-14 bg-white border rounded-xl shadow w-32 z-20">
+                                        <button
                                             onClick={()=>{
-                                                setAgenda(a);
-                                                setOpenAgenda(false);
+                                                setMenuIndex(null);
+                                                setEditMode(true);
+                                                setEditIndex(index);
+                                                setShowModal(true);
+                                                setTaskTitle(task.title);
+                                                setAgenda(task.agenda);
+                                                setSubject(task.category);
+                                                setPriority(task.priority);
+                                                setDueDate(task.date);
+                                            }}
+                                            className="flex gap-2 p-2 text-sm hover:bg-gray-100 w-full"
+                                        >
+                                            <Pencil size={16}/> Edit
+                                        </button>
+                                        <button
+                                            onClick={()=>{
+                                                setMenuIndex(null);
+                                                setDeleteTask(task);
+                                                setShowDeleteModal(true);
+                                            }}
+                                            className="flex gap-2 p-2 text-sm text-red-500 hover:bg-red-50 w-full"
+                                        >
+                                            <Trash2 size={16}/> Delete
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                            </div>
+                        ))}
+                    {filteredTasks.length>3 &&(
+                        <div
+                            onClick={()=>setShowAll(!showAll)}
+                            className="text-center py-4 text-indigo-600 text-sm cursor-pointer"
+                        >
+                            {showAll?"Show Less":"Show More Tasks"}
+                        </div>
+                    )}
+                    </div>
+                </div>
+                <div className="rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
+                    <img
+                        src={footer}
+                        alt="Tasks Footer"
+                        className="w-full h-auto"
+                    />
+                </div>
+                {showModal && (
+                    <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
+                        <div className="bg-[#F7F7F7] w-[460px] rounded-[28px] p-6 space-y-5 animate-scaleIn shadow-2xl">
+                            <h2 className="text-3xl font-bold">
+                                {editMode ? "Edit Task" : "Add New Task"}
+                            </h2>
+                            <div>
+                                <p className="text-gray-500 text-sm mb-2">TASK TITLE</p>
+                                <input
+                                    value={taskTitle}
+                                    onChange={(e)=>setTaskTitle(e.target.value)}
+                                    placeholder="e.g., Calculus Assignment 5 : Derivatives II"
+                                    className="w-full px-4 py-3 rounded-2xl bg-gray-200 focus:bg-white border-2 border-transparent focus:border-indigo-500 outline-none transition"
+                                />
+                            </div>
+                            <div className="relative">
+                                <p className="text-gray-500 text-sm mb-2">
+                                    AGENDA
+                                </p>
+                                <div
+                                    onClick={()=>setOpenAgenda(!openAgenda)}
+                                    className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
+                                >
+                                    <span>{agenda}</span>
+                                    <span className="text-gray-500 text-lg leading-none">
+                                        ▾
+                                    </span>
+                                </div>
+                                {openAgenda && (
+                                    <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
+                                        {agendaList.map(a => (
+                                            <div
+                                                key={a}
+                                                onClick={()=>{
+                                                    setAgenda(a);
+                                                    setOpenAgenda(false);
+                                                }}
+                                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                            >
+                                                {a}
+                                            </div>
+                                        ))}
+                                        <div className="border-t"/>
+                                        <input
+                                            placeholder="Add new agenda..."
+                                            className="w-full px-4 py-2 outline-none"
+                                            onKeyDown={(e)=>{
+                                                if(e.key==="Enter" && e.target.value){
+                                                    setAgendaList([...agendaList,e.target.value]);
+                                                    setAgenda(e.target.value);
+                                                    setOpenAgenda(false);
+                                                    e.target.value="";
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                )}
+                            </div>
+                            <div className="relative">
+                                <p className="text-gray-500 text-sm mb-2">
+                                    SUBJECT
+                                </p>
+                                <div
+                                    onClick={()=>setOpenSubject(!openSubject)}
+                                    className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
+                                >
+                                    {subject}
+                                    <span>⌄</span>
+                                </div>
+                                {openSubject && (
+                                    <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
+                                        {subjectList.map(s => (
+                                        <div
+                                            key={s}
+                                            onClick={()=>{
+                                                setSubject(s);
+                                                setOpenSubject(false);
                                             }}
                                             className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
                                         >
-                                            {a}
+                                            {s}
                                         </div>
-                                    ))}
-                                    <div className="border-t"/>
-                                    <input
-                                        placeholder="Add new agenda..."
-                                        className="w-full px-4 py-2 outline-none"
-                                        onKeyDown={(e)=>{
+                                        ))}
+                                        <div className="border-t"/>
+                                        <input
+                                            placeholder="Add new subject..."
+                                            className="w-full px-4 py-2 outline-none"
+                                            onKeyDown={(e)=>{
                                             if(e.key==="Enter" && e.target.value){
-                                                setAgendaList([...agendaList,e.target.value]);
-                                                setAgenda(e.target.value);
-                                                setOpenAgenda(false);
+                                                setSubjectList([...subjectList,e.target.value]);
+                                                setSubject(e.target.value);
+                                                setOpenSubject(false);
                                                 e.target.value="";
                                             }
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        </div>
-                        <div className="relative">
-                            <p className="text-gray-500 text-sm mb-2">
-                                SUBJECT
-                            </p>
-                            <div
-                                onClick={()=>setOpenSubject(!openSubject)}
-                                className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
-                            >
-                                {subject}
-                                <span>⌄</span>
-                            </div>
-                            {openSubject && (
-                                <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
-                                    {subjectList.map(s => (
-                                    <div
-                                        key={s}
-                                        onClick={()=>{
-                                            setSubject(s);
-                                            setOpenSubject(false);
-                                        }}
-                                        className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                                    >
-                                        {s}
-                                    </div>
-                                    ))}
-                                    <div className="border-t"/>
-                                    <input
-                                        placeholder="Add new subject..."
-                                        className="w-full px-4 py-2 outline-none"
-                                        onKeyDown={(e)=>{
-                                        if(e.key==="Enter" && e.target.value){
-                                            setSubjectList([...subjectList,e.target.value]);
-                                            setSubject(e.target.value);
-                                            setOpenSubject(false);
-                                            e.target.value="";
-                                        }
-                                        }}
-                                    />
-                                </div>
-                            )}
-                        </div>
-                        <div>
-                            <p className="text-gray-500 text-sm mb-2">PRIORITY</p>
-                            <div className="flex bg-gray-200 rounded-full p-1">
-                                {["Low","Medium","High"].map(p=>(
-                                    <button
-                                        key={p}
-                                        onClick={()=>setPriority(p)}
-                                        className={`flex-1 py-2 rounded-full ${
-                                        priority===p ? "bg-white text-indigo-600 font-semibold" : ""
-                                        }`}
-                                    >
-                                        {p}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-                        <div>
-                            <p className="text-gray-500 text-sm mb-2">CATEGORY TAG</p>
-                            <div className="flex gap-4">
-                                {colors.map((c) => (
-                                    <div key={c}
-                                        onClick={() => setTagColor(c)}
-                                        className={`w-10 h-10 rounded-full cursor-pointer flex items-center justify-center`}
-                                    >
-                                        <div
-                                            className="w-8 h-8 rounded-full"
-                                            style={{ background: c }}
+                                            }}
                                         />
-                                        {tagColor === c && (
-                                            <div className="absolute w-10 h-10 rounded-full border-4 border-[#C7D2FE]" />
-                                        )}
                                     </div>
-                                ))}
-                                <div className="w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center">
-                                    +
+                                )}
+                            </div>
+                            <div>
+                                <p className="text-gray-500 text-sm mb-2">PRIORITY</p>
+                                <div className="flex bg-gray-200 rounded-full p-1">
+                                    {["Low","Medium","High"].map(p=>(
+                                        <button
+                                            key={p}
+                                            onClick={()=>setPriority(p)}
+                                            className={`flex-1 py-2 rounded-full ${
+                                            priority===p ? "bg-white text-indigo-600 font-semibold" : ""
+                                            }`}
+                                        >
+                                            {p}
+                                        </button>
+                                    ))}
                                 </div>
                             </div>
-                        </div>
-                        <div className="flex justify-between pt-6">
-                            <button
-                                onClick={()=>{
-                                    setShowModal(false);
-                                    setEditMode(false);
-                                }}
-                                className="text-gray-600"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                onClick={()=>{
-                                    if(editMode){
-                                        alert("Task updated!");
-                                    }else{
-                                        alert("Task successfully added!");
-                                    }
-                                    setShowModal(false);
-                                }}
-                                    className="px-6 py-3 bg-indigo-600 text-white rounded-xl"
+                            <div>
+                                <p className="text-gray-500 text-sm mb-2">DUE DATE</p>
+                                <input
+                                    type="date"
+                                    value={dueDate}
+                                    onChange={(e)=>setDueDate(e.target.value)}
+                                    className="w-full px-4 py-3 rounded-2xl bg-gray-200 focus:bg-white border-2 border-transparent focus:border-indigo-500 outline-none transition"
+                                />
+                            </div>
+                            <div>
+                                <p className="text-gray-500 text-sm mb-2">CATEGORY TAG</p>
+                                <div className="flex gap-4">
+                                    {colors.map((c) => (
+                                        <div key={c}
+                                            onClick={() => setTagColor(c)}
+                                            className={`w-10 h-10 rounded-full cursor-pointer flex items-center justify-center`}
+                                        >
+                                            <div
+                                                className="w-8 h-8 rounded-full"
+                                                style={{ background: c }}
+                                            />
+                                            {tagColor === c && (
+                                                <div className="absolute w-10 h-10 rounded-full border-4 border-[#C7D2FE]" />
+                                            )}
+                                        </div>
+                                    ))}
+                                    <div className="w-10 h-10 rounded-full border-2 border-dashed flex items-center justify-center">
+                                        +
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="flex justify-between pt-6">
+                                <button
+                                    onClick={()=>{
+                                        setShowModal(false);
+                                        setEditMode(false);
+                                    }}
+                                    className="text-gray-600"
                                 >
-                                {editMode ? "Save Changes" : "Create Task"}
-                            </button>
+                                    Cancel
+                                </button>
+                                <button
+                                    disabled={!isFormValid}
+                                    onClick={()=>{
+                                        if(!isFormValid) return;
+
+                                        if(editMode){
+                                            showToast("Task updated successfully!");
+                                        }else{
+                                            showToast("Task created successfully!");
+                                        }
+                                        setShowModal(false);
+                                    }}
+                                    className={`px-6 py-3 rounded-xl text-white transition ${
+                                        isFormValid
+                                        ? "bg-indigo-600 hover:bg-indigo-700"
+                                        : "bg-gray-300 cursor-not-allowed"
+                                    }`}
+                                >
+                                    {editMode ? "Save Changes" : "Create Task"}
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-            {showDeleteModal && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-                    <div className="bg-white w-[420px] rounded-[28px] p-8 text-center">
-                        <img
-                            src={deleteImg}
-                            className="w-28 mx-auto mb-4"
-                        />
-                        <h2 className="text-2xl font-bold mb-3">
-                            Delete this task?
-                        </h2>
-                        <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                            Are you sure want to remove
-                            <br/>
-                            <span className="font-semibold text-gray-700">
-                                '{deleteTask?.title}'
-                            </span> ?
-                            This action cannot be undone and you'll lose your progress
-                        </p>
-                        <div className="flex justify-center gap-4">
-                            <button
-                                onClick={()=>setShowDeleteModal(false)}
-                                className="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 font-medium"
-                            >
-                                Keep Task
-                            </button>
-                            <button
-                                onClick={()=>{
-                                    alert("Task deleted");
-                                    setShowDeleteModal(false);
-                                }}
-                                className="px-6 py-3 rounded-xl bg-red-500 text-white font-medium"
-                            >
-                                Delete
-                            </button>
+                )}
+                {showDeleteModal && (
+                    <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50">
+                        <div className="bg-white w-[420px] rounded-[28px] p-8 text-center">
+                            <img
+                                src={deleteImg}
+                                className="w-28 mx-auto mb-4"
+                            />
+                            <h2 className="text-2xl font-bold mb-3">
+                                Delete this task?
+                            </h2>
+                            <p className="text-gray-500 text-sm leading-relaxed mb-6">
+                                Are you sure want to remove
+                                <br/>
+                                <span className="font-semibold text-gray-700">
+                                    '{deleteTask?.title}'
+                                </span> ?
+                                This action cannot be undone and you'll lose your progress
+                            </p>
+                            <div className="flex justify-center gap-4">
+                                <button
+                                    onClick={()=>setShowDeleteModal(false)}
+                                    className="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 font-medium"
+                                >
+                                    Keep Task
+                                </button>
+                                <button
+                                    onClick={()=>{
+                                        showToast("Task deleted successfully");
+                                        setShowDeleteModal(false);
+                                    }}
+                                    className="px-6 py-3 rounded-xl bg-red-500 text-white font-medium"
+                                >
+                                    Delete
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
+                )}
+                {toast && (
+                    <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                        <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                            <CheckCircle className="text-green-500" size={20}/>
+                            <p className="text-sm font-medium text-gray-700">
+                                {toast}
+                            </p>
+                        </div>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
