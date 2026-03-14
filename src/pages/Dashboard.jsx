@@ -1,7 +1,10 @@
+
 export default function Dashboard() {
     return (
-        <div>
-            <h1>Dashboarddddddddddddddd</h1>
+        <div>           
+            <section>
+                <h1>Dashboarddddddddddddddd</h1>
+            </section>
         </div>
     )
 };

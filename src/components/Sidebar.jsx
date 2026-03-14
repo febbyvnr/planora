@@ -30,7 +30,7 @@ export default function Sidebar() {
 
   return (
     <div
-      className={`h-screen bg-white border-r flex flex-col justify-between transition-all duration-300 ${
+      className={`fixed left-0 top-0 h-screen bg-white border-r flex flex-col justify-between transition-all duration-300 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >

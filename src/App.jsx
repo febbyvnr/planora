@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-// // import { Route } from "lucide-react";
-
 import MainLayout from "./layouts/MainLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
+
 import LoginPage from "./pages/Login/LoginPage";
 import Materials from "./pages/Materials";
 import MaterialFolder from "./pages/MaterialFolder";
@@ -15,16 +15,24 @@ function App() {
     return (
         <BrowserRouter>
                 <Routes>
+                    {/*Buat Layout LandingPage*/}
                     <Route element={<MainLayout />}>
                         <Route path="/" element={<MainLayout />} />
                     </Route>
+
+                    {/*Buat Login*/}
                     <Route path="/login" element={<LoginPage />} />     
-                    <Route path="/materials" element={<Materials />} />
-                    <Route path="/materials/mathematics" element={<MaterialFolder />} />
-                    <Route path="/tasks" element={<Tasks />} />
-                    <Route path="/scheduler" element={<Scheduler />} />
-                    <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
+
+                    {/*Buat Layout Dashboard*/}
+                    <Route element={<DashboardLayout />}>
+                        <Route path="/dashboard" element={<Dashboard />} />                        
+                        <Route path="/materials" element={<Materials />} />
+                        <Route path="/materials/mathematics" element={<MaterialFolder />} />
+                        <Route path="/tasks" element={<Tasks />} />
+                        <Route path="/scheduler" element={<Scheduler />} />
+                        <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
+                    </Route>
+
                 </Routes>
         </BrowserRouter>
     );
