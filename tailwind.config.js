@@ -6,6 +6,13 @@ export default {
     ],
     theme: {
         extend: {
+            colors: {
+                primary : "#FFFFFF",
+                secondary : "#488AEC",
+                background : "#FBF9FF",
+                blueButton : "#2563eb"
+            },
+
             fontFamily: {
                 outfit: ["Outfit", "sans-serif"],
             },

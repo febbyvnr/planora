@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
+import Login from "./pages/Login/LoginPage";
 import Materials from "./pages/Materials";
 import MaterialFolder from "./pages/MaterialFolder";
 import Tasks from "./pages/Tasks";
@@ -13,7 +14,8 @@ function App() {
         <BrowserRouter>
             <MainLayout>
                 <Routes>
-                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/" element={<MainLayout />} />
+                    <Route path="/login" element={<Login />} />
                     <Route path="/materials" element={<Materials />} />
                     <Route path="/materials/mathematics" element={<MaterialFolder />} />
                     <Route path="/tasks" element={<Tasks />} />
