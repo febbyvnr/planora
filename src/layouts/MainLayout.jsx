@@ -12,7 +12,7 @@ export default function MainLayout () {
       <Hero/>
       <WhatIsSection/>
       <WhySection/>
-      <WhySection/>
+      <CTASection/>
       <Footer/>
     </>
   );
