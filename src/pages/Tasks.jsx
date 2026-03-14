@@ -602,89 +602,85 @@ const isFormValid =
                                     className="w-full px-4 py-3 rounded-2xl bg-gray-200 focus:bg-white border-2 border-transparent focus:border-indigo-500 outline-none transition"
                                 />
                             </div>
-                            <div className="relative">
-                                <p className="text-gray-500 text-sm mb-2">
-                                    AGENDA
-                                </p>
-                                <div
-                                    onClick={()=>setOpenAgenda(!openAgenda)}
-                                    className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
-                                >
-                                    <span>{agenda}</span>
-                                    <span className="text-gray-500 text-lg leading-none">
-                                        ▾
-                                    </span>
-                                </div>
-                                {openAgenda && (
-                                    <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
-                                        {agendaList.map(a => (
-                                            <div
-                                                key={a}
-                                                onClick={()=>{
-                                                    setAgenda(a);
-                                                    setOpenAgenda(false);
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="relative">
+                                    <p className="text-gray-500 text-sm mb-2">AGENDA</p>
+                                    <div
+                                        onClick={()=>setOpenAgenda(!openAgenda)}
+                                        className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
+                                    >
+                                        <span>{agenda}</span>
+                                        <span className="text-gray-500 text-lg leading-none">▾</span>
+                                    </div>
+                                    {openAgenda && (
+                                        <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
+                                            {agendaList.map(a => (
+                                                <div
+                                                    key={a}
+                                                    onClick={()=>{
+                                                        setAgenda(a);
+                                                        setOpenAgenda(false);
+                                                    }}
+                                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                                >
+                                                    {a}
+                                                </div>
+                                            ))}
+                                            <div className="border-t"/>
+                                            <input
+                                                placeholder="Add new agenda..."
+                                                className="w-full px-4 py-2 outline-none rounded-b-xl"
+                                                onKeyDown={(e)=>{
+                                                    if(e.key==="Enter" && e.target.value){
+                                                        setAgendaList([...agendaList,e.target.value]);
+                                                        setAgenda(e.target.value);
+                                                        setOpenAgenda(false);
+                                                        e.target.value="";
+                                                    }
                                                 }}
-                                                className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                                            >
-                                                {a}
-                                            </div>
-                                        ))}
-                                        <div className="border-t"/>
-                                        <input
-                                            placeholder="Add new agenda..."
-                                            className="w-full px-4 py-2 outline-none"
-                                            onKeyDown={(e)=>{
-                                                if(e.key==="Enter" && e.target.value){
-                                                    setAgendaList([...agendaList,e.target.value]);
-                                                    setAgenda(e.target.value);
-                                                    setOpenAgenda(false);
-                                                    e.target.value="";
-                                                }
-                                            }}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                            <div className="relative">
-                                <p className="text-gray-500 text-sm mb-2">
-                                    SUBJECT
-                                </p>
-                                <div
-                                    onClick={()=>setOpenSubject(!openSubject)}
-                                    className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
-                                >
-                                    {subject}
-                                    <span>⌄</span>
-                                </div>
-                                {openSubject && (
-                                    <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
-                                        {subjectList.map(s => (
-                                        <div
-                                            key={s}
-                                            onClick={()=>{
-                                                setSubject(s);
-                                                setOpenSubject(false);
-                                            }}
-                                            className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
-                                        >
-                                            {s}
+                                            />
                                         </div>
-                                        ))}
-                                        <div className="border-t"/>
-                                        <input
-                                            placeholder="Add new subject..."
-                                            className="w-full px-4 py-2 outline-none"
-                                            onKeyDown={(e)=>{
-                                            if(e.key==="Enter" && e.target.value){
-                                                setSubjectList([...subjectList,e.target.value]);
-                                                setSubject(e.target.value);
-                                                setOpenSubject(false);
-                                                e.target.value="";
-                                            }
-                                            }}
-                                        />
+                                    )}
+                                </div>
+                                <div className="relative">
+                                    <p className="text-gray-500 text-sm mb-2">SUBJECT</p>
+                                    <div
+                                        onClick={()=>setOpenSubject(!openSubject)}
+                                        className="w-full px-4 py-3 rounded-2xl bg-gray-200 cursor-pointer flex items-center justify-between"
+                                    >
+                                        {subject}
+                                        <span className="text-gray-500 text-lg leading-none">▾</span>
                                     </div>
-                                )}
+                                    {openSubject && (
+                                        <div className="absolute w-full bg-white border rounded-xl mt-2 shadow-md z-10">
+                                            {subjectList.map(s => (
+                                                <div
+                                                    key={s}
+                                                    onClick={()=>{
+                                                        setSubject(s);
+                                                        setOpenSubject(false);
+                                                    }}
+                                                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer"
+                                                >
+                                                    {s}
+                                                </div>
+                                            ))}
+                                            <div className="border-t"/>
+                                            <input
+                                                placeholder="Add new subject..."
+                                                className="w-full px-4 py-2 outline-none rounded-b-xl"
+                                                onKeyDown={(e)=>{
+                                                    if(e.key==="Enter" && e.target.value){
+                                                        setSubjectList([...subjectList,e.target.value]);
+                                                        setSubject(e.target.value);
+                                                        setOpenSubject(false);
+                                                        e.target.value="";
+                                                    }
+                                                }}
+                                            />
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                             <div>
                                 <p className="text-gray-500 text-sm mb-2">PRIORITY</p>

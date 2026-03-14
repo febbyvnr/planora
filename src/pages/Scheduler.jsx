@@ -80,7 +80,6 @@ export default function App() {
                     Keep track of classes, study sessions, and deadlines with ease
                 </p>
             </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
                 <div className="space-y-8">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -88,12 +87,9 @@ export default function App() {
                         onClick={() => navigate("/scheduler/detailed")}
                         className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_rgb(99,133,229)] hover:-translate-y-1 transition cursor-pointer"
                     >
-                        <div
-                            className="h-44 bg-cover bg-center bg-gradient-to-br from-blue-100 via-blue-50 to-white p-4 flex flex-col relative overflow-hidden"
-                            style={{ backgroundImage: `url(${cardBg})` }}
-                            >
-                            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/50 via-blue-300/30 to-transparent"></div>
-
+                        <div className="h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-blue-100 via-blue-50 to-white">
+                            <img src={cardBg} className="absolute inset-0 w-full h-full object-cover opacity-20"/>
+                            <div className="absolute inset-0 bg-gradient-to-br from-blue-400/40 via-blue-200/30 to-transparent"></div>
                             <div className="relative z-10">
                                 <p className="text-blue-700 font-semibold">
                                     Academic Planner
@@ -113,14 +109,10 @@ export default function App() {
                             <span className="text-gray-500 text-sm">+49 more</span>
                         </div>
                     </div>
-
                     <div className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_#6954CD] hover:-translate-y-1 transition cursor-pointer">
-                        <div
-                            className="h-44 bg-cover bg-center bg-gradient-to-br from-purple-100 via-purple-50 to-white p-4 flex flex-col relative overflow-hidden"
-                            style={{ backgroundImage: `url(${cardBg})` }}
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/50 via-purple-300/30 to-transparent"></div>
-
+                        <div className="h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-purple-100 via-purple-50 to-white">
+                            <img src={cardBg} className="absolute inset-0 w-full h-full object-cover opacity-20"/>
+                            <div className="absolute inset-0 bg-gradient-to-br from-purple-400/40 via-purple-200/30 to-transparent"></div>
                             <div className="relative z-10">
                                 <p className="text-blue-700 font-semibold">Committee</p>
                                 <p className="text-sm text-gray-600">
@@ -138,14 +130,10 @@ export default function App() {
                             <span className="text-gray-500 text-sm">+27 more</span>
                         </div>
                     </div>
-
                     <div className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_#F5B944] hover:-translate-y-1 transition cursor-pointer">
-                        <div
-                            className="h-44 bg-cover bg-center bg-gradient-to-br from-yellow-100 via-yellow-50 to-white p-4 flex flex-col relative overflow-hidden"
-                            style={{ backgroundImage: `url(${cardBg})` }}
-                        >
-                            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/50 via-yellow-300/30 to-transparent"></div>
-
+                        <div className="h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-yellow-100 via-yellow-50 to-white">
+                            <img src={cardBg} className="absolute inset-0 w-full h-full object-cover opacity-20"/>
+                            <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/40 via-yellow-200/30 to-transparent"></div>
                             <div className="relative z-10">
                                 <p className="text-blue-700 font-semibold">Design Club</p>
                                 <p className="text-sm text-gray-600">4 upcoming events</p>
@@ -161,7 +149,6 @@ export default function App() {
                             <span className="text-gray-500 text-sm">+103 more</span>
                         </div>
                     </div>
-
                     <div
                         onClick={() => setPopupOpen(true)}
                         className="rounded-3xl border-2 border-dashed flex flex-col items-center justify-center text-center p-10 text-gray-500 hover:bg-gray-50 cursor-pointer transition"
@@ -176,7 +163,6 @@ export default function App() {
                         </p>
                     </div>
                     </div>
-
                     <div className="rounded-3xl overflow-hidden">
                         <img
                             src={footer}
@@ -185,7 +171,6 @@ export default function App() {
                         />
                     </div>
                 </div>
-                
                 <div className="space-y-8 lg:border-l lg:pl-8">
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Upcoming Schedule</h3>
@@ -207,7 +192,6 @@ export default function App() {
                                     <ChevronRight size={16} />
                                 </button>
                             </div>
-
                             <div className="grid grid-cols-7 text-xs text-gray-500 text-center">
                                 <span>Mo</span>
                                 <span>Tu</span>
@@ -217,7 +201,6 @@ export default function App() {
                                 <span>Sa</span>
                                 <span>Su</span>
                             </div>
-
                             <div className="grid grid-cols-7 text-center gap-y-3 text-sm">
                                 {days.map((day, index) => {
                                     const isToday =
@@ -242,7 +225,6 @@ export default function App() {
                             </div>
                         </div>
                     </div>
-
                     <div>
                         <div className="flex justify-between items-center mb-3">
                             <h3 className="font-semibold">Upcoming Today</h3>
@@ -277,7 +259,6 @@ export default function App() {
                 </div>
                 </div>
             </div>
-
             {popupOpen && (
                 <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex justify-center items-center z-50 transition-opacity duration-300">
                     <div className="bg-white rounded-2xl w-[380px] p-6 relative shadow-xl animate-scaleIn">
@@ -353,7 +334,6 @@ export default function App() {
                                     </button>
                                 </div>
                             )}
-
                             {popupTab === "join" && (
                             <div className="space-y-4">
                                 <div>
