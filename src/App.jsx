@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+// // import { Route } from "lucide-react";
+
 import MainLayout from "./layouts/MainLayout";
-import Login from "./pages/Login/LoginPage";
+import LoginPage from "./pages/Login/LoginPage";
 import Materials from "./pages/Materials";
 import MaterialFolder from "./pages/MaterialFolder";
 import Tasks from "./pages/Tasks";
@@ -12,10 +14,11 @@ import SchedulerDetailed from "./pages/Scheduler_Detailed";
 function App() {
     return (
         <BrowserRouter>
-            <MainLayout>
                 <Routes>
-                    <Route path="/" element={<MainLayout />} />
-                    <Route path="/login" element={<Login />} />
+                    <Route element={<MainLayout />}>
+                        <Route path="/" element={<MainLayout />} />
+                    </Route>
+                    <Route path="/login" element={<LoginPage />} />     
                     <Route path="/materials" element={<Materials />} />
                     <Route path="/materials/mathematics" element={<MaterialFolder />} />
                     <Route path="/tasks" element={<Tasks />} />
@@ -23,7 +26,6 @@ function App() {
                     <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
-            </MainLayout>
         </BrowserRouter>
     );
 }

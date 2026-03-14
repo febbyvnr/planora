@@ -1,10 +1,11 @@
 import { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 
 import logo from "../../assets/images/logo.png";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
-    
+    const Navigate = useNavigate();
 
     return (
         <header className="w-full border-b bg-white">
@@ -40,6 +41,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-4">
                 <button 
                 className="text-sm font-bold hover:text-blue-500 transition"
+                onClick={() => Navigate("/login")}
                 >
                 Log in
                 </button>
