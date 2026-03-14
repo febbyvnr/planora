@@ -10,14 +10,14 @@ import {
 } from "lucide-react";
 
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 
 import logo from "../assets/images/logo.png";
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed, setCollapsed }) {
   const navigate = useNavigate();
   const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+  // const [collapsed, setCollapsed] = useState(false);
 
   const menu = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },

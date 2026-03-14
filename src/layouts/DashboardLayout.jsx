@@ -1,13 +1,20 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
+import { useState } from "react";
 
 export default function DashboardLayout() {
+    const [collapsed, setCollapsed] = useState(false);
+
     return (
-        <div className="flex min-h-screen">
+        <div>
 
-        <Sidebar />
+        <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
-        <main className="flex-1 p-6 ml-64">
+        <main
+            className={`transition-all duration-300 p-6 ${
+            collapsed ? "ml-20" : "ml-64"
+            }`}
+        >
             <Outlet />
         </main>
 
