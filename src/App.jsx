@@ -15,6 +15,8 @@ import SettingsFriends from "./pages/Setting/SettingsFriends";
 import ChangePassword from "./pages/ChangePassword";
 import SettingsNotifications from "./pages/Setting/SettingsNotifications";
 import StudySession from "./pages/StudySession";
+import Timer from "./pages/Timer";
+import AddSession from "./components/AddSessionModel";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -42,6 +44,8 @@ function App() {
                         <Route path="/settings/notifications" element={<SettingsNotifications />} />
                         <Route path="/change-password" element={<ChangePassword />} />
                         <Route path="/study-session" element={<StudySession />} />
+                        <Route path="/timer" element={<Timer />} />
+                        <Route path="/timer-addsession" element={<AddSession />} />
                     </Route>
                 </Routes>
             </BrowserRouter>
