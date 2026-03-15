@@ -1,7 +1,9 @@
 import { UserRound, Phone } from "lucide-react";
-
+import { useNavigate } from "react-router-dom"; 
 
 export default function LoginPage() {
+    const Navigate = useNavigate();
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="w-full max-w-lg bg-white rounded-[48px] shadow-lg p-10">
@@ -56,6 +58,7 @@ export default function LoginPage() {
                 <button
                     type="submit"
                     className="w-full h-14 bg-blue-500 hover:bg-blue-600 transition text-white font-semibold rounded-full shadow-md"
+                    onClick={() => Navigate("/dashboard")}
                 >
                     Log In
                 </button>
