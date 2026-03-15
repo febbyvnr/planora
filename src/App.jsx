@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 // // import { Route } from "lucide-react";
 
 import MainLayout from "./layouts/MainLayout";
+import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/Login/LoginPage";
 import Materials from "./pages/Materials";
 import MaterialFolder from "./pages/MaterialFolder";
@@ -22,19 +23,22 @@ function App() {
         <ToastContainer position="top-right" autoClose={3000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme="colored" />
         <BrowserRouter>
                 <Routes>
+                    {/* Public Routes */}
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+
+                    {/* Authenticated Dashboard Routes */}
                     <Route element={<MainLayout />}>
-                        <Route path="/" element={<MainLayout />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/materials" element={<Materials />} />
+                        <Route path="/materials/mathematics" element={<MaterialFolder />} />
+                        <Route path="/tasks" element={<Tasks />} />
+                        <Route path="/scheduler" element={<Scheduler />} />
+                        <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
+                        <Route path="/settings" element={<Settings />} />
+                        <Route path="/settings/change-password" element={<ChangePassword />} />
+                        <Route path="/settings/notifications" element={<SettingsNotifications />} />
                     </Route>
-                    <Route path="/login" element={<LoginPage />} />     
-                    <Route path="/materials" element={<Materials />} />
-                    <Route path="/materials/mathematics" element={<MaterialFolder />} />
-                    <Route path="/tasks" element={<Tasks />} />
-                    <Route path="/scheduler" element={<Scheduler />} />
-                    <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route path="/settings/change-password" element={<ChangePassword />} />
-                    <Route path="/settings/notifications" element={<SettingsNotifications />} />
                 </Routes>
         </BrowserRouter>
         </>
