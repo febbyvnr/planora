@@ -6,8 +6,7 @@ import {
   Folder,
   Hourglass,
   Settings,
-  Menu,
-  X
+  Menu
 } from "lucide-react";
 
 import { useNavigate, useLocation } from "react-router-dom";
@@ -15,13 +14,10 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import logo from "../assets/images/logo.png";
 
-export default function Sidebar({ isMobile, onClose }) {
+export default function Sidebar({ collapsed, setCollapsed }) {
   const navigate = useNavigate();
   const location = useLocation();
   // const [collapsed, setCollapsed] = useState(false);
-
-  // If mobile, ensure sidebar is not collapsed
-  const isCollapsed = isMobile ? false : collapsed;
 
   const menu = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
@@ -32,15 +28,10 @@ export default function Sidebar({ isMobile, onClose }) {
     { name: "Study Timer", icon: Hourglass, path: "/timer" },
   ];
 
-  const handleNavigate = (path) => {
-      navigate(path);
-      if (isMobile && onClose) onClose();
-  };
-
   return (
     <div
-      className={`h-full bg-white flex flex-col justify-between transition-all duration-300 ${
-        isCollapsed ? "w-20" : "w-64"
+      className={`fixed left-0 top-0 h-screen bg-white border-r border-gray-200 flex flex-col justify-between transition-all duration-300 z-40 ${
+        collapsed ? "w-20" : "w-64"
       }`}
     >
       <div>
@@ -48,28 +39,22 @@ export default function Sidebar({ isMobile, onClose }) {
         {/* HAMBURGER */}
         <div className="flex justify-end px-4 pt-4">
           <button
-            onClick={() => {
-                if (isMobile && onClose) {
-                    onClose();
-                } else {
-                    setCollapsed(!collapsed);
-                }
-            }}
+            onClick={() => setCollapsed(!collapsed)}
             className="text-gray-400 hover:text-gray-600 transition"
           >
-            {isMobile ? <X size={22} /> : <Menu size={22} />}
+            <Menu size={22} />
           </button>
         </div>
 
         {/* LOGO + TITLE */}
         <div
           className={`flex items-center py-4 ${
-            isCollapsed ? "justify-center px-0" : "justify-center gap-3 px-6"
+            collapsed ? "justify-center px-0" : "justify-center gap-3 px-6"
           }`}
         >
           <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
 
-          {!isCollapsed && (
+          {!collapsed && (
             <h1 className="text-2xl font-bold">
               Planora
             </h1>
@@ -88,9 +73,9 @@ export default function Sidebar({ isMobile, onClose }) {
             return (
               <div
                 key={index}
-                onClick={() => handleNavigate(item.path)}
+                onClick={() => navigate(item.path)}
                 className={`flex items-center ${
-                  isCollapsed ? "justify-center" : "gap-3"
+                  collapsed ? "justify-center" : "gap-3"
                 } px-4 py-3 cursor-pointer rounded-2xl transition
                 ${
                   isActive
@@ -102,7 +87,7 @@ export default function Sidebar({ isMobile, onClose }) {
                 }}
               >
                 <Icon size={20} />
-                {!isCollapsed && item.name}
+                {!collapsed && item.name}
               </div>
             );
           })}
@@ -111,9 +96,9 @@ export default function Sidebar({ isMobile, onClose }) {
 
       {/* SETTINGS */}
       <div
-        onClick={() => handleNavigate('/settings')}
+        onClick={() => navigate('/settings')}
         className={`px-6 py-4 mx-3 mb-4 rounded-2xl flex items-center ${
-          isCollapsed ? "justify-center px-4" : "gap-3"
+          collapsed ? "justify-center px-4" : "gap-3"
         } cursor-pointer transition ${
             location.pathname.startsWith('/settings')
                 ? "text-[#6385E5] font-semibold bg-[#6385E52E]" 
@@ -121,7 +106,7 @@ export default function Sidebar({ isMobile, onClose }) {
         }`}
       >
         <Settings size={20} />
-        {!isCollapsed && "Settings"}
+        {!collapsed && "Settings"}
       </div>
     </div>
   );

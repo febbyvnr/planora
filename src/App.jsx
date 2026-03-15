@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
+import LandingPage from "./pages/LandingPage";
 import LoginPage from "./pages/Login/LoginPage";
 import Materials from "./pages/Materials";
 import MaterialFolder from "./pages/MaterialFolder";
@@ -27,17 +28,21 @@ function App() {
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/login" element={<LoginPage />} />
 
-                    {/* Authenticated Dashboard Routes */}
+                    {/* Authenticated Routes - all wrapped in MainLayout for sidebar */}
                     <Route element={<MainLayout />}>
-                        <Route path="/" element={<MainLayout />} />
+                        <Route path="/dashboard" element={<Dashboard />} />
+                        <Route path="/materials" element={<Materials />} />
+                        <Route path="/materials/mathematics" element={<MaterialFolder />} />
+                        <Route path="/tasks" element={<Tasks />} />
+                        <Route path="/scheduler" element={<Scheduler />} />
+                        <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
+                        <Route path="/learning-plan" element={<LearningPlan />} />
+                        <Route path="/settings" element={<Settings />} />
+                        <Route path="/settings/friends" element={<SettingsFriends />} />
+                        <Route path="/settings/notifications" element={<SettingsNotifications />} />
+                        <Route path="/change-password" element={<ChangePassword />} />
+                        <Route path="/study-session" element={<StudySession />} />
                     </Route>
-                    <Route path="/login" element={<LoginPage />} />     
-                    <Route path="/materials" element={<Materials />} />
-                    <Route path="/materials/mathematics" element={<MaterialFolder />} />
-                    <Route path="/tasks" element={<Tasks />} />
-                    <Route path="/scheduler" element={<Scheduler />} />
-                    <Route path="/scheduler/detailed" element={<SchedulerDetailed />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
                 </Routes>
             </BrowserRouter>
         </>

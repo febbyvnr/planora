@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Bell, Menu, BookOpen, Users, CheckCircle2, Trophy, Clock, MessageSquare, X } from "lucide-react";
+import { Bell, BookOpen, Users, CheckCircle2, Trophy, Clock, MessageSquare, X } from "lucide-react";
 
 const MOCK_NOTIFICATIONS = [
   {
@@ -59,7 +59,7 @@ const MOCK_NOTIFICATIONS = [
   },
 ];
 
-export default function Header({ onMenuClick }) {
+export default function Header() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS);
   const dropdownRef = useRef(null);
@@ -90,16 +90,7 @@ export default function Header({ onMenuClick }) {
   };
 
   return (
-    <div className="w-full flex justify-between md:justify-end items-center py-4 px-4 md:px-8 bg-white border-b border-gray-100 h-20 shrink-0 z-20 sticky top-0">
-
-      {/* Mobile Menu Icon */}
-      <div 
-        className="md:hidden flex items-center text-gray-500 cursor-pointer hover:text-gray-800 transition"
-        onClick={onMenuClick}
-      >
-        <Menu className="w-6 h-6" />
-        <span className="ml-3 font-bold text-lg text-[#4B4E9A]">Planora</span>
-      </div>
+    <div className="w-full flex justify-end items-center py-3 px-4 md:px-8 bg-white border-b border-gray-100 h-16 shrink-0 sticky top-0 z-30 shadow-sm">
 
       <div className="flex items-center">
         {/* Notification Icon + Dropdown */}
