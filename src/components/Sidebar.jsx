@@ -6,7 +6,8 @@ import {
   Folder,
   Hourglass,
   Settings,
-  Menu
+  Menu,
+  X
 } from "lucide-react";
 
 import { useNavigate, useLocation } from "react-router-dom";
@@ -14,10 +15,13 @@ import { useState } from "react";
 
 import logo from "../assets/images/logo.png";
 
-export default function Sidebar() {
+export default function Sidebar({ isMobile, onClose }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [collapsed, setCollapsed] = useState(false);
+
+  // If mobile, ensure sidebar is not collapsed
+  const isCollapsed = isMobile ? false : collapsed;
 
   const menu = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
@@ -28,10 +32,15 @@ export default function Sidebar() {
     { name: "Study Timer", icon: Hourglass, path: "/timer" },
   ];
 
+  const handleNavigate = (path) => {
+      navigate(path);
+      if (isMobile && onClose) onClose();
+  };
+
   return (
     <div
-      className={`h-screen bg-white border-r flex flex-col justify-between transition-all duration-300 ${
-        collapsed ? "w-20" : "w-64"
+      className={`h-full bg-white flex flex-col justify-between transition-all duration-300 ${
+        isCollapsed ? "w-20" : "w-64"
       }`}
     >
       <div>
@@ -39,22 +48,28 @@ export default function Sidebar() {
         {/* HAMBURGER */}
         <div className="flex justify-end px-4 pt-4">
           <button
-            onClick={() => setCollapsed(!collapsed)}
+            onClick={() => {
+                if (isMobile && onClose) {
+                    onClose();
+                } else {
+                    setCollapsed(!collapsed);
+                }
+            }}
             className="text-gray-400 hover:text-gray-600 transition"
           >
-            <Menu size={22} />
+            {isMobile ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         {/* LOGO + TITLE */}
         <div
           className={`flex items-center py-4 ${
-            collapsed ? "justify-center px-0" : "justify-center gap-3 px-6"
+            isCollapsed ? "justify-center px-0" : "justify-center gap-3 px-6"
           }`}
         >
           <img src={logo} alt="logo" className="w-9 h-9 object-contain" />
 
-          {!collapsed && (
+          {!isCollapsed && (
             <h1 className="text-2xl font-bold">
               Planora
             </h1>
@@ -73,9 +88,9 @@ export default function Sidebar() {
             return (
               <div
                 key={index}
-                onClick={() => navigate(item.path)}
+                onClick={() => handleNavigate(item.path)}
                 className={`flex items-center ${
-                  collapsed ? "justify-center" : "gap-3"
+                  isCollapsed ? "justify-center" : "gap-3"
                 } px-4 py-3 cursor-pointer rounded-2xl transition
                 ${
                   isActive
@@ -87,7 +102,7 @@ export default function Sidebar() {
                 }}
               >
                 <Icon size={20} />
-                {!collapsed && item.name}
+                {!isCollapsed && item.name}
               </div>
             );
           })}
@@ -96,12 +111,17 @@ export default function Sidebar() {
 
       {/* SETTINGS */}
       <div
-        className={`px-6 py-6 flex items-center ${
-          collapsed ? "justify-center" : "gap-3"
-        } text-gray-500 hover:text-black cursor-pointer`}
+        onClick={() => handleNavigate('/settings')}
+        className={`px-6 py-4 mx-3 mb-4 rounded-2xl flex items-center ${
+          isCollapsed ? "justify-center px-4" : "gap-3"
+        } cursor-pointer transition ${
+            location.pathname.startsWith('/settings')
+                ? "text-[#6385E5] font-semibold bg-[#6385E52E]" 
+                : "text-gray-500 hover:text-black hover:bg-gray-100"
+        }`}
       >
         <Settings size={20} />
-        {!collapsed && "Settings"}
+        {!isCollapsed && "Settings"}
       </div>
     </div>
   );
