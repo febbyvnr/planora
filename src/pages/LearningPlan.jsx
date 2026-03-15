@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Calendar, Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, FileText, ChevronDown, Search, UserPlus, UserMinus, X, PlayCircle, GitBranch, CheckCircle2, Video, FileDown, Users } from 'lucide-react';
+import { Calendar, Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, FileText, ChevronDown, Search, UserPlus, UserMinus, X, PlayCircle, GitBranch, CheckCircle2, Video, FileDown, Users, CircleUserRound } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 import { toast } from 'react-toastify';
@@ -102,7 +102,9 @@ const planData = [
 ];
 
 const mockAvatars = [
-  'bg-orange-400', 'bg-blue-600', 'bg-purple-500'
+  { bg: 'bg-red-100', text: 'text-red-500' },
+  { bg: 'bg-purple-100', text: 'text-purple-500' },
+  { bg: 'bg-blue-100', text: 'text-blue-500' }
 ];
 
 
@@ -255,11 +257,14 @@ export default function LearningPlan() {
                 <div>
                    <span className="text-gray-900 text-[9px] font-bold uppercase tracking-wider block mb-1.5">Collaborators</span>
                    <div className="flex -space-x-2">
-                     {plan.collaborators.map((_, i) => (
-                       <div key={i} className={`w-7 h-7 rounded-full ${mockAvatars[i % mockAvatars.length]} border-2 border-white flex justify-center items-center overflow-hidden`}>
-                         <div className="w-3 h-3 bg-white/30 rounded-full absolute top-1.5"></div>
-                       </div>
-                     ))}
+                     {plan.collaborators.map((_, i) => {
+                       const avatar = mockAvatars[i % mockAvatars.length];
+                       return (
+                         <div key={i} className={`w-7 h-7 rounded-full flex items-center justify-center border-2 border-white ${avatar.bg}`}>
+                           <CircleUserRound size={28} className={avatar.text} />
+                         </div>
+                       );
+                     })}
                      {plan.extraCollaborators > 0 && (
                        <div className="w-7 h-7 rounded-full bg-white border border-gray-200 flex items-center justify-center text-[10px] font-bold text-gray-600 z-10">
                          +{plan.extraCollaborators}
@@ -294,8 +299,8 @@ export default function LearningPlan() {
         </div>
 
         {/* Footer Banner */}
-        <div className="w-full mt-8 rounded-[24px] overflow-hidden bg-[#EBE7FA]">
-          <img src={footerImage} alt="Maintain your streak" className="w-full h-auto object-cover" />
+        <div className="rounded-[40px] overflow-hidden mt-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-[#EBE7FA]">
+          <img src={footerImage} alt="Maintain your streak" className="w-auto h-auto object-cover object-top mx-auto" />
         </div>
 
       </div>
@@ -367,11 +372,14 @@ export default function LearningPlan() {
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-gray-400 font-medium">Resume with friends</span>
                   <div className="flex -space-x-2">
-                    {(selectedPlan.collaborators || []).slice(0, 2).map((_, i) => (
-                      <div key={i} className="w-8 h-8 rounded-full bg-gradient-to-br from-yellow-300 to-orange-400 border-2 border-white flex items-center justify-center shrink-0">
-                        <div className="w-4 h-4 rounded-full bg-red-400 translate-y-0.5"></div>
-                      </div>
-                    ))}
+                    {(selectedPlan.collaborators || []).slice(0, 2).map((_, i) => {
+                      const avatar = mockAvatars[i % mockAvatars.length];
+                      return (
+                        <div key={i} className={`w-8 h-8 rounded-full flex items-center justify-center border-2 border-white ${avatar.bg}`}>
+                          <CircleUserRound size={32} className={avatar.text}/>
+                        </div>
+                      )
+                    })}
                   </div>
                 </div>
                 <div className="text-right">

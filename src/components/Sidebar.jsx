@@ -79,12 +79,9 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                 } px-4 py-3 cursor-pointer rounded-2xl transition
                 ${
                   isActive
-                    ? "text-[#6385E5] font-semibold"
-                    : "text-gray-600 hover:bg-gray-100"
+                    ? "text-[#6385E5] font-semibold bg-[#6385E52E]"
+                    : "text-gray-500 hover:text-black hover:bg-gray-100"
                 }`}
-                style={{
-                  backgroundColor: isActive ? "#6385E52E" : "transparent"
-                }}
               >
                 <Icon size={20} />
                 {!collapsed && item.name}

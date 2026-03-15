@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Calendar, Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, FileText, ChevronDown, Search, Copy, RefreshCw } from 'lucide-react';
+import { Calendar, Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, FileText, ChevronDown, Search, Copy, RefreshCw, CircleUserRound } from 'lucide-react';
 import { toast } from 'react-toastify';
 
 export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToEdit }) {
@@ -296,12 +296,16 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
                     key={icon.id}
                     type="button"
                     onClick={() => setSelectedIcon(icon.id)}
-                    className={`w-[56px] h-[56px] rounded-2xl border-2 flex items-center justify-center transition-all
+                    className={`w-[56px] h-[56px] rounded-2xl border-2 flex items-center justify-center transition-all cursor-pointer group relative
                       ${selectedIcon === icon.id
                         ? 'border-[#5D6BDE] text-[#5D6BDE] bg-[#EEF0FD]'
-                        : 'border-gray-200 text-gray-500 hover:border-gray-400 bg-white'
+                        : 'border-gray-200 text-gray-500 hover:border-gray-400 bg-white hover:bg-gray-50'
                       }`}
                   >
+                    <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-800 text-white text-xs font-semibold px-2 py-1 rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10 shadow-md">
+                      {icon.label}
+                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-800 rotate-45"></span>
+                    </span>
                     {icon.component}
                   </button>
                 ))}
@@ -524,8 +528,8 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
             {/* Search Result */}
             {searchResult && !searchResult.notFound && (
               <div className="flex items-center gap-4 p-4 border border-gray-200 rounded-2xl">
-                <div className="w-11 h-11 rounded-full bg-gradient-to-br from-yellow-300 to-orange-400 flex items-center justify-center shrink-0">
-                  <div className="w-6 h-6 rounded-full bg-red-400 translate-y-1"></div>
+                <div className="w-11 h-11 rounded-full bg-red-100 flex items-center justify-center shrink-0 border-2 border-white">
+                  <CircleUserRound size={36} className="text-red-500"/>
                 </div>
                 <div className="flex-1">
                   <p className="font-semibold text-gray-900 text-sm">{searchResult.name}</p>
@@ -550,8 +554,8 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
               <div className="space-y-2">
                 {teamMembers.map(member => (
                   <div key={member.id} className="flex items-center gap-4 p-4 border border-gray-100 rounded-2xl bg-white">
-                    <div className="w-11 h-11 rounded-full bg-gradient-to-br from-yellow-300 to-orange-400 flex items-center justify-center shrink-0">
-                      <div className="w-6 h-6 rounded-full bg-red-400 translate-y-1"></div>
+                    <div className="w-11 h-11 rounded-full bg-red-100 flex items-center justify-center shrink-0 border-2 border-white">
+                      <CircleUserRound size={36} className="text-red-500"/>
                     </div>
                     <div className="flex-1">
                       <div className="flex items-center gap-2">
