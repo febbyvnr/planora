@@ -70,7 +70,7 @@ export default function App() {
     const isJoinValid = joinCode.trim() !== "";
 
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-[#FBF9FF]">
         <div className="max-w-[1200px] mx-auto px-6 py-10 space-y-8">
             <div>
                 <h1 className="text-3xl font-bold text-gray-900">

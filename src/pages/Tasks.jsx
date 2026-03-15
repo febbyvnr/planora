@@ -430,7 +430,7 @@ const isFormValid =
                 </div>
                 <div className="grid grid-cols-4 gap-6">
                     <div
-                        className="flex items-center gap-4 p-5 rounded-2xl border border-blue-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-blue-200 bg-white cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         onClick={()=>setStatusFilter("In Progress")}
                     >
                         <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
@@ -442,7 +442,7 @@ const isFormValid =
                         </div>
                     </div>
                     <div
-                        className="flex items-center gap-4 p-5 rounded-2xl border border-yellow-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-yellow-200 bg-white cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         onClick={()=>setStatusFilter("High")}
                     >
                         <div className="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
@@ -454,7 +454,7 @@ const isFormValid =
                         </div>
                     </div>
                     <div
-                        className="flex items-center gap-4 p-5 rounded-2xl border border-green-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-green-200 bg-white cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         onClick={()=>setStatusFilter("Completed")}
                     >
                         <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center">
@@ -466,7 +466,7 @@ const isFormValid =
                         </div>
                     </div>
                     <div
-                        className="flex items-center gap-4 p-5 rounded-2xl border border-red-200 cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
+                        className="flex items-center gap-4 p-5 rounded-2xl border border-red-200 bg-white cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         onClick={()=>setStatusFilter("Overdue")}
                     >
                         <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
