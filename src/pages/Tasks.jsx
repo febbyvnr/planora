@@ -627,7 +627,7 @@ const getStatusIcon = (task, index) => {
                     <img
                         src={footer}
                         alt="Tasks Footer"
-                        className="w-full h-[220px] object-cover object-top"
+                        className="w-auto h-auto object-cover object-top"
                     />
                 </div>
                 {showModal && (
