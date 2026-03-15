@@ -65,8 +65,8 @@ export default function UploadModal({ open, onClose, folder = "Storage" }) {
     };
 
     return (
-        <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
-            <div className="bg-white w-[520px] rounded-3xl p-6">
+        <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn px-4">
+            <div className="bg-white w-full max-w-[520px] rounded-3xl p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
                 {/* Header */}
                 <div className="flex justify-between items-start mb-4">
                     <div>
@@ -83,7 +83,7 @@ export default function UploadModal({ open, onClose, folder = "Storage" }) {
                 <div
                     onDrop={handleDrop}
                     onDragOver={(e) => e.preventDefault()}
-                    className="border-2 border-dashed border-indigo-400 rounded-xl p-10 text-center mb-6"
+                    className="border-2 border-dashed border-indigo-400 rounded-xl p-6 sm:p-10 text-center mb-6"
                 >
                     <UploadCloud className="mx-auto mb-4 text-indigo-500" size={36}/>
                     <p className="font-semibold">
@@ -140,7 +140,7 @@ export default function UploadModal({ open, onClose, folder = "Storage" }) {
                         </div>
                     </div>
                 )}
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
                     <label className="flex items-center gap-2 text-sm">
                         <input
                             type="checkbox"
@@ -164,7 +164,7 @@ export default function UploadModal({ open, onClose, folder = "Storage" }) {
                 </div>
             </div>
             {toast && (
-                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] animate-toast">
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] animate-toast px-4 w-full flex justify-center">
                     <div className="bg-white shadow-xl border rounded-xl px-6 py-4 flex items-center gap-3">
                     <CheckCircle className="text-green-500" size={20} />
                     <p className="text-sm text-gray-700 font-medium">{toast}</p>

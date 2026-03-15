@@ -13,13 +13,15 @@ import {
     MoreHorizontal,
     Pencil,
     Trash2,
-    CheckCircle
+    CheckCircle,
+    Circle,
+    XCircle
 } from "lucide-react";
 
 export default function Tasks() {
 
 const agendas = ["Academic Planner","Committee","Design Club"];
-const tasks = [
+const [tasks,setTasks] = useState([
     {
         title:"Calculus Assignment",
         category:"Mathematics",
@@ -268,7 +270,7 @@ const tasks = [
         agenda:"Design Club",
         date:"Feb 10, 2026"
     }
-];
+]);
 
 const [statusFilter,setStatusFilter]=useState(null);
 const [agendaFilter,setAgendaFilter]=useState(null);
@@ -373,10 +375,43 @@ const isFormValid =
     subject.trim() !== "" &&
     dueDate.trim() !== "";
 
+const getStatusIcon = (task, index) => {
+
+    if (task.status === "Completed") {
+        return (
+            <div className="w-9 h-9 rounded-full bg-green-100 flex items-center justify-center">
+                <CheckCircle className="text-green-600" size={18}/>
+            </div>
+        );
+    }
+
+    if (task.status === "Overdue") {
+        return (
+            <div className="w-9 h-9 rounded-full bg-red-100 flex items-center justify-center">
+                <XCircle className="text-red-500" size={18}/>
+            </div>
+        );
+    }
+
+    return (
+        <button
+            onClick={()=>{
+                const updated = [...tasks];
+                updated[index].status = "Completed";
+                setTasks(updated);
+                showToast("Task completed 🎉");
+            }}
+            className="w-9 h-9 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-green-500 transition"
+        >
+            <Circle size={16}/>
+        </button>
+    );
+};
+
     return(
-        <div className="min-h-screen pt-10">
+        <div className="min-h-screen pt-0">
             <div className="space-y-10">
-                <div className="flex justify-between items-center">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
                     <div>
                         <h1 className="text-3xl font-bold">
                             Tasks Management
@@ -386,7 +421,7 @@ const isFormValid =
                         </p>
                     </div>
 
-                    <div className="flex gap-3 relative" ref={filterRef}>
+                    <div className="flex flex-wrap gap-3 relative" ref={filterRef}>
                         <button
                             onClick={()=>setOpenFilter(!openFilter)}
                             className="flex items-center gap-2 px-4 py-2 border rounded-xl"
@@ -395,7 +430,7 @@ const isFormValid =
                             Filters
                         </button>
                         {openFilter &&(
-                            <div className="absolute right-0 top-12 bg-white border rounded-xl shadow-lg w-52 z-50">
+                            <div className="absolute left-0 md:left-auto md:right-0 top-12 mt-1 bg-white border rounded-xl shadow-lg w-52 z-50">
                                 <div className="flex flex-col text-sm">
                                     <button onClick={()=>setStatusFilter("In Progress")} className="px-4 py-2 hover:bg-gray-100">In Progress</button>
                                     <button onClick={()=>setStatusFilter("High")} className="px-4 py-2 hover:bg-gray-100">High Priority</button>
@@ -428,7 +463,7 @@ const isFormValid =
                         </button>
                     </div>
                 </div>
-                <div className="grid grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div
                         className="flex items-center gap-4 p-5 rounded-2xl border border-blue-200 bg-white cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1"
                         onClick={()=>setStatusFilter("In Progress")}
@@ -507,23 +542,31 @@ const isFormValid =
                         {displayedTasks.map((task,index)=>(
                             <div
                                 key={index}
-                                className="flex justify-between items-center px-6 py-5 relative transition-all duration-200 hover:bg-indigo-50 hover:shadow-md"
+                                className="flex items-center justify-between px-6 py-5 relative hover:bg-indigo-50 transition gap-6"
                             >
-                                <div>
-                                    <p className="font-semibold text-lg">
-                                        {task.title}
-                                    </p>
-                                    <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
-                                    <span className="px-2 py-1 bg-gray-100 rounded text-xs font-semibold">
-                                        {task.category}
-                                    </span>
-                                    <span className="flex items-center gap-1">
-                                        <Calendar size={14}/>
-                                        {task.date}
-                                    </span>
+                                <div className="flex items-start gap-4">
+                                    {getStatusIcon(task,index)}
+
+                                    <div>
+                                        <p className={`font-semibold text-lg ${
+                                            task.status === "Completed" ? "line-through text-gray-400" : ""
+                                        }`}>
+                                            {task.title}
+                                        </p>
+
+                                        <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                                            <span className="px-2 py-1 bg-gray-100 rounded text-xs font-semibold">
+                                                {task.category}
+                                            </span>
+
+                                            <span className="flex items-center gap-1">
+                                                <Calendar size={14}/>
+                                                {task.date}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="flex items-center gap-6">
+                            <div className="flex flex-wrap items-center gap-4 md:gap-6">
                                 <span className={`px-3 py-1 rounded-full text-xs font-semibold ${agendaColor(task.agenda)}`}>
                                     {task.agenda}
                                 </span>
@@ -580,16 +623,16 @@ const isFormValid =
                     )}
                     </div>
                 </div>
-                <div className="rounded-3xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
+                <div className="rounded-[40px] overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
                     <img
                         src={footer}
                         alt="Tasks Footer"
-                        className="w-full h-auto"
+                        className="w-full h-[220px] object-cover object-top"
                     />
                 </div>
                 {showModal && (
                     <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
-                        <div className="bg-[#F7F7F7] w-[460px] rounded-[28px] p-6 space-y-5 animate-scaleIn shadow-2xl">
+                        <div className="bg-[#F7F7F7] w-[92%] max-w-[460px] rounded-[28px] p-6 space-y-5 animate-scaleIn shadow-2xl">
                             <h2 className="text-3xl font-bold">
                                 {editMode ? "Edit Task" : "Add New Task"}
                             </h2>
@@ -764,8 +807,8 @@ const isFormValid =
                     </div>
                 )}
                 {showDeleteModal && (
-                    <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50">
-                        <div className="bg-white w-[420px] rounded-[28px] p-8 text-center">
+                    <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50">
+                        <div className="bg-white w-[90%] max-w-[420px] rounded-[28px] p-8 text-center">
                             <img
                                 src={deleteImg}
                                 className="w-28 mx-auto mb-4"

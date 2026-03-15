@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight, X, CheckCircle } from "lucide-react";
 import confetti from "canvas-confetti";
@@ -13,7 +13,9 @@ export default function App() {
     const days = [];
     const [popupOpen, setPopupOpen] = useState(false);
     const [popupTab, setPopupTab] = useState("create");
-    const [joinCode, setJoinCode] = useState("");
+    const CODE_LENGTH = 6;
+    const [joinDigits, setJoinDigits] = useState(Array(CODE_LENGTH).fill(""));
+    const inputRefs = useRef([]);
     const [createName, setCreateName] = useState("");
     const [toast, setToast] = useState(null);
 
@@ -52,11 +54,33 @@ export default function App() {
         days.push(i);
     }
 
+    const handleDigitChange = (idx, value) => {
+        const char = value.replace(/[^A-Za-z0-9]/g, "").toUpperCase().slice(-1);
+
+        const updated = [...joinDigits];
+        updated[idx] = char;
+        setJoinDigits(updated);
+
+        if (char && idx < CODE_LENGTH - 1) {
+            inputRefs.current[idx + 1]?.focus();
+        }
+    };
+
+    const handleDigitKeyDown = (idx, e) => {
+        if (e.key === "Backspace" && !joinDigits[idx] && idx > 0) {
+            inputRefs.current[idx - 1]?.focus();
+        }
+    };
+
+    const code = joinDigits.join("");
+    const isJoinValid = code.length === CODE_LENGTH && joinDigits.every(d => d !== "");
+
     const handleJoin = () => {
-        if (!joinCode.trim()) return;
-        showToast(`Calendar Space created! Now you can start organizing your schedule.`);
+        if (!isJoinValid) return;
+
+        showToast(`Successfully joined the Calendar Space! Your schedule is now synced.`);
         setPopupOpen(false);
-        setJoinCode("");
+        setJoinDigits(Array(CODE_LENGTH).fill(""));
     };
 
     const handleCreate = () => {
@@ -67,11 +91,10 @@ export default function App() {
     };
 
     const isCreateValid = createName.trim() !== "";
-    const isJoinValid = joinCode.trim() !== "";
 
     return (
-        <div className="min-h-screen bg-[#FBF9FF]">
-        <div className="max-w-[1200px] mx-auto px-6 py-10 space-y-8">
+    <div className="min-h-screen pt-0">
+        <div className="space-y-10">
             <div>
                 <h1 className="text-3xl font-bold text-gray-900">
                     What's On Your Agenda?
@@ -80,14 +103,14 @@ export default function App() {
                     Keep track of classes, study sessions, and deadlines with ease
                 </p>
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-8 lg:gap-10">
                 <div className="space-y-8">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                     <div 
                         onClick={() => navigate("/scheduler/detailed")}
                         className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_rgb(99,133,229)] hover:-translate-y-1 transition cursor-pointer"
                     >
-                        <div className="h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-blue-100 via-blue-50 to-white">
+                        <div className="h-40 sm:h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-blue-100 via-blue-50 to-white">
                             <img src={cardBg} className="absolute inset-0 w-full h-full object-cover opacity-20"/>
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-400/40 via-blue-200/30 to-transparent"></div>
                             <div className="relative z-10">
@@ -110,7 +133,7 @@ export default function App() {
                         </div>
                     </div>
                     <div className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_#6954CD] hover:-translate-y-1 transition cursor-pointer">
-                        <div className="h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-purple-100 via-purple-50 to-white">
+                        <div className="h-40 sm:h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-purple-100 via-purple-50 to-white">
                             <img src={cardBg} className="absolute inset-0 w-full h-full object-cover opacity-20"/>
                             <div className="absolute inset-0 bg-gradient-to-br from-purple-400/40 via-purple-200/30 to-transparent"></div>
                             <div className="relative z-10">
@@ -131,7 +154,7 @@ export default function App() {
                         </div>
                     </div>
                     <div className="rounded-3xl border overflow-hidden bg-white relative shadow-[0px_4px_0px_#F5B944] hover:-translate-y-1 transition cursor-pointer">
-                        <div className="h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-yellow-100 via-yellow-50 to-white">
+                        <div className="h-40 sm:h-44 p-4 flex flex-col relative overflow-hidden bg-gradient-to-br from-yellow-100 via-yellow-50 to-white">
                             <img src={cardBg} className="absolute inset-0 w-full h-full object-cover opacity-20"/>
                             <div className="absolute inset-0 bg-gradient-to-br from-yellow-400/40 via-yellow-200/30 to-transparent"></div>
                             <div className="relative z-10">
@@ -163,21 +186,21 @@ export default function App() {
                         </p>
                     </div>
                     </div>
-                    <div className="rounded-3xl overflow-hidden">
+                    <div className="rounded-[40px] bg-transparent hover:bg-transparent overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
                         <img
                             src={footer}
                             alt="Scheduler footer"
-                            className="w-full h-auto"
+                            className="w-full h-auto block"
                         />
                     </div>
                 </div>
-                <div className="space-y-8 lg:border-l lg:pl-8">
+                <div className="space-y-8 lg:border-l lg:pl-8 pt-4 lg:pt-0">
                     <div>
                         <h3 className="text-lg font-semibold mb-4">Upcoming Schedule</h3>
                         <div className="bg-white rounded-2xl p-5 border space-y-4">
                             <div className="flex justify-between items-center">
                                 <button
-                                    className="p-2 border rounded-lg hover:bg-gray-50 transition"
+                                    className="p-2 sm:p-2.5 border rounded-lg hover:bg-gray-50 transition"
                                     onClick={() => setMonthOffset(monthOffset - 1)}
                                 >
                                     <ChevronLeft size={16} />
@@ -186,7 +209,7 @@ export default function App() {
                                     {monthName} {currentYear}
                                 </p>
                                 <button
-                                    className="p-2 border rounded-lg hover:bg-gray-50 transition"
+                                    className="p-2 sm:p-2.5 border rounded-lg hover:bg-gray-50 transition"
                                     onClick={() => setMonthOffset(monthOffset + 1)}
                                 >
                                     <ChevronRight size={16} />
@@ -210,7 +233,7 @@ export default function App() {
                                     return (
                                         <span
                                             key={index}
-                                            className={`w-8 h-8 flex items-center justify-center mx-auto rounded-full ${
+                                            className={`w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center mx-auto rounded-full ${
                                             isToday
                                                 ? "bg-indigo-600 text-white font-bold"
                                                 : day
@@ -233,7 +256,7 @@ export default function App() {
                             </button>
                         </div>
                         <div className="space-y-3">
-                            <div className="border rounded-xl p-4 flex gap-3 items-start bg-white shadow-[-6px_0px_0px_#6385E5]">
+                            <div className="border rounded-xl p-3 sm:p-4 flex gap-3 items-start bg-white shadow-[-6px_0px_0px_#6385E5]">
                                 <div className="w-1.5 bg-blue-500 rounded"></div>
                                 <div>
                                     <p className="font-semibold">Quiz : European History</p>
@@ -261,12 +284,12 @@ export default function App() {
             </div>
             {popupOpen && (
                 <div className="fixed inset-0 bg-black/40 backdrop-blur-md flex justify-center items-center z-50 transition-opacity duration-300">
-                    <div className="bg-white rounded-2xl w-[380px] p-6 relative shadow-xl animate-scaleIn">
+                    <div className="bg-white rounded-2xl w-[92%] max-w-[380px] p-6 relative shadow-xl animate-scaleIn">
                         <button
                             className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
                             onClick={() => {
                                 setPopupOpen(false);
-                                setJoinCode("");
+                                setJoinDigits(Array(CODE_LENGTH).fill(""));
                                 setCreateName("");
                             }}
                         >
@@ -335,40 +358,62 @@ export default function App() {
                                 </div>
                             )}
                             {popupTab === "join" && (
-                            <div className="space-y-4">
-                                <div>
-                                    <label className="text-sm text-gray-600 mb-1 block">
-                                        Invitation Code
-                                    </label>
-                                    <input
-                                        type="text"
-                                        placeholder="Enter code"
-                                        className="w-full border border-gray-300 rounded-lg px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-                                        value={joinCode}
-                                        onChange={(e) => setJoinCode(e.target.value)}
-                                        onKeyDown={(e) => e.key === "Enter" && handleJoin()}
-                                    />
+                                <div className="space-y-4">
+                                    <div className="text-center space-y-1">
+                                        <h3 className="text-lg font-semibold text-gray-900">
+                                            Join with Code
+                                        </h3>
+                                        <p className="text-sm text-gray-500">
+                                            Enter the 6-character invite code shared by the schedule owner
+                                        </p>
+                                    </div>
+                                    <div className="flex justify-center items-center gap-2">
+                                        {joinDigits.slice(0,3).map((digit, idx) => (
+                                            <input
+                                                key={idx}
+                                                ref={(el) => inputRefs.current[idx] = el}
+                                                type="text"
+                                                maxLength={1}
+                                                value={digit}
+                                                onChange={(e) => handleDigitChange(idx, e.target.value)}
+                                                onKeyDown={(e) => handleDigitKeyDown(idx, e)}
+                                                className="w-11 h-12 border border-gray-300 rounded-lg text-center text-lg font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                            />
+                                        ))}
+                                        <div className="w-4 h-[2px] bg-gray-300 rounded mx-1"></div>
+                                        {joinDigits.slice(3).map((digit, idx) => (
+                                            <input
+                                                key={idx + 3}
+                                                ref={(el) => inputRefs.current[idx + 3] = el}
+                                                type="text"
+                                                maxLength={1}
+                                                value={digit}
+                                                onChange={(e) => handleDigitChange(idx + 3, e.target.value)}
+                                                onKeyDown={(e) => handleDigitKeyDown(idx + 3, e)}
+                                                className="w-11 h-12 border border-gray-300 rounded-lg text-center text-lg font-bold focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                                            />
+                                        ))}
+                                    </div>
+                                    <button
+                                        disabled={!isJoinValid}
+                                        onClick={handleJoin}
+                                        className={`w-full py-2.5 rounded-lg font-medium transition-all duration-200 shadow-md
+                                        ${
+                                            isJoinValid
+                                            ? "bg-indigo-600 hover:bg-indigo-700 text-white active:scale-[0.97] hover:shadow-lg"
+                                            : "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
+                                        }`}
+                                    >
+                                        Join with Code
+                                    </button>
                                 </div>
-                                <button
-                                    disabled={!isJoinValid}
-                                    onClick={handleJoin}
-                                    className={`w-full py-2.5 rounded-lg font-medium transition-all duration-200 shadow-md
-                                    ${
-                                        isJoinValid
-                                        ? "bg-indigo-600 hover:bg-indigo-700 text-white active:scale-[0.97] hover:shadow-lg"
-                                        : "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
-                                    }`}
-                                >
-                                    Join with Code
-                                </button>
-                            </div>
-                            )}
+                                )}
                         </div>
                     </div>
                 </div>
             )}
             {toast && (
-                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[100] animate-toast">
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 w-[90%] sm:w-auto z-[100] animate-toast">
                     <div className="bg-white shadow-xl border rounded-xl px-6 py-4 flex items-center gap-3">
                         <CheckCircle className="text-green-500" size={20} />
                         <p className="text-sm text-gray-700 font-medium">{toast}</p>
