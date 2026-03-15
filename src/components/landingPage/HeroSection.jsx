@@ -1,21 +1,39 @@
     import { Rocket } from "lucide-react";
-    
+    import DotGrid from "../ReactBits/DotGrid";
+    import RotatingText from "../ReactBits/RotatingText";
+    import ShinyText from "../ReactBits/ShinyText";
+
 
     export default function Hero() {
     return (
         <section className="relative w-full overflow-hidden rounded-b-[60px] shadow-2xl z-10 bg-white">
 
-        {/* Background */}
+        {/* Background
         <div className="absolute inset-0 -z-10">
             <img
             src= "src/assets/textures/Dots.jpg"
             alt="Hero Background"
-            className="w-full h-full object-cover opacity-60"
+            className="w-full h-full object-cover opacity-25"
             />  
+        </div> */}
+
+        {/* Dotgrid Background*/}
+        <div className="absolute inset-0 -z-10">
+            <DotGrid
+                dotSize={50}
+                gap={15}
+                baseColor="#ffffff"
+                activeColor="#2078fa"
+                proximity={120}
+                shockRadius={250}
+                shockStrength={5}
+                resistance={750}
+                returnDuration={1.5}
+            />
         </div>
 
         {/* Content */}
-        <div className="max-w-5xl mx-auto px-6 pt-28 pb-16 text-center">
+        <div className="max-w-5xl mx-auto px-6 pt-28 pb-48 text-center">
 
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-rose-600 text-white px-6 py-2 rounded-full shadow-md border border-white/20 mb-8">
@@ -30,16 +48,37 @@
 
             <div className="text-3xl md:text-5xl lg:text-6xl font-bold">
                 Stop Planning in{" "}
-                <span className="text-red-500 underline font-['Patrick_Hand_SC'] font-normal">
-                Chaos
-                </span>
+            <RotatingText
+                texts={['Chaos!', 'Clutter!', 'Confusion!', 'Mess!']}
+                mainClassName="text-3xl md:text-5xl lg:text-6xl px-2 md:px-3 bg-rose-600 text-white overflow-hidden py-1 md:py-2 rounded-lg font-['Patrick_Hand_SC'] font-normal"
+                staggerFrom="last"
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                exit={{ y: "-120%" }}
+                staggerDuration={0.025}
+                splitLevelClassName="overflow-hidden"
+                transition={{ type: "spring", damping: 30, stiffness: 400 }}
+                rotationInterval={2000}
+            />
             </div>
 
             <div className="text-4xl md:text-6xl lg:text-7xl font-extrabold mt-2">
                 <span className="text-blue-500">Start Planning with </span>
-                <span className="text-emerald-600 underline decoration-4 underline-offset-4">
-                Planora
-                </span>
+                <ShinyText
+                className="text-emerald-600 underline decoration-4 underline-offset-4"
+                text="Planora"
+                speed={2}
+                delay={0}
+                color="#009053"
+                shineColor="#6af0b9"
+                spread={120}
+                direction="left"
+                yoyo={false}
+                pauseOnHover={false}
+                disabled={false}
+                >
+                </ShinyText>
+                
             </div>
 
             </h1>
@@ -66,3 +105,5 @@
         </section>
     );
     }
+
+                

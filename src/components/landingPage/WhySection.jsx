@@ -27,21 +27,22 @@
                 simple workspace so nothing gets forgotten.
             </p>
 
-            </div>
+        </div>
 
             {/* Section 1 */}
             <BenefitCard
+            
             title="Plan Your Work"
             highlight="Organize"
             description="your tasks, schedules, and study activities in one structured workspace so you always know what to do next."
             color="bg-indigo-700"
             images={[
                 {
-                src: "https://placehold.co/377x269",
+                src: "src/assets/imagesForLanding/1.png",
                 className: "w-72 rotate-0"
                 },
                 {
-                src: "https://placehold.co/312x223",
+                src: "src/assets/imagesForLanding/2.png",
                 className: "w-60 -rotate-12 -left-10 top-10"
                 }
             ]}
@@ -56,15 +57,15 @@
             reverse
             images={[
                 {
-                src: "https://placehold.co/408x290",
+                src: "src/assets/imagesForLanding/5.png",
                 className: "w-72"
                 },
                 {
-                src: "https://placehold.co/277x197",
+                src: "src/assets/imagesForLanding/4.png",
                 className: "w-56 -rotate-12 top-20 left-10"
                 },
                 {
-                src: "https://placehold.co/301x215",
+                src: "src/assets/imagesForLanding/3.png",
                 className: "w-60 rotate-6 -top-10 -left-10"
                 }
             ]}
@@ -78,11 +79,11 @@
             color="bg-emerald-600"
             images={[
                 {
-                src: "https://placehold.co/335x239",
+                src: "src/assets/imagesForLanding/6.png",
                 className: "w-72"
                 },
                 {
-                src: "https://placehold.co/339x241",
+                src: "src/assets/imagesForLanding/7.png",
                 className: "w-64 -rotate-12 left-10"
                 }
             ]}

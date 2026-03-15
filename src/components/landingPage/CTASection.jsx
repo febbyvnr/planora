@@ -10,19 +10,19 @@
     }) {
     
         return (
-        <section className="py-24">
+        <section className="py-16">
 
             <div className="max-w-6xl mx-auto px-6">
 
                 {/* Container */}
-                <div className="relative rounded-[50px] overflow-hidden text-center px-6 py-24">
+                <div className="relative rounded-[50px] overflow-hidden text-center px-6 py-24 shadow-2xl bg-blue-500">
 
                 {/* Background */}
-                <img
+                {/* <img
                     src="src/assets/textures/Dots Blue.png"
                     alt="CTA background"
                     className="absolute inset-0 w-full h-full object-cover -z-10"
-                />
+                /> */}
 
                 {/* Badge */}
                 <div className="inline-block bg-white text-blue-500 px-6 py-2 rounded-xl shadow-md font-bold mb-8">

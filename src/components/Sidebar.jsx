@@ -25,7 +25,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     { name: "Tasks", icon: CheckSquare, path: "/tasks" },
     { name: "Learning Plan", icon: BookOpen, path: "/learning-plan" },
     { name: "Materials", icon: Folder, path: "/materials" },
-    { name: "Study Timer", icon: Hourglass, path: "/timer" },
+    { name: "Timer", icon: Hourglass, path: "/timer" },
   ];
 
   return (

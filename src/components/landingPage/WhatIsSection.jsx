@@ -1,13 +1,15 @@
 import FeatureCard from "./Card/WhatIsCard";
+import ScrollFloat from "../ReactBits/ScrollFloat";
+import AnimatedContent from "../ReactBits/AnimatedContent";
 
-    import {
+import {
     FileText,
     Timer,
     BarChart3,
     Users,
     CheckSquare,
     Calendar
-    } from "lucide-react";
+} from "lucide-react";
 
     export default function Features() {
 
@@ -73,36 +75,65 @@ import FeatureCard from "./Card/WhatIsCard";
 
     return (
         <section className="relative pt-32 pb-24 -mt-20 bg-gradient-to-b from-blue-500 to-blue-600">
-        
+
         <div className="max-w-7xl mx-auto px-6">
 
             {/* Heading */}
+            <AnimatedContent
+            distance={80}
+            direction="vertical"
+            reverse={false}
+            duration={1.5}
+            ease="power3.out"
+            initialOpacity={0.3}
+            animateOpacity
+            scale={1}
+            threshold={0.4}
+            delay={0.5}
+            >
             <div className="text-center text-white mb-16">
 
-            <h2 className="text-4xl md:text-5xl font-bold font-['Outfit']">
-                What is Planora?
-            </h2>
+                <h2 className="text-4xl md:text-5xl font-bold font-['Outfit']">
+                    What is Planora?
+                </h2>
 
-            <p className="text-xl font-semibold mt-4">
+                <p className="text-xl font-semibold mt-4">
                 Plan, organize, collaborate, and track your progress in one platform.
-            </p>
+                </p>
 
             </div>
+            </AnimatedContent>
+
 
             {/* Cards */}
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 
             {features.map((feature, index) => (
-                <FeatureCard
+
+                <AnimatedContent
                 key={index}
-                {...feature}
-                rotation={rotations[index]}
+                distance={100}
+                direction="vertical"
+                duration={0.7}
+                ease="power3.out"
+                delay={index * 0.1}
+                initialOpacity={0}
+                animateOpacity
+                >
+
+                <FeatureCard
+                    {...feature}
+                    rotation={rotations[index]}
                 />
+
+                </AnimatedContent>
+
             ))}
 
             </div>
 
         </div>
+
         </section>
     );
 }

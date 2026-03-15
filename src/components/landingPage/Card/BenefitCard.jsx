@@ -1,4 +1,4 @@
-    export default function BenefitCard({
+export default function BenefitCard({
     title,
     description,
     highlight,
@@ -6,9 +6,10 @@
     reverse = false,
     color = "bg-indigo-600"
     }) {
+
     return (
         <div
-        className={`flex flex-col lg:flex-row items-center gap-12 py-16 ${
+        className={`flex flex-col lg:flex-row items-start gap-6 py-4 ${
             reverse ? "lg:flex-row-reverse" : ""
         }`}
         >
@@ -20,25 +21,29 @@
                 key={i}
                 src={img.src}
                 alt=""
-                className={`absolute rounded-xl shadow-lg ${img.className}`}
+                className={`absolute rounded-2xl shadow-xl ${img.className}`}
             />
             ))}
 
-            <div className="h-[320px]" />
+            {/* bigger container */}
+            <div className="h-[340px] md:h-[380px]" />
         </div>
 
-        {/* Text */}
-        <div className="lg:w-1/2 space-y-6">
+            {/* Text */}
+            <div className="lg:w-1/2 space-y-4">
 
-            <div className={`inline-block px-6 py-3 rounded-2xl text-white text-3xl md:text-4xl font-bold ${color}`}>
-            {title}
+                <div
+                className={`inline-block px-8 py-4 rounded-2xl text-white text-4xl md:text-5xl font-bold ${color}`}
+                >
+                {title}
+                </div>
+
+                <p className="text-xl md:text-2xl text-black/70 leading-relaxed max-w-xl">
+                <span className="font-bold text-black">{highlight}</span>{" "}
+                {description}
+                </p>
+
             </div>
-
-            <p className="text-lg md:text-xl text-black/60 leading-relaxed">
-            <span className="font-bold text-black">{highlight}</span> {description}
-            </p>
-
-        </div>
         </div>
     );
-    }
+}

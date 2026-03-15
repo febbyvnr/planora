@@ -5,7 +5,7 @@ export default function LoginPage() {
     const Navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+        <div className="min-h-screen flex items-center justify-center bg-[#FBF9FF] px-4">
             <div className="w-full max-w-lg bg-white rounded-[48px] shadow-lg p-10">
 
                 {/* Header */}
