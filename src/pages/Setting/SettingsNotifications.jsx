@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { User, Bell, Users } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import SettingsSidebar from '../../components/SettingsSidebar';
 
 const notificationSettings = [
     {
@@ -46,14 +47,12 @@ function Toggle({ enabled, onToggle }) {
     return (
         <button
             onClick={onToggle}
-            className={`relative inline-flex w-12 h-6 shrink-0 rounded-full transition-colors duration-300 focus:outline-none ${
-                enabled ? 'bg-[#4D63E6]' : 'bg-gray-200'
-            }`}
+            className={`relative inline-flex w-12 h-6 shrink-0 rounded-full transition-colors duration-300 focus:outline-none ${enabled ? 'bg-[#4D63E6]' : 'bg-gray-200'
+                }`}
         >
             <span
-                className={`inline-block w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 m-0.5 ${
-                    enabled ? 'translate-x-6' : 'translate-x-0'
-                }`}
+                className={`inline-block w-5 h-5 bg-white rounded-full shadow-md transform transition-transform duration-300 m-0.5 ${enabled ? 'translate-x-6' : 'translate-x-0'
+                    }`}
             />
         </button>
     );
@@ -80,31 +79,7 @@ export default function SettingsNotifications() {
     return (
         <div className="flex flex-col md:flex-row bg-white rounded-[24px] border border-gray-200 shadow-sm w-full min-h-[650px] overflow-hidden m-0 p-0">
             {/* Setting Sidebar */}
-            <div className="w-full md:w-64 border-b md:border-b-0 md:border-r border-[#E8E8E8] shrink-0 pt-6 md:pt-8 pb-4 flex flex-col items-center">
-                <div className="hidden md:block w-full px-8 mb-6 text-left">
-                    <h2 className="text-[17px] font-extrabold text-black">Setting</h2>
-                </div>
-                <nav className="flex flex-row md:flex-col overflow-x-auto gap-2 w-full px-4 pb-2 md:pb-0 shrink-0">
-                    <button
-                        onClick={() => navigate('/settings')}
-                        className="flex items-center justify-center md:justify-start gap-3 md:gap-4 px-5 py-3 md:py-3.5 text-gray-600 font-medium hover:bg-gray-50 rounded-xl whitespace-nowrap w-auto md:w-full transition"
-                    >
-                        <User size={18} strokeWidth={2} />
-                        Olivia's
-                    </button>
-                    <button className="flex items-center justify-center md:justify-start gap-3 md:gap-4 px-5 py-3 md:py-3.5 bg-[#EEF1FD] text-[#4D63E6] font-bold rounded-xl whitespace-nowrap w-auto md:w-full transition">
-                        <Bell size={18} strokeWidth={2} />
-                        Notifications
-                    </button>
-                    <button
-                        onClick={() => navigate('/settings/friends')}
-                        className="flex items-center justify-center md:justify-start gap-3 md:gap-4 px-5 py-3 md:py-3.5 text-gray-600 font-medium hover:bg-gray-50 rounded-xl whitespace-nowrap w-auto md:w-full transition"
-                    >
-                        <Users size={18} strokeWidth={2} />
-                        Friends
-                    </button>
-                </nav>
-            </div>
+            <SettingsSidebar />
 
             {/* Content */}
             <div className="flex-1 bg-[#FBFBFC] pt-8 md:pt-10 px-6 md:px-10 pb-12 overflow-y-auto">
@@ -129,9 +104,8 @@ export default function SettingsNotifications() {
                     {settings.map((item, index) => (
                         <div
                             key={item.id}
-                            className={`flex items-center justify-between px-6 py-5 gap-4 transition hover:bg-gray-50/70 ${
-                                index !== settings.length - 1 ? 'border-b border-gray-100' : ''
-                            }`}
+                            className={`flex items-center justify-between px-6 py-5 gap-4 transition hover:bg-gray-50/70 ${index !== settings.length - 1 ? 'border-b border-gray-100' : ''
+                                }`}
                         >
                             <div className="flex-1 min-w-0">
                                 <p className="font-bold text-[15px] text-[#3B3B3B]">{item.title}</p>

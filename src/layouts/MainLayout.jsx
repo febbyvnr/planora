@@ -28,7 +28,7 @@ export default function MainLayout({ children }) {
         <div className="flex-1 overflow-y-auto w-full">
             <Header onMenuClick={() => setIsMobileMenuOpen(true)} />
             <div className="p-4 md:p-6 lg:px-8 w-full max-w-full overflow-hidden">
-                {children}
+                {children || <Outlet />}
             </div>
         </div>
       </div>
