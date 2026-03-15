@@ -1,19 +1,26 @@
-    import BenefitCard from "./Card/BenefitCard";
+import BenefitCard from "./Card/BenefitCard";
+import DotGrid from "../ReactBits/DotGrid";
 
-    export default function WhySection() {
+export default function WhySection() {
     return (
-        <section className="py-24 relative rounded-b-[60px] shadow-xl">
+        <section className="py-24 relative overflow-hidden rounded-b-[60px] shadow-xl">
 
-        {/* Background */}
+        {/* DotGrid Background */}
         <div className="absolute inset-0 -z-10">
-            <img
-            src="src/assets/textures/Dots.jpg"
-            alt="Background"
-            className="w-full h-full object-cover rounded-[60px] opacity-25"
+            <DotGrid
+            dotSize={5}
+            gap={15}
+            baseColor="#ffffff"
+            activeColor="#A16207"
+            proximity={220}
+            shockRadius={450}
+            shockStrength={5}
+            resistance={750}
+            returnDuration={1.5}
             />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
 
             {/* Header */}
             <div className="text-center mb-20">
@@ -27,11 +34,10 @@
                 simple workspace so nothing gets forgotten.
             </p>
 
-        </div>
+            </div>
 
             {/* Section 1 */}
             <BenefitCard
-            
             title="Plan Your Work"
             highlight="Organize"
             description="your tasks, schedules, and study activities in one structured workspace so you always know what to do next."
@@ -90,6 +96,7 @@
             />
 
         </div>
+
         </section>
     );
-    }
+}
