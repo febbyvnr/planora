@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
-import LandingPage from "./pages/LandingPage";
+import LandingPage from "./layouts/LandingPage";
 import LoginPage from "./pages/Login/LoginPage";
 import Materials from "./pages/Materials";
 import MaterialFolder from "./pages/MaterialFolder";

@@ -1,4 +1,4 @@
-import { Bell, Users, User } from 'lucide-react';
+import { Bell, Users, User, LogOut } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 export default function SettingsSidebar() {
@@ -31,6 +31,12 @@ export default function SettingsSidebar() {
                     className={`flex items-center justify-center md:justify-start gap-3 md:gap-4 px-5 py-3 md:py-3.5 rounded-xl whitespace-nowrap w-auto md:w-full transition ${isActive('/settings/friends') ? 'bg-[#FCF6E9] shadow-sm text-gray-800 font-bold' : 'text-gray-600 font-medium hover:bg-gray-50'}`}>
                     <Users size={18} strokeWidth={2} />
                     Friends
+                </button>
+                <button 
+                    onClick={() => navigate('/login')}
+                    className={`flex items-center justify-center md:justify-start gap-3 md:gap-4 px-5 py-3 md:py-3.5 rounded-xl whitespace-nowrap w-auto md:w-full transition text-red-600 font-medium hover:bg-red-50 mt-auto md:mt-2`}>
+                    <LogOut size={18} strokeWidth={2} />
+                    Log Out
                 </button>
             </nav>
         </div>
