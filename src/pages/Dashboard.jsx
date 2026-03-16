@@ -104,7 +104,6 @@ export default function Dashboard() {
 
     return (
         <div className="flex flex-col gap-8 text-gray-800 pb-10">
-            {/* Page Header */}
             <div>
                 <h1 className="text-3xl font-bold text-[#4B4E9A]">
                     Welcome back, <span className="text-red-500">Olivia</span>!
@@ -121,10 +120,8 @@ export default function Dashboard() {
 
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 md:gap-8">
 
-                {/* Left/Main Column */}
                 <div className="xl:col-span-2 flex flex-col gap-6 md:gap-8 overflow-hidden w-full">
 
-                    {/* Productivity Pulse */}
                     <div className="p-0 rounded-2xl w-full">
                         <h2 className="text-xl font-bold mb-2">Productivity Pulse</h2>
                         <p className="text-sm text-gray-500 mb-6 font-medium">
@@ -136,7 +133,6 @@ export default function Dashboard() {
                         </div>
                     </div>
 
-                    {/* Recently Updates */}
                     <div className="bg-white p-4 md:p-6 rounded-2xl border border-gray-100 shadow-[0_20px_25px_-15px_rgba(72,187,120,0.2)] mt-4">
                         <h2 className="text-xl font-bold mb-4 md:mb-6">Recently Updates</h2>
 
@@ -198,7 +194,6 @@ export default function Dashboard() {
 
                 </div>
 
-                {/* Right Column / Sidebar */}
                 <div className="flex flex-col gap-6 w-full xl:max-w-sm xl:ml-auto mt-4 xl:mt-0">
                     <h2 className="text-xl font-bold mb-1">Your Streak</h2>
                     <style>{`@keyframes floatAnimation { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }`}</style>
@@ -219,28 +214,22 @@ export default function Dashboard() {
 
                     {/* ⚠️ Warning Streak Card – Judul Commite */}
                     <div className="w-full relative rounded-b-lg overflow-hidden" style={{ animation: 'pulseBorder 2s ease-in-out infinite', borderRadius: '0.5rem' }}>
-                        {/* Header */}
                         <div className="bg-red-500 text-white font-bold px-4 py-1.5 text-sm w-full rounded-t-lg flex justify-between items-center">
                             <span>Scheduler</span>
                             <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-black tracking-wide animate-pulse">⚠️ STREAK AT RISK</span>
                         </div>
 
-                        {/* Body */}
                         <div className="bg-gradient-to-r from-red-50 to-orange-50 border-2 border-red-300 border-t-0 rounded-b-lg p-5 relative overflow-hidden">
-                            {/* Background blur blobs */}
                             <div className="absolute right-0 top-0 w-24 h-24 bg-red-300/20 rounded-full blur-2xl pointer-events-none"></div>
                             <div className="absolute left-[-10px] bottom-[-10px] w-20 h-20 bg-orange-300/20 rounded-full blur-2xl pointer-events-none"></div>
 
                             <div className="w-3/4 z-10 relative">
-                                {/* Title */}
                                 <h3 className="font-bold text-gray-800 text-[16px] mb-1">Committte</h3>
 
-                                {/* Days badge – inactive warning style */}
                                 <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-red-100 border border-red-300 text-red-600 mb-2">
                                     💀 2 days inactive
                                 </span>
 
-                                {/* Streak dots — last 2 are grey (missed) */}
                                 <div className="flex flex-wrap gap-1 mb-3">
                                     {Array.from({ length: 27 }).map((_, i) => {
                                         const isMissed = i >= 25;
@@ -255,13 +244,11 @@ export default function Dashboard() {
                                     })}
                                 </div>
 
-                                {/* Warning message */}
                                 <p className="text-red-500 text-[11px] font-bold leading-tight">
                                     🔴 Resume today or your streak will reset!
                                 </p>
                             </div>
 
-                            {/* Warning emoji mascot area */}
                             <div className="absolute right-[15px] bottom-[30px] w-24 h-35 pointer-events-none opacity-95 group-hover:opacity-100 transition-opacity scale-x-[-1] z-20">
                                         <img
                                             src={maskotAngry}
@@ -308,7 +295,6 @@ export default function Dashboard() {
                             );
                         }
 
-                        // Friend Streak → slider per friend
                         if (streak.type === "friend") {
                             const avatarColors = [
                                 "bg-red-400", "bg-pink-400", "bg-rose-400", "bg-orange-400",
@@ -329,7 +315,6 @@ export default function Dashboard() {
                             return (
                                 <div key={streak.id} className="w-full relative group">
 
-                                    {/* Extreme Left Arrow */}
                                     <button
                                         onClick={() => setFriendIndex(i => (i - 1 + friendsData.length) % friendsData.length)}
                                         className="absolute -left-3 top-[60%] -translate-y-1/2 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md border border-gray-100 hover:bg-gray-50 transition opacity-0 group-hover:opacity-100"
@@ -337,7 +322,6 @@ export default function Dashboard() {
                                         <ChevronLeft size={16} className="text-gray-600" />
                                     </button>
 
-                                    {/* Extreme Right Arrow */}
                                     <button
                                         onClick={() => setFriendIndex(i => (i + 1) % friendsData.length)}
                                         className="absolute -right-3 top-[60%] -translate-y-1/2 z-20 w-8 h-8 flex items-center justify-center rounded-full bg-white shadow-md border border-gray-100 hover:bg-gray-50 transition opacity-0 group-hover:opacity-100"
@@ -346,10 +330,8 @@ export default function Dashboard() {
                                     </button>
 
                                     <div className={`w-full relative transition duration-300 rounded-b-lg ${theme.shadow}`}>
-                                        {/* Header */}
                                         <div className={`${theme.bgTop} text-white font-bold px-4 py-1.5 text-sm w-full rounded-t-lg flex justify-between items-center`}>
                                             <span>Learning Plan</span>
-                                            {/* Slide dots */}
                                             <div className="flex gap-1">
                                                 {friendsData.map((_, i) => (
                                                     <button
@@ -362,12 +344,9 @@ export default function Dashboard() {
                                             </div>
                                         </div>
 
-                                        {/* Slide body */}
                                         <div className={`${theme.gradient} border-2 ${theme.border} border-t-0 rounded-b-lg p-5 relative overflow-hidden flex flex-col justify-between h-[155px]`}>
 
-                                            {/* Content Area */}
                                             <div className="flex items-center justify-between">
-                                                {/* Left: Friend Info & Progress */}
                                                 <div className="flex-1 pr-6 pb-2">
                                                     <div className="flex items-center gap-3 mb-4">
                                                         <div className={`shrink-0 w-10 h-10 rounded-full ${avatarColors[friendIndex % avatarColors.length]} flex items-center justify-center text-white text-[16px] font-bold border-2 border-white shadow-sm`}>
@@ -379,7 +358,6 @@ export default function Dashboard() {
                                                         </div>
                                                     </div>
 
-                                                    {/* Progress Bar */}
                                                     <div className="flex items-center gap-3">
                                                         <div className={`flex-1 h-2.5 rounded-full ${theme.barBg} overflow-hidden`}>
                                                             <div
@@ -391,7 +369,6 @@ export default function Dashboard() {
                                                     </div>
                                                 </div>
 
-                                                {/* Right: Mascot (without text) */}
                                                 <div className="w-20 shrink-0 flex items-center justify-center">
                                                     <img
                                                         src={friendMascot.src}
@@ -402,7 +379,6 @@ export default function Dashboard() {
                                                 </div>
                                             </div>
 
-                                            {/* Footer */}
                                             <div className="flex items-center mt-auto pt-3 border-t border-red-100 w-full">
                                                 <span className="text-[10px] font-bold text-gray-400">Streak with {activeFriend.name}</span>
                                                 <span className="ml-auto text-[10px] text-gray-400">{friendIndex + 1} / {friendsData.length}</span>
@@ -458,7 +434,6 @@ export default function Dashboard() {
                                         </div>
                                     </div>
 
-                                    {/* Mascot Icon */}
                                     <div className={`pointer-events-none ${streak.mascotClass}`}>
                                         <img
                                             src={streak.mascot}

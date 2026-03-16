@@ -72,25 +72,19 @@ const PDF_PAGES = [
           forces that restore balance automatically.
         </p>
 
-        {/* Simple supply/demand diagram (SVG) */}
         <div style={{ textAlign: 'center', margin: '20px 0' }}>
           <svg width="260" height="180" viewBox="0 0 260 180" style={{ border: '1px solid #eee', borderRadius: 6, background: '#fafafa' }}>
-            {/* Axes */}
             <line x1="30" y1="20" x2="30" y2="155" stroke="#666" strokeWidth="1.5"/>
             <line x1="30" y1="155" x2="240" y2="155" stroke="#666" strokeWidth="1.5"/>
-            {/* Demand line */}
             <line x1="40" y1="30" x2="220" y2="145" stroke="#5D6BDE" strokeWidth="2"/>
             <text x="222" y="145" fontSize="11" fill="#5D6BDE" fontWeight="bold">D</text>
-            {/* Supply line */}
             <line x1="40" y1="145" x2="220" y2="30" stroke="#E84D4D" strokeWidth="2"/>
             <text x="222" y="35" fontSize="11" fill="#E84D4D" fontWeight="bold">S</text>
-            {/* Equilibrium point */}
             <circle cx="130" cy="87" r="5" fill="#333"/>
             <line x1="130" y1="87" x2="130" y2="155" stroke="#333" strokeWidth="1" strokeDasharray="4"/>
             <line x1="30" y1="87" x2="130" y2="87" stroke="#333" strokeWidth="1" strokeDasharray="4"/>
             <text x="124" y="168" fontSize="10" fill="#333">P*</text>
             <text x="14" y="91" fontSize="10" fill="#333">Q*</text>
-            {/* Labels */}
             <text x="22" y="15" fontSize="10" fill="#666">P</text>
             <text x="235" y="158" fontSize="10" fill="#666">Q</text>
           </svg>
@@ -572,13 +566,10 @@ export default function StudySession() {
   return (
     <div className="flex bg-[#1E1F26] overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8 -my-4 sm:-my-6 lg:-my-8" style={{ height: 'calc(100vh - 80px)' }}>
 
-      {/* ── Main Content Area ──────────────────────────────────────────────────── */}
       {activeSession.type === 'reading' && renderReadingMode()}
       {activeSession.type === 'quiz' && renderQuizMode()}
       {activeSession.type === 'video' && renderVideoMode()}
 
-
-      {/* ── Right Sidebar ─────────────────────────────────────────────────────── */}
       {!fullDocView && (
         <div className="w-[272px] shrink-0 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
           <div className="px-5 pt-5 pb-3">
@@ -591,7 +582,6 @@ export default function StudySession() {
           </div>
 
           <div className="flex-1 overflow-y-auto px-5 pb-5 space-y-5">
-            {/* Session roadmap */}
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <GitBranch size={15} className="text-[#5D6BDE]"/>
@@ -650,7 +640,6 @@ export default function StudySession() {
               </div>
             </div>
 
-            {/* Deep focus */}
             <div className="bg-[#F6F7FF] rounded-2xl p-4 border border-[#E0E4F8]">
               <div className="flex items-center gap-2 mb-3">
                 <Target size={14} className="text-[#5D6BDE] animate-pulse"/>
@@ -668,7 +657,6 @@ export default function StudySession() {
               </div>
             </div>
 
-            {/* Progress (For reading/video modes) */}
             {activeSession.type !== 'quiz' && (
               <div>
                 <div className="flex justify-between text-xs mb-1.5">
@@ -682,7 +670,6 @@ export default function StudySession() {
               </div>
             )}
 
-            {/* Quiz Progress */}
             {activeSession.type === 'quiz' && (
               <div className="bg-[#EBF0FF] rounded-xl p-4 border border-[#D4DBF9] text-center">
                 <Target size={24} className="mx-auto text-[#5D6BDE] mb-2" />
@@ -696,7 +683,6 @@ export default function StudySession() {
               </div>
             )}
 
-            {/* Next */}
             <div>
               <button disabled={!sessionComplete} onClick={() => {
                   if (sessionComplete && currentSessionIdx < sessions.length - 1) {
@@ -714,12 +700,10 @@ export default function StudySession() {
         </div>
       )}
 
-      {/* ── Congratulations Modal ──────────────────────────────────────────────── */}
       {showCongratsModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-in fade-in duration-300">
           <div className="bg-white rounded-3xl w-full max-w-sm p-8 shadow-2xl relative animate-in zoom-in-95 duration-300 flex flex-col items-center text-center">
             
-            {/* Celebrate Icon */}
             <div className="w-20 h-20 bg-gradient-to-tr from-[#5D6BDE] to-[#8A98F7] rounded-full flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
               <Trophy size={40} className="text-white fill-white/20" />
             </div>

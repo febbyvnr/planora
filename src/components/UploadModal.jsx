@@ -66,81 +66,90 @@ export default function UploadModal({ open, onClose, folder = "Storage" }) {
 
     return (
         <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn px-4">
-            <div className="bg-white w-full max-w-[520px] rounded-3xl p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
-                {/* Header */}
-                <div className="flex justify-between items-start mb-4">
+            <div className="bg-white w-full max-w-[520px] rounded-3xl max-h-[90vh] flex flex-col relative overflow-hidden">
+                <div className="flex justify-between items-start shrink-0 p-4 sm:p-6 pb-2 sm:pb-2">
                     <div>
                         <h2 className="text-xl font-bold">Upload Files</h2>
                         <p className="text-gray-500 text-sm">
                             Add documents to your Materials Storage
                         </p>
                     </div>
-                    <button onClick={onClose}>
-                        <X size={20}/>
-                    </button>
-                </div>
-                {/* Drop area */}
-                <div
-                    onDrop={handleDrop}
-                    onDragOver={(e) => e.preventDefault()}
-                    className="border-2 border-dashed border-indigo-400 rounded-xl p-6 sm:p-10 text-center mb-6"
-                >
-                    <UploadCloud className="mx-auto mb-4 text-indigo-500" size={36}/>
-                    <p className="font-semibold">
-                        Drag and drop files here
-                    </p>
-                    <p className="text-sm text-gray-500 mb-4">
-                        Support for PDF, DOCX, PNG up to 50MB
-                    </p>
                     <button
-                        onClick={handleBrowse}
-                        className="px-4 py-2 bg-gray-100 rounded-lg"
-                    >
-                        Browse Files
-                    </button>
-                    <input
-                        ref={fileRef}
-                        type="file"
-                        multiple
-                        className="hidden"
-                        onChange={handleUpload}
-                    />
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
+                            onClick={onClose}
+                        >
+                            <X size={20} />
+                        </button>
                 </div>
-                {files.length > 0 && (
-                    <div className="mb-6">
-                        <p className="text-sm text-gray-500 mb-3">
-                            UPLOADING - {files.length} FILES
+                
+                <div 
+                    className="flex-1 min-h-0 overflow-y-auto px-4 sm:px-6 pb-2 no-scrollbar"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                    <style>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+                    <div
+                        onDrop={handleDrop}
+                        onDragOver={(e) => e.preventDefault()}
+                        className="border-2 border-dashed border-indigo-400 rounded-xl p-6 sm:p-10 text-center mb-6 mt-2"
+                    >
+                        <UploadCloud className="mx-auto mb-4 text-indigo-500" size={36}/>
+                        <p className="font-semibold">
+                            Drag and drop files here
                         </p>
-                        <div className="space-y-3">
-                            {files.map((file, i) => (
-                                <div
-                                    key={i}
-                                    className="bg-gray-100 p-3 rounded-xl"
-                                >
-                                    <div className="flex justify-between text-sm mb-1">
-                                        <span>{file.name}</span>
-                                        <span>
-                                            {file.status === "ready"
-                                                ? "Ready"
-                                                : `${file.progress}%`}
-                                        </span>
-                                    </div>
-                                    <div className="h-2 bg-gray-200 rounded">
-                                        <div
-                                            className={`h-2 rounded ${
-                                                file.status === "ready"
-                                                    ? "bg-green-500"
-                                                    : "bg-indigo-500"
-                                            }`}
-                                        style={{ width: `${file.progress}%` }}
-                                        />
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <p className="text-sm text-gray-500 mb-4">
+                            Support for PDF, DOCX, PNG up to 50MB
+                        </p>
+                        <button
+                            onClick={handleBrowse}
+                            className="px-4 py-2 bg-gray-100 rounded-lg"
+                        >
+                            Browse Files
+                        </button>
+                        <input
+                            ref={fileRef}
+                            type="file"
+                            multiple
+                            className="hidden"
+                            onChange={handleUpload}
+                        />
                     </div>
-                )}
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                    {files.length > 0 && (
+                        <div className="mb-6">
+                            <p className="text-sm text-gray-500 mb-3">
+                                UPLOADING - {files.length} FILES
+                            </p>
+                            <div className="space-y-3">
+                                {files.map((file, i) => (
+                                    <div
+                                        key={i}
+                                        className="bg-gray-100 p-3 rounded-xl"
+                                    >
+                                        <div className="flex justify-between text-sm mb-1">
+                                            <span>{file.name}</span>
+                                            <span>
+                                                {file.status === "ready"
+                                                    ? "Ready"
+                                                    : `${file.progress}%`}
+                                            </span>
+                                        </div>
+                                        <div className="h-2 bg-gray-200 rounded">
+                                            <div
+                                                className={`h-2 rounded ${
+                                                    file.status === "ready"
+                                                        ? "bg-green-500"
+                                                        : "bg-indigo-500"
+                                                }`}
+                                            style={{ width: `${file.progress}%` }}
+                                            />
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                </div>
+
+                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 shrink-0 p-4 sm:p-6 border-t border-gray-100">
                     <label className="flex items-center gap-2 text-sm">
                         <input
                             type="checkbox"

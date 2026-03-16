@@ -100,19 +100,26 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
 
     return (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[100] animate-in fade-in duration-200">
-            <div className="bg-white w-[560px] max-h-[90vh] overflow-y-auto rounded-3xl p-8 shadow-2xl relative">
+            <div className="bg-white w-[560px] max-h-[90vh] rounded-3xl shadow-2xl relative flex flex-col">
                 
-                {/* Close Button */}
-                <button 
-                    onClick={onClose}
-                    className="absolute top-6 right-6 w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center text-gray-500 transition"
-                >
-                    <X size={18} />
-                </button>
+                {/* ── FIXED HEADER ── */}
+                <div className="flex items-center justify-between px-8 pt-8 pb-4 shrink-0">
+                    <h2 className="text-[26px] font-bold text-gray-900 tracking-tight">Create Session</h2>
+                   <button
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
+                            onClick={onClose}
+                        >
+                            <X size={20} />
+                        </button>
+                </div>
 
-                <h2 className="text-[26px] font-bold text-gray-900 mb-6 tracking-tight">Create Session</h2>
-                
-                <div className="space-y-6">
+                {/* ── SCROLLABLE BODY (no visible scrollbar) ── */}
+                <div
+                    className="flex-1 min-h-0 px-8 pb-2 overflow-y-auto space-y-6"
+                    style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+                >
+                    <style>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+
                     {/* TITLE */}
                     <div>
                         <p className="text-gray-500 text-xs font-bold mb-2 uppercase tracking-wide">SESSION TITLE</p>
@@ -254,14 +261,9 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
                     </div>
                 </div>
 
-                {/* Footer Actions */}
-                <div className="flex justify-end gap-3 mt-8">
-                    <button
-                        onClick={onClose}
-                        className="px-5 py-2.5 rounded-xl text-gray-500 font-bold hover:bg-gray-100 transition"
-                    >
-                        Cancel
-                    </button>
+                {/* ── FIXED FOOTER ── */}
+                <div className="flex justify-end gap-3 px-8 py-5 shrink-0 border-t border-gray-100">
+                    
                     <button
                         onClick={handleSave}
                         className="px-6 py-2.5 rounded-xl bg-[#5D6BDE] hover:bg-[#4C5AC7] text-white font-bold transition flex items-center gap-2 shadow-md hover:shadow-lg"

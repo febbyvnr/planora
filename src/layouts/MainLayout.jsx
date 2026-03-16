@@ -8,7 +8,6 @@ export default function MainLayout({ children }) {
 
   return (
     <div className="min-h-screen bg-[#FBF9FF] text-gray-800">
-      {/* Fixed Sidebar */}
       <Sidebar collapsed={collapsed} setCollapsed={setCollapsed} />
 
       {/* Content area — offset by sidebar width */}
@@ -17,7 +16,6 @@ export default function MainLayout({ children }) {
           collapsed ? "ml-20" : "ml-64"
         }`}
       >
-        {/* Sticky Header */}
         <Header />
 
         {/* Page Content */}

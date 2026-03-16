@@ -237,21 +237,22 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-      <div className="bg-white w-[620px] max-h-[90vh] overflow-y-auto rounded-3xl p-8 shadow-2xl">
+      <div 
+        className="bg-white w-[620px] max-h-[90vh] overflow-y-auto rounded-3xl p-8 shadow-2xl no-scrollbar"
+        style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+      >
+        <style>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
         <h2 className="text-[28px] font-bold text-gray-900 mb-6">Create New Plan</h2>
         
-        {/* Top Progress Bars */}
         <div className="flex gap-3 mb-8">
            <div className="h-[6px] flex-1 bg-[#4A72FF] rounded-full"></div>
            <div className={`h-[6px] flex-1 rounded-full ${currentStep >= 2 ? 'bg-[#4A72FF]' : 'bg-gray-200'}`}></div>
            <div className={`h-[6px] flex-1 rounded-full ${currentStep >= 3 ? 'bg-[#4A72FF]' : 'bg-gray-200'}`}></div>
         </div>
 
-        {/* Steps Indicator */}
         <div className="flex items-center justify-between px-12 mb-10 relative z-0">
           <div className="absolute top-5 left-[15%] right-[15%] h-[2px] bg-gray-300 z-[-1]"></div>
           
-          {/* Step 1 */}
           <div className="flex flex-col items-center gap-2 bg-white px-4">
             <div className={`w-10 h-10 rounded-full flex justify-center items-center text-xl font-bold text-white ${currentStep > 1 ? 'bg-[#5D6BDE]' : 'bg-[#5D6BDE]'}`}>
               {currentStep > 1 ? <Check size={22} strokeWidth={3} /> : '1'}
@@ -259,7 +260,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
             <span className="text-[#5D6BDE] text-xs font-bold tracking-wider">PLAN BASICS</span>
           </div>
           
-          {/* Step 2 */}
           <div className="flex flex-col items-center gap-2 bg-white px-4">
             <div className={`w-10 h-10 rounded-full flex justify-center items-center text-xl font-bold ${currentStep >= 2 ? 'bg-[#5D6BDE] text-white' : 'bg-gray-200 text-gray-500'}`}>
               {currentStep > 2 ? <Check size={22} strokeWidth={3} /> : '2'}
@@ -267,14 +267,12 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
             <span className={`text-xs font-bold tracking-wider ${currentStep >= 2 ? 'text-[#5D6BDE]' : 'text-gray-300'}`}>SESSIONS</span>
           </div>
           
-          {/* Step 3 */}
           <div className="flex flex-col items-center gap-2 bg-white px-4">
             <div className={`w-10 h-10 rounded-full flex justify-center items-center text-xl font-bold ${currentStep >= 3 ? 'bg-[#5D6BDE] text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
             <span className={`text-xs font-bold tracking-wider ${currentStep >= 3 ? 'text-[#5D6BDE]' : 'text-gray-300'}`}>TEAM</span>
           </div>
         </div>
 
-        {/* Step 1: Plan Basics */}
         {currentStep === 1 && (
           <div className="space-y-6">
             <div>
@@ -325,7 +323,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
           </div>
         )}
 
-        {/* Step 2: Sessions */}
         {currentStep === 2 && (
           <div>
             <div className="flex items-center justify-between mb-5">
@@ -487,7 +484,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
               ))}
             </div>
 
-            {/* Add Session Button */}
             <button
               type="button"
               onClick={handleAddSession}
@@ -501,10 +497,8 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
           </div>
         )}
 
-        {/* Step 3: Team */}
         {currentStep === 3 && (
           <div className="space-y-5">
-            {/* Header */}
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="text-xl font-bold text-gray-900">Collaborators</h3>
@@ -513,7 +507,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
               <span className="text-[#E89B35] bg-[#FFF8EC] border border-[#F5D99E] px-4 py-1.5 rounded-full text-sm font-semibold">Social Learning</span>
             </div>
 
-            {/* Search Input */}
             <div className="relative">
               <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" />
               <input
@@ -525,7 +518,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
               />
             </div>
 
-            {/* Search Result */}
             {searchResult && !searchResult.notFound && (
               <div className="flex items-center gap-4 p-4 border border-gray-200 rounded-2xl">
                 <div className="w-11 h-11 rounded-full bg-red-100 flex items-center justify-center shrink-0 border-2 border-white">
@@ -548,7 +540,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
               <p className="text-red-400 text-xs px-1">No user found with that username.</p>
             )}
 
-            {/* Current Team */}
             <div>
               <p className="text-gray-400 text-xs font-bold uppercase tracking-wider mb-3">CURRENT TEAM ({teamMembers.length})</p>
               <div className="space-y-2">
@@ -580,7 +571,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
               </div>
             </div>
 
-            {/* Share Join Code */}
             <div className="rounded-2xl border-2 border-dashed border-[#A6B2F5] bg-[#F5F7FF] p-5">
               <div className="flex items-center justify-between mb-3">
                 <div>
@@ -621,7 +611,6 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
           </div>
         )}
 
-        {/* Actions */}
         <div className="flex justify-between items-center mt-8">
           <button
             onClick={() => {

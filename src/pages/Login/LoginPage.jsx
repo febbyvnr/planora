@@ -66,9 +66,6 @@ export default function LoginPage() {
            
 
             <div className="relative w-full max-w-lg bg-white rounded-[48px] shadow-lg p-10">
-
-                
-                {/* Header */}
                 <div className="text-center mb-10">
                     <h1 className="text-4xl font-bold text-gray-900 font-['Outfit']">
                         Welcome Back!
@@ -78,10 +75,8 @@ export default function LoginPage() {
                     </p>
                 </div>
 
-                {/* Form */}
                 <form className="space-y-6">
 
-                    {/* Email */}
                     <div>
                         <label className="block text-sm font-medium text-gray-600 mb-2">
                             Email
@@ -93,7 +88,6 @@ export default function LoginPage() {
                         />
                     </div>
 
-                    {/* Password */}
                     <div>
                         <div className="flex justify-between mb-2">
                             <label className="text-sm font-medium text-gray-600">
@@ -114,7 +108,6 @@ export default function LoginPage() {
                         />
                     </div>
 
-                    {/* Login Button */}
                     <button
                         type="button"
                         className="w-full h-14 bg-blue-500 hover:bg-blue-600 transition text-white font-semibold rounded-full shadow-md"
@@ -125,7 +118,6 @@ export default function LoginPage() {
 
                 </form>
 
-                {/* Divider */}
                 <div className="flex items-center gap-4 my-8">
                     <div className="flex-1 border-t border-gray-200"></div>
                     <span className="text-xs text-gray-400 uppercase tracking-wider">
@@ -134,7 +126,6 @@ export default function LoginPage() {
                     <div className="flex-1 border-t border-gray-200"></div>
                 </div>
 
-                {/* Social Login */}
                 <div className="flex gap-4">
                     <button className="flex-1 h-12 bg-white rounded-full border border-gray-200 flex items-center justify-center gap-2 hover:bg-gray-50">
                         <UserRound />
@@ -147,7 +138,6 @@ export default function LoginPage() {
                     </button>
                 </div>
 
-                {/* Footer */}
                 <div className="text-center mt-6 text-sm">
                     <span className="text-gray-500">
                         Don't have an account?{" "}

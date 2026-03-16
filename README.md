@@ -1,16 +1,152 @@
-# React + Vite
+# <img src="./src/assets/images/logo.png" alt="Planora Logo" height="40"> Planora
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Your Intelligent Academic Command Center
 
-Currently, two official plugins are available:
+**Nama Website :** Planora  
+**Nama Tim :** Tiga Serangkai  
+**Dengan Backend :** Tidak menggunakan backend (Frontend-focused application)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 📖 Tentang Planora
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Mahasiswa sering menghadapi berbagai tantangan dalam mengatur kegiatan akademik mereka.  
+Mulai dari tugas yang menumpuk, jadwal yang tidak terorganisir, hingga kesulitan menjaga konsistensi belajar.
 
-## Expanding the ESLint configuration
+**Planora hadir sebagai solusi all-in-one academic productivity platform** yang membantu mahasiswa mengatur tugas, jadwal, rencana belajar, dan fokus belajar dalam satu sistem yang terstruktur dan intuitif.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Dengan pendekatan **smart productivity**, Planora tidak hanya membantu pengguna merencanakan aktivitas, tetapi juga membangun kebiasaan belajar yang konsisten melalui sistem kolaborasi dan gamifikasi.
+
+---
+
+# 🚀 Fitur Utama
+
+Planora menghadirkan lima fitur utama yang dirancang untuk mendukung produktivitas akademik secara menyeluruh.
+
+## 📅 Scheduler (Penjadwalan)
+
+Kalender interaktif yang memungkinkan pengguna merencanakan berbagai aktivitas akademik seperti:
+
+- Jadwal kuliah
+- Tenggat waktu tugas
+- Pertemuan kelompok
+- Proyek akademik
+
+Dengan tampilan visual yang jelas, pengguna dapat memantau agenda mereka secara lebih terstruktur dan efisien.
+
+---
+
+## ✅ Tasks (Manajemen Tugas)
+
+Fitur pengelolaan tugas yang membantu pengguna:
+
+- Membuat daftar tugas
+- Menentukan prioritas
+- Mengatur deadline
+- Melacak progres penyelesaian
+
+Dengan sistem ini, pengguna dapat mengelola beban tugas mereka secara lebih terorganisir.
+
+---
+
+## 📚 Learning Plan (Rencana Belajar Terstruktur)
+
+Fitur ini membantu pengguna menyusun strategi belajar secara sistematis.
+
+Pengguna dapat membuat sesi belajar yang mencakup:
+
+- Membaca materi PDF
+- Menonton video pembelajaran
+- Mengerjakan latihan soal atau kuis
+
+Dengan Learning Plan, proses belajar menjadi lebih terarah dan efektif.
+
+---
+
+## 📂 Materials (Penyimpanan Materi)
+
+Planora menyediakan sistem penyimpanan materi belajar yang terpusat.
+
+Pengguna dapat:
+
+- Membuat folder materi
+- Mengunggah sumber belajar
+- Mengelola referensi akademik
+
+Fitur ini membantu pengguna menjaga seluruh materi pembelajaran tetap terorganisir dan mudah diakses.
+
+---
+
+## ⏱ Timer (Fokus & Produktivitas)
+
+Planora dilengkapi dengan **timer belajar** yang mendukung teknik manajemen fokus seperti:
+
+- **Pomodoro Technique**
+- **Deep Work Session**
+
+Selain itu, tersedia pilihan **ambience sound** untuk membantu menciptakan lingkungan belajar yang lebih kondusif dan meningkatkan konsentrasi pengguna.
+
+---
+
+# 🌟 Keunggulan Planora
+
+Planora tidak hanya berfungsi sebagai alat perencanaan akademik, tetapi juga menghadirkan pengalaman belajar yang lebih interaktif melalui kolaborasi dan gamifikasi.
+
+---
+
+## 🤝 Collaborator (Kolaborasi Belajar)
+
+Planora memungkinkan pengguna untuk belajar bersama melalui fitur **Collaborator**.
+
+Pada fitur **Scheduler** dan **Learning Plan**, pengguna dapat:
+
+- Mengundang teman menggunakan **Join Code**
+- Merencanakan jadwal belajar bersama
+- Mengelola proyek akademik secara kolaboratif
+
+Dengan fitur ini, proses belajar menjadi lebih interaktif dan produktif.
+
+---
+
+## 🔥 Streak System (Gamifikasi Produktivitas)
+<div align="center">
+  <img src="./src/assets/images/streak-planora.png" alt="Streak Planora">
+</div>
+Untuk meningkatkan konsistensi belajar, Planora menghadirkan sistem **Streak** yang memotivasi pengguna untuk tetap disiplin.
+
+Jenis streak yang tersedia:
+
+- **Streak Individu**  
+  Memantau konsistensi aktivitas belajar pengguna secara personal.
+
+- **Streak Kelompok**  
+  Tersedia pada fitur **Scheduler** untuk memonitor konsistensi kolaborasi dalam proyek tim.
+
+- **Streak Antar Teman**  
+  Terdapat pada fitur **Learning Plan**, yang mendorong interaksi dan motivasi belajar antar pengguna.
+
+---
+
+# 🎯 Visi Planora
+
+Planora bertujuan menjadi **platform produktivitas akademik yang membantu mahasiswa mengelola waktu, tugas, dan proses belajar secara lebih cerdas, terstruktur, dan kolaboratif.**
+
+Dengan pendekatan yang menggabungkan **perencanaan, fokus, kolaborasi, dan motivasi**, Planora membantu pengguna membangun kebiasaan belajar yang konsisten dan berkelanjutan.
+
+---
+
+# 💡 Teknologi
+
+Planora dikembangkan sebagai **frontend-focused web application** dengan pendekatan desain modern dan responsif.
+
+Fokus utama pengembangan adalah pada:
+
+- User Experience (UX)
+- Interface Design (UI)
+- Interaktivitas pengguna
+
+Aplikasi ini dirancang untuk memberikan pengalaman penggunaan yang **clean, intuitif, dan efisien** bagi mahasiswa.
+
+---
+
+✨ **Planora — Plan Smarter, Achieve Better.**
