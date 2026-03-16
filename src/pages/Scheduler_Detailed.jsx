@@ -174,9 +174,6 @@ export default function Scheduler_Detailed() {
                                             <p className="text-[10px] text-yellow-600 font-semibold">
                                                 HISTORY
                                             </p>
-                                            <button className="mt-2 bg-yellow-400 text-xs px-3 py-1 rounded-lg">
-                                                Join
-                                            </button>
                                         </div>
                                     </>
                                 )}
@@ -233,9 +230,6 @@ export default function Scheduler_Detailed() {
                                                 +8
                                             </span>
                                         </div>
-                                        <button className="mt-2 bg-yellow-400 text-xs px-3 py-1 rounded-lg">
-                                            Join
-                                        </button>
                                     </div>
                                 )}
                                 {i===3 && (
@@ -291,10 +285,6 @@ export default function Scheduler_Detailed() {
                                             <p className="text-[10px] lg:text-[8px] text-blue-600 font-semibold">
                                                 MATHEMATICS
                                             </p>
-
-                                            <button className="mt-2 bg-blue-400 text-white text-xs px-3 py-1 rounded-lg">
-                                                Join
-                                            </button>
                                         </div>
                                         <div className="absolute top-[210px] left-3 right-3 bg-purple-100 border border-purple-200 rounded-xl p-2">
                                             <p className="text-xs lg:text-[10px] font-semibold">
