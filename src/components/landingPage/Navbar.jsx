@@ -105,17 +105,18 @@ export default function Navbar() {
             <div className="md:hidden border-t">
             <div className="flex flex-col gap-4 px-6 py-4">
 
-                <a className="text-sm font-semibold">Features</a>
-                <a className="text-sm font-semibold">Pricing</a>
-                <a className="text-sm font-semibold">About</a>
+                <a className="text-sm font-semibold" onClick={() => scrollToSection("fitur")} >Features</a>
+                <a className="text-sm font-semibold" onClick={() => scrollToSection("about")} >About</a>
 
                 <hr />
 
-                <button className="text-left font-bold">
+                <button className="text-left font-bold"
+                onClick={() => navigate("/login")}>
                 Log in
                 </button>
 
-                <button className="bg-blue-500 text-white py-2 rounded-lg font-bold">
+                <button className="bg-blue-500 text-white py-2 rounded-lg font-bold"
+                onClick={() => navigate("/login")}>
                 Start Planning
                 </button>
 

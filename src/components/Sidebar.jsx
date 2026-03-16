@@ -30,7 +30,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
 
   return (
     <div
-      className={`fixed left-0 top-0 h-screen bg-white border-r border-gray-200 flex flex-col justify-between transition-all duration-300 z-40 ${
+      className={`fixed left-0 top-0 bottom-0 flex-shrink-0 overflow-hidden touch-none overscroll-none bg-white border-r border-gray-200 flex flex-col justify-between transition-all duration-300 z-40 ${
         collapsed ? "w-20" : "w-64"
       }`}
     >
@@ -102,7 +102,7 @@ export default function Sidebar({ collapsed, setCollapsed }) {
                 : "text-gray-500 hover:text-black hover:bg-gray-100"
         }`}
       >
-        <Settings size={20} />
+        <Settings size={20} className="flex-shrink-0" />
         {!collapsed && "Settings"}
       </div>
     </div>

@@ -13,8 +13,8 @@ export default function MainLayout({ children }) {
 
       {/* Content area — offset by sidebar width */}
       <div
-        className={`flex flex-col min-h-screen transition-all duration-300 ${
-          collapsed ? "ml-20" : "ml-64"
+        className={`flex flex-col min-h-dvh transition-all duration-300 ${
+          collapsed ? "pl-20" : "pl-64"
         }`}
       >
         {/* Sticky Header */}
@@ -27,4 +27,4 @@ export default function MainLayout({ children }) {
       </div>
     </div>
   );
-}
+}
