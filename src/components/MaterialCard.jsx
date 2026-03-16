@@ -47,14 +47,19 @@ export default function MaterialCard({
                     {icon}
                 </div>
                 <div ref={menuRef} className="relative">
-                    <button onClick={() => setOpenMenu(!openMenu)}>
+                    <button
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenMenu(!openMenu);
+                        }}
+                    >
                         <MoreHorizontal size={20} className="text-gray-400" />
                     </button>
                     {openMenu && (
                         <div className="absolute right-0 mt-2 w-36 bg-white border rounded-lg shadow-md">
                             <button
-                                onClick={() => {
-                                    setOpenMenu(false);
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     onEdit();
                                 }}
                                 className="flex items-center gap-2 w-full px-3 py-2 hover:bg-gray-50 text-sm"
@@ -63,8 +68,8 @@ export default function MaterialCard({
                                 Edit
                             </button>
                             <button
-                                onClick={() => {
-                                    setOpenMenu(false);
+                                onClick={(e) => {
+                                    e.stopPropagation();
                                     onDelete();
                                 }}
                                 className="flex items-center gap-2 w-full px-3 py-2 hover:bg-red-50 text-red-500 text-sm"
@@ -76,7 +81,6 @@ export default function MaterialCard({
                     )}
                 </div>
             </div>
-            {/* Title */}
             <div>
                 <h3 className="font-semibold text-xl text-gray-800">
                     {title}
@@ -85,7 +89,6 @@ export default function MaterialCard({
                     {files} Files | {size}
                 </p>
             </div>
-            {/* Users */}
             <div className="flex -space-x-3">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-red-100">
                     <CircleUserRound size={32} className="text-red-500"/>

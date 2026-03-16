@@ -327,15 +327,17 @@ const [showDeleteModal,setShowDeleteModal] = useState(false);
 const [deleteTask,setDeleteTask] = useState(null);
 const [toast,setToast] = useState(null);
 
-const showToast = (msg) => {
+const showToast = (msg, conf) => {
     setToast(msg);
 
-    confetti({
-        particleCount: 120,
-        spread: 70,
-        origin: { y: 0.6 },
-        zIndex: 9999
-    });
+    if (conf) {
+        confetti({
+            particleCount: 120,
+            spread: 70,
+            origin: { y: 0.6 },
+            zIndex: 9999
+        });
+    }
 
     setTimeout(() => {
         setToast(null);
@@ -399,7 +401,7 @@ const getStatusIcon = (task, index) => {
                 const updated = [...tasks];
                 updated[index].status = "Completed";
                 setTasks(updated);
-                showToast("Task completed 🎉");
+                showToast("Task completed!", true);
             }}
             className="w-9 h-9 rounded-full border-2 border-gray-300 flex items-center justify-center hover:border-green-500 transition"
         >
@@ -542,23 +544,20 @@ const getStatusIcon = (task, index) => {
                         {displayedTasks.map((task,index)=>(
                             <div
                                 key={index}
-                                className="flex items-center justify-between px-6 py-5 relative hover:bg-indigo-50 transition gap-6"
+                                className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-5 py-5 relative hover:bg-indigo-50 transition gap-4"
                             >
                                 <div className="flex items-start gap-4">
                                     {getStatusIcon(task,index)}
-
                                     <div>
-                                        <p className={`font-semibold text-lg ${
+                                        <p className={`font-semibold text-base sm:text-lg ${
                                             task.status === "Completed" ? "line-through text-gray-400" : ""
                                         }`}>
                                             {task.title}
                                         </p>
-
-                                        <div className="flex items-center gap-3 text-sm text-gray-500 mt-1">
+                                        <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-gray-500 mt-1">
                                             <span className="px-2 py-1 bg-gray-100 rounded text-xs font-semibold">
                                                 {task.category}
                                             </span>
-
                                             <span className="flex items-center gap-1">
                                                 <Calendar size={14}/>
                                                 {task.date}
@@ -566,51 +565,51 @@ const getStatusIcon = (task, index) => {
                                         </div>
                                     </div>
                                 </div>
-                            <div className="flex flex-wrap items-center gap-4 md:gap-6">
-                                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${agendaColor(task.agenda)}`}>
-                                    {task.agenda}
-                                </span>
-                                <span className={`px-3 py-1 rounded-full text-xs font-semibold ${priorityColor(task.priority)}`}>
-                                    {task.priority}
-                                </span>
-                                <button
-                                    onClick={() =>
-                                        setMenuIndex(menuIndex === index ? null : index)
-                                    }
-                                >
-                                    <MoreHorizontal size={18}/>
-                                </button>
-                                {menuIndex === index && (
-                                    <div className="absolute right-6 top-14 bg-white border rounded-xl shadow w-32 z-20">
-                                        <button
-                                            onClick={()=>{
-                                                setMenuIndex(null);
-                                                setEditMode(true);
-                                                setEditIndex(index);
-                                                setShowModal(true);
-                                                setTaskTitle(task.title);
-                                                setAgenda(task.agenda);
-                                                setSubject(task.category);
-                                                setPriority(task.priority);
-                                                setDueDate(task.date);
-                                            }}
-                                            className="flex gap-2 p-2 text-sm hover:bg-gray-100 w-full"
-                                        >
-                                            <Pencil size={16}/> Edit
-                                        </button>
-                                        <button
-                                            onClick={()=>{
-                                                setMenuIndex(null);
-                                                setDeleteTask(task);
-                                                setShowDeleteModal(true);
-                                            }}
-                                            className="flex gap-2 p-2 text-sm text-red-500 hover:bg-red-50 w-full"
-                                        >
-                                            <Trash2 size={16}/> Delete
-                                        </button>
-                                    </div>
-                                )}
-                            </div>
+                                <div className="flex items-center gap-3 sm:gap-6 flex-wrap sm:flex-nowrap">
+                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${agendaColor(task.agenda)}`}>
+                                        {task.agenda}
+                                    </span>
+                                    <span className={`px-3 py-1 rounded-full text-xs font-semibold ${priorityColor(task.priority)}`}>
+                                        {task.priority}
+                                    </span>
+                                    <button
+                                        onClick={() =>
+                                            setMenuIndex(menuIndex === index ? null : index)
+                                        }
+                                    >
+                                        <MoreHorizontal size={18}/>
+                                    </button>
+                                    {menuIndex === index && (
+                                        <div className="absolute right-6 top-14 bg-white border rounded-xl shadow w-32 z-20">
+                                            <button
+                                                onClick={()=>{
+                                                    setMenuIndex(null);
+                                                    setEditMode(true);
+                                                    setEditIndex(index);
+                                                    setShowModal(true);
+                                                    setTaskTitle(task.title);
+                                                    setAgenda(task.agenda);
+                                                    setSubject(task.category);
+                                                    setPriority(task.priority);
+                                                    setDueDate(task.date);
+                                                }}
+                                                className="flex gap-2 p-2 text-sm hover:bg-gray-100 w-full"
+                                            >
+                                                <Pencil size={16}/> Edit
+                                            </button>
+                                            <button
+                                                onClick={()=>{
+                                                    setMenuIndex(null);
+                                                    setDeleteTask(task);
+                                                    setShowDeleteModal(true);
+                                                }}
+                                                className="flex gap-2 p-2 text-sm text-red-500 hover:bg-red-50 w-full"
+                                            >
+                                                <Trash2 size={16}/> Delete
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         ))}
                     {filteredTasks.length>3 &&(
@@ -788,9 +787,9 @@ const getStatusIcon = (task, index) => {
                                         if(!isFormValid) return;
 
                                         if(editMode){
-                                            showToast("Task updated successfully!");
+                                            showToast("Task updated successfully!", true);
                                         }else{
-                                            showToast("Task created successfully!");
+                                            showToast("Task created successfully!", true);
                                         }
                                         setShowModal(false);
                                     }}
@@ -833,7 +832,7 @@ const getStatusIcon = (task, index) => {
                                 </button>
                                 <button
                                     onClick={()=>{
-                                        showToast("Task deleted successfully");
+                                        showToast("Task deleted successfully", false);
                                         setShowDeleteModal(false);
                                     }}
                                     className="px-6 py-3 rounded-xl bg-red-500 text-white font-medium"

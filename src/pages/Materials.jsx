@@ -20,6 +20,7 @@ import FolderModal from "../components/FolderModal";
 import UploadModal from "../components/UploadModal";
 import deleteImg from "../assets/images/materials-delete.png";
 import footer from "../assets/images/Materials-footer.png";
+import confetti from "canvas-confetti";
 
 export default function Materials() {
     const [openModal, setOpenModal] = useState(false);
@@ -32,11 +33,21 @@ export default function Materials() {
     const navigate = useNavigate();
     const [toast, setToast] = useState(null);
 
-    const showToast = (message) => {
+    const showToast = (message, conf) => {
         setToast(message);
+
+        if (conf) {
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 },
+                zIndex: 9999
+            });
+        }
+
         setTimeout(() => {
             setToast(null);
-        }, 1500);
+        }, 2000);
     };
 
     const handleUploadClick = () => {
@@ -46,24 +57,27 @@ export default function Materials() {
     const handleFileUpload = (e) => {
         const file = e.target.files[0];
         if (!file) return;
-        showToast(`File renamed to ${newName}`);
+
+        showToast(`${file.name} uploaded successfully`, true);
     };
 
     const handleDeleteFolder = () => {
-        showToast(`${deleteFolder} folder deleted successfully`);
+        showToast(`${deleteFolder} folder deleted successfully`, false);
         setDeleteFolder(null);
     };
 
     const handleDeleteFile = () => {
-        showToast(`${deleteFile} deleted successfully`);
+        showToast(`${deleteFile} deleted successfully`, false);
         setDeleteFile(null);
     };
 
     const handleSaveFolder = (data, mode) => {
         if (mode === "create") {
-            showToast(`Folder "${data.name}" created successfully`);
+            showToast(`Folder "${data.name}" created successfully`, true);
+            setOpenModal(false);
         } else {
-            showToast(`Folder "${data.name}" updated successfully`);
+            showToast(`Folder "${data.name}" updated successfully`, true);
+            setEditFolder(null);
         }
     };
 
@@ -351,8 +365,8 @@ export default function Materials() {
                                 <button
                                     onClick={() => {
                                         const newName = document.getElementById("editFileInput").value;
-                                        showToast(`File renamed to ${newName}`);
                                         setEditFile(null);
+                                        showToast(`File renamed to ${newName}`, true);
                                     }}
                                     className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
                                 >

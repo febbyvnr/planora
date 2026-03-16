@@ -5,7 +5,8 @@ import {
     Image,
     FileSpreadsheet,
     Video,
-    Calculator
+    Calculator,
+    CheckCircle,
 } from "lucide-react";
 
 import FileItem from "../components/FileItem";
@@ -13,6 +14,7 @@ import MaterialCard from "../components/MaterialCard";
 import UploadModal from "../components/UploadModal";
 import FolderModal from "../components/FolderModal";
 import { useState, useRef } from "react";
+    import confetti from "canvas-confetti";
 
 export default function MaterialFolder() {
     const [editFile, setEditFile] = useState(null);
@@ -21,8 +23,25 @@ export default function MaterialFolder() {
     const [openModal, setOpenModal] = useState(false);
     const [editFolder, setEditFolder] = useState(null);
     const [deleteFolder, setDeleteFolder] = useState(null);
-
+    const [toast, setToast] = useState(null);
     const fileInputRef = useRef(null);
+
+    const showToast = (message, conf = false) => {
+        setToast(message);
+
+        if (conf) {
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 },
+                zIndex: 9999
+            });
+        }
+
+        setTimeout(() => {
+            setToast(null);
+        }, 2000);
+    };
 
     const handleUploadClick = () => {
         fileInputRef.current.click();
@@ -32,37 +51,39 @@ export default function MaterialFolder() {
         const file = e.target.files[0];
         if (!file) return;
 
-        alert(`Uploaded: ${file.name}`);
+        showToast(`${file.name} uploaded successfully`, true);
     };
 
     const handleDeleteFile = () => {
-        alert(`${deleteFile} deleted successfully`);
+        showToast(`${deleteFile} deleted successfully`);
         setDeleteFile(null);
     };
 
     const handleSaveFolder = (data, mode) => {
         if (mode === "create") {
-            alert(`Folder "${data.name}" created successfully`);
+            showToast(`Folder "${data.name}" created successfully`, true);
+            setOpenModal(false);
         } else {
-            alert(`Folder "${data.name}" updated successfully`);
+            showToast(`Folder "${data.name}" updated successfully`, true);
+            setEditFolder(null);
         }
     };
 
     const handleDeleteFolder = () => {
-        alert(`${deleteFolder} folder deleted successfully`);
+        showToast(`${deleteFolder} folder deleted successfully`);
         setDeleteFolder(null);
     };
 
     return (
-        <div className="space-y-10">
+        <div className="min-h-screen -mt-10 space-y-10">
             <input
                 type="file"
                 ref={fileInputRef}
                 className="hidden"
                 onChange={handleFileUpload}
             />
-            <div className="flex justify-between items-center">
-                <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
+                <div className="flex items-center gap-4 flex-wrap">
                     <div className="w-16 h-16 rounded-xl bg-indigo-100 flex items-center justify-center">
                         <Calculator size={32} className="text-indigo-600"/>
                     </div>
@@ -75,7 +96,7 @@ export default function MaterialFolder() {
                         </p>
                     </div>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3">
                     <button
                         onClick={() => setOpenModal(true)}
                         className="flex items-center gap-2 px-4 py-2 border rounded-lg"
@@ -92,7 +113,7 @@ export default function MaterialFolder() {
                     </button>
                 </div>
             </div>
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <MaterialCard
                     title="Calculus"
                     files="12"
@@ -128,15 +149,15 @@ export default function MaterialFolder() {
                 <h2 className="text-2xl font-semibold mb-4">
                     Files
                 </h2>
-                <div className="grid grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <FileItem
                         icon={<FileText size={24}/>}
-                        name="Basic_Mathematics.pdf"
+                        name="Basic_Math.pdf"
                         time="Modified 2h ago"
                         iconBg="bg-red-100"
                         iconColor="text-red-500"
-                        onEdit={() => setEditFile("Basic_Mathematics.pdf")}
-                        onDelete={() => setDeleteFile("Basic_Mathematics.pdf")}
+                        onEdit={() => setEditFile("Basic_Math.pdf")}
+                        onDelete={() => setDeleteFile("Basic_Math.pdf")}
                     />
                     <FileItem
                         icon={<Image size={24}/>}
@@ -158,12 +179,12 @@ export default function MaterialFolder() {
                     />
                     <FileItem
                         icon={<Video size={24}/>}
-                        name="Meet_Recording_12120.mp4"
+                        name="Meet_Record.mp4"
                         time="Modified 3d ago"
                         iconBg="bg-purple-100"
                         iconColor="text-purple-600"
-                        onEdit={() => setEditFile("Meet_Recording_12120.mp4")}
-                        onDelete={() => setDeleteFile("Meet_Recording_12120.mp4")}
+                        onEdit={() => setEditFile("Meet_Record.mp4")}
+                        onDelete={() => setDeleteFile("Meet_Record.mp4")}
                     />
                     <FileItem
                         icon={<FileText size={24}/>}
@@ -181,8 +202,8 @@ export default function MaterialFolder() {
                 </div>
             </div>
             {deleteFile && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="bg-white rounded-xl p-6 w-96">
+                <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
+                    <div className="bg-white rounded-xl p-6 w-[90%] max-w-md">
                         <h3 className="text-lg font-semibold mb-2">
                             Delete File
                         </h3>
@@ -208,11 +229,11 @@ export default function MaterialFolder() {
             )}
             {editFile && (
                 <div
-                  className="fixed inset-0 bg-black/30 flex items-center justify-center"
-                  onClick={() => setEditFile(null)}
+                    className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn"
+                    onClick={() => setEditFile(null)}
                 >
                     <div
-                      className="bg-white rounded-2xl p-6 w-96"
+                      className="bg-white rounded-2xl p-6 w-[90%] max-w-md"
                       onClick={(e) => e.stopPropagation()}
                     >
                         <h3 className="text-lg font-semibold mb-4">
@@ -234,7 +255,7 @@ export default function MaterialFolder() {
                             <button
                                 onClick={() => {
                                     const newName = document.getElementById("editFileInput").value;
-                                    alert(`File renamed to ${newName}`);
+                                    showToast(`File renamed to ${newName}`, true);
                                     setEditFile(null);
                                 }}
                                 className="px-4 py-2 bg-indigo-600 text-white rounded-lg"
@@ -264,8 +285,8 @@ export default function MaterialFolder() {
                   onSave={(data) => handleSaveFolder(data, "edit")}
             />
             {deleteFolder && (
-                <div className="fixed inset-0 bg-black/30 flex items-center justify-center">
-                    <div className="bg-white rounded-xl p-6 w-96">
+                <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
+                    <div className="bg-white rounded-xl p-6 w-[90%] max-w-md">
                         <h3 className="text-lg font-semibold mb-2">
                             Delete Folder
                         </h3>
@@ -286,6 +307,16 @@ export default function MaterialFolder() {
                                 Delete
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+            {toast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20} />
+                        <p className="text-sm font-medium text-gray-700">
+                            {toast}
+                        </p>
                     </div>
                 </div>
             )}
