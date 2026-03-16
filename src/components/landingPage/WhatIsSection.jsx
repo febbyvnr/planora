@@ -73,7 +73,7 @@ import {
     ];
 
     return (
-        <section id="about" className="relative pt-32 pb-24 -mt-20 bg-gradient-to-b from-blue-500 to-blue-600">
+        <section id="about" className="relative pt-32 pb-24 -mt-20 bg-gradient-to-b from-blue-500 to-blue-600 rounded-b-[50px]">
 
         <div className="max-w-7xl mx-auto px-6">
 
