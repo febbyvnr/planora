@@ -65,18 +65,22 @@ export default function UploadModal({ open, onClose, folder = "Storage" }) {
 
     return (
         <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn px-4">
-            <div className="bg-white w-full max-w-[520px] rounded-3xl p-4 sm:p-6 max-h-[90vh] overflow-y-auto">
-                <div className="flex justify-between items-start mb-4">
+            <div className="bg-white w-full max-w-[520px] rounded-3xl max-h-[90vh] flex flex-col relative overflow-hidden">
+                <div className="flex justify-between items-start shrink-0 p-4 sm:p-6 pb-2 sm:pb-2">
                     <div>
                         <h2 className="text-xl font-bold">Upload Files</h2>
                         <p className="text-gray-500 text-sm">
                             Add documents to your Materials Storage
                         </p>
                     </div>
-                    <button onClick={onClose}>
-                        <X size={20}/>
-                    </button>
+                    <button
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
+                            onClick={onClose}
+                        >
+                            <X size={20} />
+                        </button>
                 </div>
+                {/* Drop area */}
                 <div
                     onDrop={handleDrop}
                     onDragOver={(e) => e.preventDefault()}

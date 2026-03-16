@@ -177,7 +177,6 @@ export default function Materials() {
                         onDelete={() => setDeleteFolder("Biology")}
                     />
                 </div>
-                {/* Files inside folder */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <FileItem
                         icon={<FileText size={24}/>}
@@ -256,13 +255,6 @@ export default function Materials() {
                             onUploadClick={handleUploadClick}
                         />
                     </div>
-                </div>
-                <div className="rounded-[40px] overflow-hidden mt-6 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
-                    <img
-                        src={footer}
-                        alt="Materials Storage Footer"
-                        className="w-full h-auto object-cover"
-                    />
                 </div>
                 <FolderModal
                     open={openModal}

@@ -622,13 +622,6 @@ const getStatusIcon = (task, index) => {
                     )}
                     </div>
                 </div>
-                <div className="rounded-[40px] overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
-                    <img
-                        src={footer}
-                        alt="Tasks Footer"
-                        className="w-auto h-auto object-cover object-top"
-                    />
-                </div>
                 {showModal && (
                     <div className="fixed -top-10 left-0 right-0 bottom-0 bg-black/40 backdrop-blur-md flex items-center justify-center z-50 animate-fadeIn">
                         <div className="bg-[#F7F7F7] w-[92%] max-w-[460px] rounded-[28px] p-6 space-y-5 animate-scaleIn shadow-2xl">

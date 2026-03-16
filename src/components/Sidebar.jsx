@@ -10,14 +10,12 @@ import {
 } from "lucide-react";
 
 import { useNavigate, useLocation } from "react-router-dom";
-// import { useState } from "react";
 
 import logo from "../assets/images/logo.png";
 
 export default function Sidebar({ collapsed, setCollapsed }) {
   const navigate = useNavigate();
   const location = useLocation();
-  // const [collapsed, setCollapsed] = useState(false);
 
   const menu = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
@@ -36,7 +34,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
     >
       <div>
 
-        {/* HAMBURGER */}
         <div className="flex justify-end px-4 pt-4">
           <button
             onClick={() => setCollapsed(!collapsed)}
@@ -46,7 +43,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           </button>
         </div>
 
-        {/* LOGO + TITLE */}
         <div
           className={`flex items-center py-4 ${
             collapsed ? "justify-center px-0" : "justify-center gap-3 px-6"
@@ -61,7 +57,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
           )}
         </div>
 
-        {/* MENU */}
         <nav className="px-3 flex flex-col gap-1">
           {menu.map((item, index) => {
             const Icon = item.icon;
@@ -91,7 +86,6 @@ export default function Sidebar({ collapsed, setCollapsed }) {
         </nav>
       </div>
 
-      {/* SETTINGS */}
       <div
         onClick={() => navigate('/settings')}
         className={`px-6 py-4 mx-3 mb-4 rounded-2xl flex items-center ${

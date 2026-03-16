@@ -15,13 +15,17 @@ const defaultSessions = [
   {
     id: 1,
     title: 'Deep Work',
-    subtitle: 'High Focus Programming',
+    subtitle: '50m Focus, 10m Break, 50m Focus',
     icon: <Code size={24} />,
     iconColor: 'text-[#4A72FF]',
     iconBg: 'bg-[#EBF0FF]',
-    duration: '25 Min Total',
+    duration: '1h 50m Total',
     ambience: 'none',
-    phases: [{ id: 1, type: 'Focus', minutes: 25 }]
+    phases: [
+      { id: 1, type: 'Focus', minutes: 50 },
+      { id: 2, type: 'Short Break', minutes: 10 },
+      { id: 3, type: 'Focus', minutes: 50 }
+    ]
   },
   {
     id: 2,
@@ -266,7 +270,6 @@ export default function Timer() {
     if (!hasSelectedSession) {
         return (
             <div className="flex flex-col gap-8 pb-10 text-gray-800 animate-in fade-in duration-500">
-                {/* Header Section */}
                 <div className="flex justify-between items-end mb-2">
                     <div className="flex flex-col gap-1">
                         <h1 className="text-[28px] font-bold text-gray-900 tracking-tight">Timer Sessions</h1>
@@ -276,16 +279,13 @@ export default function Timer() {
                     </div>
                 </div>
 
-                {/* Cards Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     
-                    {/* Pre-defined Session Cards */}
                     {savedSessions.map((session) => (
                         <div
                             key={session.id}
                             className="bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 flex flex-col min-h-[220px] transition-all duration-300 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05),0_8px_10px_-6px_rgba(0,0,0,0.01)] hover:-translate-y-1.5"
                         >
-                            {/* Card Header */}
                             <div className="flex gap-4">
                                 <div className={`w-12 h-12 rounded-[14px] ${session.iconBg || 'bg-gray-100'} ${session.iconColor || 'text-gray-500'} flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shrink-0`}>
                                    {session.icon || <Play size={24} />}
@@ -296,7 +296,6 @@ export default function Timer() {
                                 </div>
                             </div>
 
-                            {/* Tags */}
                             <div className="mt-4 mb-5 flex flex-wrap gap-2">
                                 <span className="flex items-center gap-1.5 text-gray-500 bg-gray-50 px-3 py-1.5 rounded-xl border border-gray-100">
                                     <Clock size={13} className="text-[#3b5166]" />
@@ -316,7 +315,6 @@ export default function Timer() {
                                 )}
                             </div>
 
-                            {/* Start Action */}
                             <button
                                 onClick={() => handleStartSession(session)}
                                 className="mt-auto w-full py-3 rounded-xl border-2 border-[#2BB67D] bg-[#E8FAF4] text-[#1FA96A] font-extrabold text-[14px] flex items-center justify-center gap-2 hover:bg-[#d2f5e8] transition-all duration-300"
@@ -327,7 +325,6 @@ export default function Timer() {
                         </div>
                     ))}
 
-                    {/* Add New Session Card */}
                     <div 
                         onClick={() => setIsCreateModalOpen(true)}
                         className="bg-white rounded-[24px] border-2 border-dashed border-gray-300 flex flex-col items-center justify-center p-6 min-h-[220px] cursor-pointer hover:bg-gray-50 hover:border-[#5D6BDE] group transition-all duration-300"
@@ -357,10 +354,8 @@ export default function Timer() {
     // ==========================================
     return (
         <div className="flex flex-col w-full min-h-[calc(100vh-120px)] text-gray-800 animate-in fade-in zoom-in-95 duration-500 rounded-3xl pb-10">
-            {/* HEADER */}
             <header className="relative z-10 w-full flex justify-between items-center mb-10">
                 <div className="flex items-center gap-4">
-                    {/* Back to Setup Button */}
                     <button 
                         onClick={handleExitTimer}
                         className="group flex items-center gap-2 px-4 py-2 hover:px-5 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm text-gray-600 font-semibold text-sm transition-all duration-300"
@@ -389,10 +384,8 @@ export default function Timer() {
                     </div>
                 </div>
 
-                {/* Top Right Controls */}
                 <div className="flex items-center gap-3 sm:gap-4">
                     
-                    {/* Custom Spotify/Link Handle (if applicable) */}
                     {activeSession?.ambience === 'custom' && activeSession?.customLink && (
                         <a 
                             href={activeSession.customLink} 
@@ -428,10 +421,8 @@ export default function Timer() {
                 </div>
             </header>
 
-            {/* MAIN TIMER AREA */}
             <main className="relative z-10 flex flex-col items-center justify-center flex-1 w-full px-4">
                 
-                {/* CLEAN CARD */}
                 <div className="w-full max-w-lg relative group">
                     <div className={`absolute -inset-0.5 rounded-[2.5rem] blur-lg opacity-20 transition-all duration-1000 bg-gradient-to-r ${MODES[activeMode]?.theme || MODES['Focus'].theme}`}></div>
 
@@ -444,7 +435,7 @@ export default function Timer() {
                             ></div>
                         </div>
 
-                        {/* MODE SELECTORS - Hidden if using sequential phases, we drive mode auto */}
+                        {/* Hidden if using sequential phases, we drive mode auto */}
                         {(!activeSession?.phases || activeSession.phases.length <= 1) && (
                             <div className="flex justify-center">
                                 <div className="flex gap-2 mb-10 p-1.5 bg-gray-50 rounded-full border border-gray-100 shrink-0">
@@ -468,7 +459,6 @@ export default function Timer() {
                             </div>
                         )}
 
-                        {/* SEQUENCE INDICATOR (If multi-phase) */}
                         {activeSession?.phases && activeSession.phases.length > 1 && (
                             <div className="flex justify-center items-center gap-2 mb-10">
                                 {activeSession.phases.map((p, idx) => (
@@ -490,7 +480,6 @@ export default function Timer() {
                             </div>
                         )}
 
-                        {/* TIMER DISPLAY */}
                         <div className="flex flex-col items-center justify-center mb-10">
                             <div className="text-[7rem] md:text-[9rem] font-bold leading-none tracking-tighter text-gray-900 drop-shadow-sm select-none" style={{ fontVariantNumeric: 'tabular-nums' }}>
                                 {formatTime(timeLeft)}
@@ -500,7 +489,6 @@ export default function Timer() {
                             </p>
                         </div>
 
-                        {/* CONTROLS */}
                         <div className="flex items-center justify-center gap-6">
                             <button 
                                 onClick={resetTimer}
@@ -527,7 +515,6 @@ export default function Timer() {
                     </div>
                 </div>
 
-                {/* DYNAMIC SESSION WIDGET */}
                 <div className="mt-8 relative bg-white border border-gray-100 rounded-2xl px-6 py-4 max-w-sm w-full shadow-md flex items-center justify-between group">
                      <div>
                         <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider mb-1 line-clamp-1">{activeSession?.title || 'Freestyle Focus'}</p>
@@ -546,8 +533,6 @@ export default function Timer() {
 
             </main>
 
-            {/* AUDIO ELEMENTS */}
-            {/* Ambient Sound source determined by session config */}
             <audio 
                 ref={ambienceAudioRef} 
                 src={AMBIENCE_SOURCES[activeSession?.ambience] || ''} 

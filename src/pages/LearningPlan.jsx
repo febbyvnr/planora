@@ -9,6 +9,12 @@ import SavedDraftsModal from '../components/SavedDraftsModal';
 import JoinPlanModal from '../components/JoinPlanModal';
 import SessionRoadmapCard from '../components/SessionRoadmapCard';
 import footerImage from '../assets/images/learning-plan-footer.png';
+import sticker1 from '../assets/images/sticker_1.png';
+import sticker2 from '../assets/images/sticker_2.png';
+import sticker3 from '../assets/images/sticker_3.png';
+import sticker4 from '../assets/images/sticker_4.png';
+import sticker5 from '../assets/images/sticker_5.png';
+import sticker6 from '../assets/images/sticker_6.png';
 
 const planData = [
   {
@@ -183,8 +189,7 @@ export default function LearningPlan() {
     <div className="flex flex-col gap-8 pb-10 text-gray-800">
       <div className="w-full">
         
-        {/* Header Section */}
-        <div className="flex justify-between items-end mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-4 mb-6">
           <div className="flex flex-col gap-1">
             <h1 className="text-[28px] font-bold text-gray-900 tracking-tight">Learning Plan</h1>
             <p className="text-gray-500 text-[15px] flex items-center gap-1.5 flex-wrap">
@@ -196,17 +201,17 @@ export default function LearningPlan() {
             </p>
           </div>
           
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full sm:w-auto">
             <button 
               onClick={() => setShowSavedDraftsModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#E6E9FA] text-[#5D6BDE] font-bold hover:bg-[#EEF0FD] hover:border-[#5D6BDE] transition-colors bg-white shadow-sm"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#E6E9FA] text-[#5D6BDE] font-bold hover:bg-[#EEF0FD] hover:border-[#5D6BDE] transition-colors bg-white shadow-sm w-full sm:w-auto"
             >
               <FileDown size={18} />
               Saved Drafts
             </button>
             <button 
               onClick={() => setShowJoinPlanModal(true)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#5D6BDE] text-white font-bold hover:bg-[#4C5AC7] transition-colors shadow-md shadow-[#5D6BDE]/20 border-2 border-[#5D6BDE]"
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#5D6BDE] text-white font-bold hover:bg-[#4C5AC7] transition-colors shadow-md shadow-[#5D6BDE]/20 border-2 border-[#5D6BDE] w-full sm:w-auto"
             >
               <Users size={18} />
               Join Plan
@@ -214,10 +219,8 @@ export default function LearningPlan() {
           </div>
         </div>
 
-        {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
-          {/* Map through existing plans */}
           {planData.map((plan) => (
             <div
               key={plan.id}
@@ -225,7 +228,6 @@ export default function LearningPlan() {
               className={`bg-white rounded-[24px] p-6 shadow-sm border border-gray-100 flex flex-col h-[220px] transition-all duration-300 hover:shadow-[0_10px_25px_-5px_rgba(0,0,0,0.05),0_8px_10px_-6px_rgba(0,0,0,0.01)] hover:-translate-y-1.5 cursor-pointer`}
             >
               
-              {/* Card Header (Icon + Titles) */}
               <div className="flex gap-4">
                 <div className={`w-12 h-12 rounded-[14px] ${plan.iconBg} ${plan.iconColor} flex items-center justify-center transition-transform duration-300 group-hover:scale-105`}>
                    {plan.icon}
@@ -236,7 +238,6 @@ export default function LearningPlan() {
                 </div>
               </div>
 
-              {/* Progress Bar */}
               <div className="mt-auto mb-6">
                 <div className="flex justify-between items-end mb-2">
                   <span className="text-gray-500 text-xs font-semibold">Progress</span>
@@ -252,7 +253,6 @@ export default function LearningPlan() {
                 </div>
               </div>
 
-              {/* Card Footer (Collaborators & Sessions) */}
               <div className="flex justify-between items-center mt-auto">
                 <div>
                    <span className="text-gray-900 text-[9px] font-bold uppercase tracking-wider block mb-1.5">Collaborators</span>
@@ -298,14 +298,8 @@ export default function LearningPlan() {
 
         </div>
 
-        {/* Footer Banner */}
-        <div className="rounded-[40px] overflow-hidden mt-8 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl bg-[#EBE7FA]">
-          <img src={footerImage} alt="Maintain your streak" className="w-auto h-auto object-cover object-top mx-auto" />
-        </div>
-
       </div>
 
-      {/* Create New Plan Modal */}
       <CreatePlanModal 
         isOpen={showCreateModal} 
         onClose={handleCloseCreateModal}
@@ -328,12 +322,10 @@ export default function LearningPlan() {
         onClose={() => setShowJoinPlanModal(false)}
       />
 
-      {/* Plan Detail Modal — dynamic for all plans */}
       {selectedPlan && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
           <div className="bg-white w-[480px] max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col">
 
-            {/* Header */}
             <div className={`${selectedPlan.headerBg} px-6 pt-6 pb-5 relative`}>
               <button
                 onClick={() => setSelectedPlan(null)}
@@ -354,7 +346,6 @@ export default function LearningPlan() {
               </span>
             </div>
 
-            {/* Body — Session Roadmap */}
             <div className="overflow-y-auto flex-1 px-6 pt-5 pb-4 space-y-3">
               <div className="flex items-center gap-2 mb-2">
                 <GitBranch size={20} className="text-blue-500" />
@@ -366,7 +357,6 @@ export default function LearningPlan() {
               ))}
             </div>
 
-            {/* Footer */}
             <div className="px-6 py-5 border-t border-gray-100">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
