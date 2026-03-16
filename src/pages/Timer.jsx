@@ -371,8 +371,15 @@ export default function Timer() {
                     
                     <div className="hidden sm:flex items-center gap-3 ml-4">
                         <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${MODES[activeMode]?.theme || MODES['Focus'].theme} flex items-center justify-center shadow-md animate-pulse`}>
-                            <CheckCircle size={22} className="text-white" />
+                            {activeSession?.icon ? (
+                                <span className="text-white scale-[0.9]">
+                                    {activeSession.icon}
+                                </span>
+                            ) : (
+                                <CheckCircle size={22} className="text-white" />
+                            )}
                         </div>
+                        
                         <div>
                             <h1 className="text-xl font-black tracking-wider text-gray-900 drop-shadow-sm line-clamp-1">
                                 {activeSession?.title || 'Freestyle Focus'}

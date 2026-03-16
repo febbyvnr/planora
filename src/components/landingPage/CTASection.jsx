@@ -15,7 +15,7 @@ export default function CTASection({
   const Navigate = useNavigate();
 
   return (
-    <section className="py-16 px-6 bg-gradient-to-b from-[#4C27B2] via-[#6A46D9] to-[#ffffff] ">
+    <section className="py-16 px-6 bg-gradient-to-b from-blue-600 via-blue-300 to-[#ffffff] ">
 
       <AnimatedContent
         distance={40}
