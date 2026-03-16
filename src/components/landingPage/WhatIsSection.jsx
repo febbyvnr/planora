@@ -1,5 +1,4 @@
 import FeatureCard from "./Card/WhatIsCard";
-
 import AnimatedContent from "../ReactBits/AnimatedContent";
 
 import {
@@ -74,36 +73,46 @@ import {
     ];
 
     return (
-        <section className="relative pt-32 pb-24 -mt-20 bg-gradient-to-b from-blue-500 to-blue-600">
+        <section id="about" className="relative pt-32 pb-24 -mt-20 bg-gradient-to-b from-blue-500 to-blue-600">
 
         <div className="max-w-7xl mx-auto px-6">
 
             {/* Heading */}
             <AnimatedContent
-            distance={80}
+            distance={100}
             direction="vertical"
             reverse={false}
-            duration={1.5}
+            duration={0.7}
             ease="power3.out"
-            initialOpacity={0.3}
+            initialOpacity={0}
             animateOpacity
             scale={1}
-            threshold={0.4}
-            delay={0.5}
+            delay={0.2}
             >
             <div className="text-center text-white mb-16">
-
                 <h2 className="text-4xl md:text-5xl font-bold font-['Outfit']">
                     What is Planora?
                 </h2>
-
-                <p className="text-xl font-semibold mt-4">
-                Plan, organize, collaborate, and track your progress in one platform.
-                </p>
-
             </div>
             </AnimatedContent>
 
+            <AnimatedContent
+            distance={100}
+            direction="vertical"
+            reverse={false}
+            duration={0.7}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
+            scale={1}
+            delay={0.2}
+            >
+            <div className = "text-center text-white mb-16">
+                <p className="text-xl font-semibold mt-4">
+                    Plan, organize, collaborate, and track your progress in one platform.
+                </p>
+            </div>
+            </AnimatedContent>
 
             {/* Cards */}
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">

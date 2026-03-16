@@ -3,6 +3,7 @@ import Footer from "../components/landingPage/Footer";
 import Hero from "../components/landingPage/HeroSection";
 import WhatIsSection from "../components/landingPage/WhatIsSection";
 import WhySection from "../components/landingPage/WhySection";
+import ReviewSection from "../components/landingPage/ReviewSection";
 import CTASection from "../components/landingPage/CTASection";
 
 export default function LandingPage() {
@@ -12,6 +13,7 @@ export default function LandingPage() {
       <Hero/>
       <WhatIsSection/>
       <WhySection/>
+      <ReviewSection/>
       <CTASection/>
       <Footer/>
     </>

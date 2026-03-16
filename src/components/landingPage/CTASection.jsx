@@ -1,6 +1,8 @@
 import AnimatedContent from "../ReactBits/AnimatedContent";
-import ScrollFloat from "../ReactBits/ScrollFloat";
+import ShinyText from "../ReactBits/ShinyText";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
 
 export default function CTASection({
   badge = "Available on Web & Mobile",
@@ -9,8 +11,11 @@ export default function CTASection({
   description = "Join students who are organizing their study plans, collaborating with friends, and tracking their learning progress with Planora.",
   buttonText = "Start Planning With Planora?"
 }) {
+
+  const Navigate = useNavigate();
+
   return (
-    <section className="py-16 px-6">
+    <section className="py-16 px-6 bg-gradient-to-b from-[#4C27B2] via-[#6A46D9] to-[#ffffff] ">
 
       <AnimatedContent
         distance={40}
@@ -28,25 +33,28 @@ export default function CTASection({
           whileInView={{ opacity: 1, scale: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="relative max-w-7xl mx-auto rounded-[3rem] bg-blue-600 p-12 md:p-24 text-center shadow-2xl shadow-blue-200 overflow-hidden"
+          className="relative max-w-7xl mx-auto rounded-[3rem] bg-[#FDC21E] p-12 md:p-24 text-center overflow-hidden shadow-md shadow-amber-400"
         >
 
-          {/* Background Decoration */}
-          <div className="absolute inset-0 pointer-events-none">
+        {/* Background Decoration */}
+        <div className="absolute inset-0 pointer-events-none">
 
-            <div className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] bg-blue-500 rounded-full blur-3xl opacity-50" />
+          {/* Glow kiri */}
+          <div className="absolute -top-1/2 -left-1/4 w-[800px] h-[800px] bg-orange-400 rounded-full blur-3xl opacity-40" />
 
-            <div className="absolute -bottom-1/2 -right-1/4 w-[600px] h-[600px] bg-blue-400 rounded-full blur-3xl opacity-40" />
+          {/* Glow kanan */}
+          <div className="absolute -bottom-1/2 -right-1/4 w-[600px] h-[600px] bg-amber-400 rounded-full blur-3xl opacity-40" />
 
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+          {/* Grid overlay */}
+          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.12)_2px,transparent_2px),linear-gradient(90deg,rgba(255,255,255,0.12)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
 
-          </div>
+        </div>
 
           {/* Content */}
           <div className="relative z-10 max-w-3xl mx-auto">
-
+          
             {/* Badge */}
-            <div className="inline-block bg-white text-blue-600 px-6 py-2 rounded-xl shadow-md font-bold mb-8">
+            <div className="inline-block bg-white text-orange-400 px-6 py-2 rounded-xl shadow-md font-bold mb-8">
               {badge}
             </div>
 
@@ -64,17 +72,27 @@ export default function CTASection({
 
             {/* Button */}
             <div className="mt-10">
-              <button className="bg-white text-blue-600 font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:scale-105 transition">
-                {buttonText}
+              <button className="bg-white text-orange-400 font-bold text-lg px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
+              onClick={() => Navigate("/login")}
+              >
+                <ShinyText
+                  className="inline-block"
+                  text={buttonText}
+                  speed={2}
+                  delay={0}
+                  color="#fb923c"
+                  shineColor="#ffffff"
+                  spread={120}
+                  direction="left"
+                  yoyo={false}
+                  pauseOnHover={false}
+                  disabled={false}
+                />
               </button>
             </div>
-
           </div>
-
         </motion.div>
-
       </AnimatedContent>
-
     </section>
   );
 }

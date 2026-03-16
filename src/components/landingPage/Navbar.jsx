@@ -1,11 +1,21 @@
 import { useState } from "react";
-import {  useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import logo from "../../assets/images/logo.png";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     const Navigate = useNavigate();
+
+    const scrollToSection = (id) => {
+        // kalau bukan di homepage → pindah dulu
+        if (location.pathname !== "/") {
+        navigate("/", { state: { scrollTo: id } });
+        } else {
+        const el = document.getElementById(id);
+        el?.scrollIntoView({ behavior: "smooth" });
+        }
+    };
 
     return (
         <header className="w-full border-b bg-white">
@@ -28,13 +38,23 @@ export default function Navbar() {
 
             {/* Desktop Navigation */}
             <nav className="hidden md:flex items-center gap-10">
-                <a className="text-sm font-semibold hover:text-blue-500 transition cursor-pointer">
-                Features
+
+                <a 
+                className="relative text-sm font-semibold cursor-pointer group hover:text-blue-500"
+                onClick={() => scrollToSection("fitur")}
+                >
+                    Features
+                    <span className="absolute left-0 -bottom-[28px] h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
                 </a>
 
-                <a className="text-sm font-semibold hover:text-blue-500 transition cursor-pointer">
-                About
-                </a>
+                <button 
+                className="relative text-sm font-semibold cursor-pointer group hover:text-blue-500"
+                onClick={() => scrollToSection("about")}
+                >
+                    About
+                    <span className="absolute left-0 -bottom-[28px] h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full"></span>
+                </button>
+
             </nav>
 
             {/* Desktop Buttons */}
@@ -44,10 +64,14 @@ export default function Navbar() {
                 onClick={() => Navigate("/login")}
                 >
                 Log in
+                <span className="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
                 </button>
 
-                <button className="px-6 py-2.5 bg-blue-500 text-white text-sm font-bold rounded-xl shadow-md hover:bg-blue-600 transition">
-                Start Planning
+                <button 
+                className="px-6 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-xl shadow-md hover:bg-blue-600 transition hover:scale-105"
+                onClick={() => Navigate("/login")}
+                >
+                Sign Up
                 </button>
             </div>
 

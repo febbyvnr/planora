@@ -4,8 +4,8 @@ import logo from "../../assets/images/logo.png";
 export default function Footer() {
 
     return (
-        <div className="w-full bg-blue-500 rounded-t-[50px] py-12">
-        <div className="max-w-7xl mx-auto px-6 flex flex-col gap-10">
+        <div className="w-full bg-[#047857] rounded-t-[50px] py-8">
+        <div className="max-w-7xl mx-auto px-2 flex flex-col gap-10">
 
             {/* Top Section */}
             <div className="flex flex-col md:flex-row justify-between gap-10">
@@ -23,7 +23,7 @@ export default function Footer() {
                 </h1>
                 </div>
 
-                <p className="text-white text-sm md:text-base font-light leading-relaxed">
+                <p className="text-white text-2xl md:text-base font-normal leading-tight">
                 Ready to plan smarter this with Planora?
                 </p>
             </div>
