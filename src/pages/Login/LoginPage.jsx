@@ -1,67 +1,75 @@
-import { UserRound, Phone } from "lucide-react";
+import { UserRound, Phone, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom"; 
 
 export default function LoginPage() {
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-[#FBF9FF] px-4">
-            <div className="w-full max-w-lg bg-white rounded-[48px] shadow-lg p-10">
+            <div className="relative w-full max-w-lg bg-white rounded-[48px] shadow-lg p-10">
+
+                {/* Back Button */}
+                <button
+                    onClick={() => navigate("/")}
+                    className="absolute left-6 top-6 p-2 rounded-full hover:bg-gray-100 transition"
+                >
+                    <ArrowLeft className="w-5 h-5 text-gray-700" />
+                </button>
 
                 {/* Header */}
                 <div className="text-center mb-10">
-                <h1 className="text-4xl font-bold text-gray-900 font-['Outfit']">
-                    Welcome Back!
-                </h1>
-                <p className="text-gray-500 mt-3 text-lg">
-                    Please enter your details to sign in
-                </p>
+                    <h1 className="text-4xl font-bold text-gray-900 font-['Outfit']">
+                        Welcome Back!
+                    </h1>
+                    <p className="text-gray-500 mt-3 text-lg">
+                        Please enter your details to sign in
+                    </p>
                 </div>
 
                 {/* Form */}
                 <form className="space-y-6">
 
-                {/* Email */}
-                <div>
-                    <label className="block text-sm font-medium text-gray-600 mb-2">
-                    Email
-                    </label>
-                    <input
-                    type="email"
-                    placeholder="Email"
-                    className="w-full h-12 px-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
-
-                {/* Password */}
-                <div>
-                    <div className="flex justify-between mb-2">
-                    <label className="text-sm font-medium text-gray-600">
-                        Password
-                    </label>
-                    <a
-                        href="#"
-                        className="text-sm text-gray-600 hover:text-blue-500"
-                    >
-                        Forgot Password?
-                    </a>
+                    {/* Email */}
+                    <div>
+                        <label className="block text-sm font-medium text-gray-600 mb-2">
+                            Email
+                        </label>
+                        <input
+                            type="email"
+                            placeholder="Email"
+                            className="w-full h-12 px-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
                     </div>
 
-                    <input
-                    type="password"
-                    placeholder="Password"
-                    className="w-full h-12 px-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    />
-                </div>
+                    {/* Password */}
+                    <div>
+                        <div className="flex justify-between mb-2">
+                            <label className="text-sm font-medium text-gray-600">
+                                Password
+                            </label>
+                            <a
+                                href="#"
+                                className="text-sm text-gray-600 hover:text-blue-500"
+                            >
+                                Forgot Password?
+                            </a>
+                        </div>
 
-                {/* Login Button */}
-                <button
-                    type="submit"
-                    className="w-full h-14 bg-blue-500 hover:bg-blue-600 transition text-white font-semibold rounded-full shadow-md"
-                    onClick={() => Navigate("/dashboard")}
-                >
-                    Log In
-                </button>
+                        <input
+                            type="password"
+                            placeholder="Password"
+                            className="w-full h-12 px-4 rounded-2xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                    </div>
+
+                    {/* Login Button */}
+                    <button
+                        type="button"
+                        className="w-full h-14 bg-blue-500 hover:bg-blue-600 transition text-white font-semibold rounded-full shadow-md"
+                        onClick={() => navigate("/dashboard")}
+                    >
+                        Log In
+                    </button>
 
                 </form>
 
@@ -96,6 +104,7 @@ export default function LoginPage() {
                         Sign up
                     </a>
                 </div>
+
             </div>      
         </div>
     );
