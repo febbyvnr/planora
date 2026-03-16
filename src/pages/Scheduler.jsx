@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { ChevronLeft, ChevronRight, X, CheckCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, X, CheckCircle, CircleUserRound } from "lucide-react";
 import confetti from "canvas-confetti";
 import cardBg from "../assets/images/scheduler-bg.png";
 import footer from "../assets/images/scheduler-footer.png";
@@ -123,11 +123,19 @@ export default function App() {
                             </div>
                             </div>
                             <div className="p-4 flex justify-between items-center">
-                            <div className="flex -space-x-2">
-                                <div className="w-7 h-7 rounded-full bg-yellow-400 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-purple-500 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-blue-500 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-red-500 border-2 border-white"></div>
+                            <div className="flex -space-x-3">
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-orange-100">
+                                    <CircleUserRound size={32} className="text-orange-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-purple-100">
+                                    <CircleUserRound size={32} className="text-purple-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-blue-100">
+                                    <CircleUserRound size={32} className="text-blue-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-yellow-100">
+                                    <CircleUserRound size={32} className="text-yellow-500"/>
+                                </div>
                             </div>
                             <span className="text-gray-500 text-sm">+49 more</span>
                         </div>
@@ -144,11 +152,19 @@ export default function App() {
                             </div>
                             </div>
                             <div className="p-4 flex justify-between items-center">
-                            <div className="flex -space-x-2">
-                                <div className="w-7 h-7 rounded-full bg-yellow-400 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-purple-500 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-blue-500 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-red-500 border-2 border-white"></div>
+                            <div className="flex -space-x-3">
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-yellow-100">
+                                    <CircleUserRound size={32} className="text-yellow-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-purple-100">
+                                    <CircleUserRound size={32} className="text-purple-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-blue-100">
+                                    <CircleUserRound size={32} className="text-blue-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-red-100">
+                                    <CircleUserRound size={32} className="text-red-500"/>
+                                </div>
                             </div>
                             <span className="text-gray-500 text-sm">+27 more</span>
                         </div>
@@ -163,11 +179,19 @@ export default function App() {
                             </div>
                             </div>
                             <div className="p-4 flex justify-between items-center">
-                            <div className="flex -space-x-2">
-                                <div className="w-7 h-7 rounded-full bg-yellow-400 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-purple-500 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-blue-500 border-2 border-white"></div>
-                                <div className="w-7 h-7 rounded-full bg-red-500 border-2 border-white"></div>
+                            <div className="flex -space-x-3">
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-red-100">
+                                    <CircleUserRound size={32} className="text-red-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-green-100">
+                                    <CircleUserRound size={32} className="text-green-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-yellow-100">
+                                    <CircleUserRound size={32} className="text-yellow-500"/>
+                                </div>
+                                <div className="w-8 h-8 rounded-full flex items-center justify-center border bg-purple-100">
+                                    <CircleUserRound size={32} className="text-purple-500"/>
+                                </div>
                             </div>
                             <span className="text-gray-500 text-sm">+103 more</span>
                         </div>
