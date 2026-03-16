@@ -20,7 +20,7 @@
         {/* Dotgrid Background*/}
         <div className="absolute inset-0 -z-10">
             <DotGrid
-                dotSize={50}
+                dotSize={15}
                 gap={15}
                 baseColor="#ffffff"
                 activeColor="#2078fa"

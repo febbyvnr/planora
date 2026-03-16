@@ -1,5 +1,5 @@
 import FeatureCard from "./Card/WhatIsCard";
-import ScrollFloat from "../ReactBits/ScrollFloat";
+
 import AnimatedContent from "../ReactBits/AnimatedContent";
 
 import {
