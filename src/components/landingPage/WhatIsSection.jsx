@@ -73,7 +73,7 @@ import {
     ];
 
     return (
-        <section id="about" className="relative pt-32 pb-24 -mt-20 bg-gradient-to-b from-blue-500 to-blue-600">
+        <section id="about" className="relative pt-32 pb-24 -mt-8 bg-gradient-to-b from-[#4C27B2] to-[#46269d] rounded-b-[50px]">
 
         <div className="max-w-7xl mx-auto px-6">
 
@@ -89,7 +89,7 @@ import {
             scale={1}
             delay={0.2}
             >
-            <div className="text-center text-white mb-16">
+            <div className="text-center text-white mb-8">
                 <h2 className="text-4xl md:text-5xl font-bold font-['Outfit']">
                     What is Planora?
                 </h2>
@@ -107,7 +107,7 @@ import {
             scale={1}
             delay={0.2}
             >
-            <div className = "text-center text-white mb-16">
+            <div className = "text-center text-white mb-24">
                 <p className="text-xl font-semibold mt-4">
                     Plan, organize, collaborate, and track your progress in one platform.
                 </p>

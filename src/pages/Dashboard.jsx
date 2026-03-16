@@ -5,7 +5,9 @@ import maskot50Hari from '../assets/images/maskot-streak-50 hari.png';
 import maskotDedicated from '../assets/images/maskot-streak-dedicated.png';
 import maskot30Hari from '../assets/images/maskot-streak-30 hari.png';
 import maskotNewbie from '../assets/images/maskot-streak-newbie.png';
+import maskotAngry from '../assets/images/sticker_7.png';
 import ProductivityChart from '../components/ProductivityChart';
+
 
 /**
  * Returns the mascot image that matches the total number of
@@ -77,6 +79,11 @@ export default function Dashboard() {
             id: 3,
             category: "Learning Plan",
             type: "friend",
+        },{
+            id: 4,
+            mascot: maskotAngry,
+            mascotAnimation: 'floatAnimation 3s ease-in-out infinite',
+            mascotClass: 'w-32 h-32 absolute right-[-10px] bottom-0',
         }
     ];
 
@@ -255,10 +262,14 @@ export default function Dashboard() {
                             </div>
 
                             {/* Warning emoji mascot area */}
-                            <div className="absolute right-2 bottom-2 flex flex-col items-center pointer-events-none select-none">
-                                <span className="text-5xl" style={{ animation: 'shakeSlow 2.5s ease-in-out infinite', display: 'inline-block' }}>😰</span>
-                                <span className="text-[9px] font-bold text-red-400 mt-0.5">don't give up!</span>
-                            </div>
+                            <div className="absolute right-[15px] bottom-[30px] w-24 h-35 pointer-events-none opacity-95 group-hover:opacity-100 transition-opacity scale-x-[-1] z-20">
+                                        <img
+                                            src={maskotAngry}
+                                            alt="Streak at risk"
+                                            className="w-full h-full object-contain drop-shadow-2xl"
+                                            style={{ animation: 'floatAnimation 3s ease-in-out infinite' }}
+                                        />
+                                    </div>
                         </div>
                     </div>
 
@@ -403,6 +414,9 @@ export default function Dashboard() {
                         }
 
                         // Default → dot-box streak (e.g. Scheduler)
+                        // Skip placeholder entries that have no theme
+                        if (!streak.theme) return null;
+
                         return (
                             <div key={streak.id} className={`w-full relative shadow-sm transition duration-300 rounded-b-lg ${streak.theme.shadow}`}>
                                 <div className={`${streak.theme.bgTop} text-white font-bold px-4 py-1.5 text-sm w-full rounded-t-lg flex justify-between items-center`}>

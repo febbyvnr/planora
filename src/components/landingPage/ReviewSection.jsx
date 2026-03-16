@@ -76,7 +76,7 @@ export default function ReviewSection() {
     ];
 
     return (
-        <section className="w-full py-20 -mt-24 relative z-10 bg-[#4C27B2] overflow-hidden">
+        <section className="w-full py-20 -mt-24 relative z-10 bg-blue-600 overflow-hidden">
 
         {/* Header */}
         <div className="max-w-6xl mx-auto text-center mb-14">
@@ -85,7 +85,7 @@ export default function ReviewSection() {
             What People Say About Planora?
             </h2>
 
-            <p className="font-bold mt-4 max-w-xl mx-auto text-[#baa1ff]">
+            <p className="font-bold mt-4 max-w-xl mx-auto text-blue-100">
             Many people use Planora to manage their academic life
             better, stay focused, and keep their plans organized.
             </p>
@@ -106,9 +106,9 @@ export default function ReviewSection() {
 
 
         {/* Edge Fade Effect */}
-        <div className="pointer-events-none absolute left-0 top-0 h-full w-40 bg-gradient-to-r from-[#4C27B2] to-transparent" />
+        <div className="pointer-events-none absolute left-0 top-0 h-full w-40 bg-gradient-to-r from-blue-600 to-transparent" />
 
-        <div className="pointer-events-none absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-[#4C27B2] to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 h-full w-40 bg-gradient-to-l from-blue-600 to-transparent" />
 
         </section>
     );
