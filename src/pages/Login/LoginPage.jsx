@@ -1,21 +1,73 @@
 import { UserRound, Phone, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom"; 
+import StickerPeel from "../../components/ReactBits/StickerPeel";
+import sticker6 from "../../assets/images/sticker_6.png";
+import Navbar from "../../components/landingPage/Navbar";
+import sticker7 from "../../assets/images/materials-delete.png"; 
+import sticker4 from "../../assets/images/sticker_4.png";
+import sticker5 from "../../assets/images/sticker_5.png";
 
 export default function LoginPage() {
     const navigate = useNavigate();
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#FBF9FF] px-4">
+        <>
+        <Navbar />
+
+        <div className="min-h-screen flex items-center justify-center bg-[#FBF9FF] px-4 mt-4">
+
+            <StickerPeel
+                imageSrc={sticker6}
+                width={200}
+                rotate={0}
+                peelBackHoverPct={30}
+                peelBackActivePct={40}
+                shadowIntensity={0.5}
+                lightingIntensity={0.1}
+                initialPosition={{ x: 500, y: -200 }}
+                peelDirection={0}
+            />
+
+            <StickerPeel
+                imageSrc={sticker7}
+                width={200}
+                rotate={0}
+                peelBackHoverPct={30}
+                peelBackActivePct={40}
+                shadowIntensity={0.5}
+                lightingIntensity={0.1}
+                initialPosition={{ x: -500, y: -200 }}
+                peelDirection={0}
+            />
+
+            <StickerPeel
+                imageSrc={sticker4}
+                width={200}
+                rotate={0}
+                peelBackHoverPct={30}
+                peelBackActivePct={40}
+                shadowIntensity={0.5}
+                lightingIntensity={0.1}
+                initialPosition={{ x: -500, y: 100 }}
+                peelDirection={0}
+            />
+
+            <StickerPeel
+                imageSrc={sticker5}
+                width={200}
+                rotate={0}
+                peelBackHoverPct={30}
+                peelBackActivePct={40}
+                shadowIntensity={0.5}
+                lightingIntensity={0.1}
+                initialPosition={{ x: 500, y: 100 }}
+                peelDirection={0}
+            />
+           
+
             <div className="relative w-full max-w-lg bg-white rounded-[48px] shadow-lg p-10">
 
-                {/* Back Button */}
-                <button
-                    onClick={() => navigate("/")}
-                    className="absolute left-6 top-6 p-2 rounded-full hover:bg-gray-100 transition"
-                >
-                    <ArrowLeft className="w-5 h-5 text-gray-700" />
-                </button>
-
+                
                 {/* Header */}
                 <div className="text-center mb-10">
                     <h1 className="text-4xl font-bold text-gray-900 font-['Outfit']">
@@ -107,5 +159,6 @@ export default function LoginPage() {
 
             </div>      
         </div>
+        </>
     );
 }

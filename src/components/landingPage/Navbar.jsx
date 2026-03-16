@@ -5,7 +5,7 @@ import logo from "../../assets/images/logo.png";
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
-    const Navigate = useNavigate();
+    const navigate = useNavigate();
 
     const scrollToSection = (id) => {
         // kalau bukan di homepage → pindah dulu
@@ -18,7 +18,7 @@ export default function Navbar() {
     };
 
     return (
-        <header className="w-full border-b bg-white">
+        <header className="w-full border-b bg-white fixed top-0 z-50">
         <div className="max-w-7xl mx-auto px-6">
 
             {/* Navbar Container */}
@@ -29,7 +29,8 @@ export default function Navbar() {
                 <img
                 src={logo}
                 alt="Planora Logo"
-                className="w-10 h-10 object-contain"
+                className="w-10 h-10 object-contain cursor-pointer"
+                onClick={() => navigate("/")}
                 />
                 <span className="text-xl font-extrabold font-['Outfit']">
                 Planora Study
@@ -61,7 +62,7 @@ export default function Navbar() {
             <div className="hidden md:flex items-center gap-4">
                 <button 
                 className="text-sm font-bold hover:text-blue-500 transition"
-                onClick={() => Navigate("/login")}
+                onClick={() => navigate("/login")}
                 >
                 Log in
                 <span className="absolute left-1/2 -bottom-1 h-[2px] w-0 bg-blue-500 transition-all duration-300 group-hover:w-full group-hover:left-0"></span>
@@ -69,7 +70,7 @@ export default function Navbar() {
 
                 <button 
                 className="px-6 py-2.5 bg-blue-600 text-white text-sm font-bold rounded-xl shadow-md hover:bg-blue-600 transition hover:scale-105"
-                onClick={() => Navigate("/login")}
+                onClick={() => navigate("/login")}
                 >
                 Sign Up
                 </button>
