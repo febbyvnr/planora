@@ -1,13 +1,6 @@
 import BenefitCard from "./Card/BenefitCard";
 import DotGrid from "../ReactBits/DotGrid";
 import AnimatedContent from "../ReactBits/AnimatedContent";
-import img1 from "../../assets/imagesForLanding/1.png";
-import img2 from "../../assets/imagesForLanding/2.png";
-import img3 from "../../assets/imagesForLanding/3.png";
-import img4 from "../../assets/imagesForLanding/4.png";
-import img5 from "../../assets/imagesForLanding/5.png";
-import img6 from "../../assets/imagesForLanding/6.png";
-import img7 from "../../assets/imagesForLanding/7.png";
 
 export default function WhySection() {
     return (
@@ -61,11 +54,11 @@ export default function WhySection() {
                     color="bg-indigo-700"
                     images={[
                         {
-                        src: img1,
+                        src: "/imagesForLanding/1.png",
                         className: "w-72 rotate-0"
                         },
                         {
-                        src: img2,
+                        src: "/imagesForLanding/2.png",
                         className: "w-60 -rotate-12 -left-10 top-10"
                         }
                     ]}
@@ -91,15 +84,15 @@ export default function WhySection() {
                     reverse
                     images={[
                         {
-                        src: img5,
+                        src: "/imagesForLanding/5.png",
                         className: "w-72"
                         },
                         {
-                        src: img4,
+                        src: "/imagesForLanding/4.png",
                         className: "w-56 -rotate-12 top-20 left-10"
                         },
                         {
-                        src: img3,
+                        src: "/imagesForLanding/3.png",
                         className: "w-60 rotate-6 -top-10 -left-10"
                         }
                     ]}
@@ -124,11 +117,11 @@ export default function WhySection() {
                     color="bg-emerald-600"
                     images={[
                         {
-                        src: img6,
+                        src: "/imagesForLanding/6.png",
                         className: "w-72"
                         },
                         {
-                        src: img7,
+                        src: "/imagesForLanding/7.png",
                         className: "w-64 -rotate-12 left-10"
                         }
                     ]}
