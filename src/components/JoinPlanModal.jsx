@@ -1,12 +1,39 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { X, Users, ArrowRight, Hash } from 'lucide-react';
-import { toast } from 'react-toastify';
+import { X, Users, ArrowRight, Hash, CheckCircle, XCircle } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 const CODE_LENGTH = 6;
 
 export default function JoinPlanModal({ isOpen, onClose }) {
   const [codeDigits, setCodeDigits] = useState(Array(CODE_LENGTH).fill(''));
   const inputRefs = useRef([]);
+
+  const [toast, setToast] = useState(null);
+  const [errorToast, setErrorToast] = useState(null);
+
+  const showErrorToast = (message) => {
+    setErrorToast(message);
+    setTimeout(() => {
+      setErrorToast(null);
+    }, 2000);
+  };
+  
+    const showToast = (message, conf) => {
+      setToast(message);
+  
+      if (conf) {
+        confetti({
+          particleCount: 120,
+          spread: 70,
+          origin: { y: 0.6 },
+          zIndex: 9999
+        });
+      }
+  
+      setTimeout(() => {
+        setToast(null);
+      }, 2000);
+    };
 
   // Focus first input on open
   useEffect(() => {
@@ -55,12 +82,14 @@ export default function JoinPlanModal({ isOpen, onClose }) {
 
   const handleJoin = () => {
     if (!isComplete) {
-      toast.error('Please enter a complete 6-character code.');
+      showErrorToast('Please enter a complete 6-character code.');
       return;
     }
-    toast.success(`Successfully sent join request for code: ${code} 🎉`);
-    setCodeDigits(Array(CODE_LENGTH).fill(''));
-    onClose();
+    showToast(`Successfully sent join request for code: ${code} 🎉`, true);
+    setTimeout(() => {
+      setCodeDigits(Array(CODE_LENGTH).fill(''));
+      onClose();
+    }, 1500);
   };
 
   if (!isOpen) return null;
@@ -139,6 +168,27 @@ export default function JoinPlanModal({ isOpen, onClose }) {
             Ask the plan owner for the code if you don't have one
           </p>
         </div>
+      {toast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+          <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+            <CheckCircle className="text-green-500" size={20}/>
+            <p className="text-sm font-medium text-gray-700">
+              {toast}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {errorToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+          <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3 border-red-100">
+            <XCircle className="text-red-500" size={20}/>
+            <p className="text-sm font-medium text-gray-700">
+              {errorToast}
+            </p>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );

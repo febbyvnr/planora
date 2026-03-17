@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Bell, Users, User, Pencil, Lock, Trash2, Camera, Save, X } from 'lucide-react';
+import { Bell, Users, User, Pencil, Lock, Trash2, Camera, Save, X, CheckCircle, XCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import confetti from 'canvas-confetti';
 import deleteImage from '../../assets/images/materials-delete.png';
 
 import SettingsSidebar from '../../components/SettingsSidebar';
@@ -16,6 +16,31 @@ export default function Settings() {
         phone: '+62 81212121'
     });
 
+    const [toast, setToast] = useState(null);
+    const [errorToast, setErrorToast] = useState(null);
+
+    const showErrorToast = (message) => {
+        setErrorToast(message);
+        setTimeout(() => {
+            setErrorToast(null);
+        }, 2000);
+    };
+
+    const showToast = (message, conf) => {
+        setToast(message);
+        if (conf) {
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 },
+                zIndex: 9999
+            });
+        }
+        setTimeout(() => {
+            setToast(null);
+        }, 2000);
+    };
+
     const handleProfileChange = (e) => {
         const { name, value } = e.target;
         setProfileData(prev => ({ ...prev, [name]: value }));
@@ -23,29 +48,29 @@ export default function Settings() {
 
     const handleSaveProfile = () => {
         if (!profileData.username.trim() || !profileData.email.trim() || !profileData.phone.trim()) {
-            toast.error('Please fill in all profile fields');
+            showErrorToast('Please fill in all profile fields');
             return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(profileData.email)) {
-            toast.error('Please enter a valid email address');
+            showErrorToast('Please enter a valid email address');
             return;
         }
 
-        toast.success('Profile successfully updated!');
+        showToast('Profile successfully updated!', true);
         setIsEditingProfile(false);
     };
 
     const handleCancelProfile = () => {
         if (!profileData.username.trim() || !profileData.email.trim() || !profileData.phone.trim()) {
-            toast.error('Please fill in all profile fields');
+            showErrorToast('Please fill in all profile fields');
             return;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(profileData.email)) {
-            toast.error('Please enter a valid email address');
+            showErrorToast('Please enter a valid email address');
             return;
         }
 
@@ -214,13 +239,35 @@ export default function Settings() {
                             <button
                                 onClick={() => {
                                     setShowDeleteModal(false);
-                                    toast.success('Account deleted.');
+                                    showToast('Account deleted.');
                                 }}
                                 className="flex-1 py-4 rounded-2xl bg-[#ED5856] hover:bg-[#C83E3D] text-white font-bold text-[16px] transition shadow-[0_4px_14px_rgba(237,88,86,0.4)] hover:shadow-[0_6px_20px_rgba(237,88,86,0.5)] hover:-translate-y-0.5"
                             >
                                 Delete
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {toast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {toast}
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {errorToast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3 border-red-100">
+                        <XCircle className="text-red-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {errorToast}
+                        </p>
                     </div>
                 </div>
             )}

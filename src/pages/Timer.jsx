@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Play, Pause, RotateCcw, Volume2, VolumeX, Maximize, Minimize, CheckCircle, ArrowLeft, Plus, Brain, BookOpen, Clock, Code, Music, ListOrdered } from "lucide-react";
+import { Play, Pause, RotateCcw, Volume2, VolumeX, Maximize, Minimize, CheckCircle, ArrowLeft, Plus, Brain, BookOpen, Clock, Code, Music, ListOrdered, XCircle } from "lucide-react";
 import CreateTimerSessionModal from "../components/CreateTimerSessionModal";
+import confetti from 'canvas-confetti';
 
 // ---- AUDIO CONSTANTS ----
 const AMBIENCE_SOURCES = {
@@ -77,6 +78,25 @@ export default function Timer() {
     const [isMuted, setIsMuted] = useState(false);
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [cycleCount, setCycleCount] = useState(0);
+
+    const [toastMsg, setToastMsg] = useState(null);
+
+    const showToast = (message, conf) => {
+        setToastMsg(message);
+
+        if (conf) {
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 },
+                zIndex: 9999
+            });
+        }
+
+        setTimeout(() => {
+            setToastMsg(null);
+        }, 3000);
+    };
 
     // ---- REFS ----
     const tickAudioRef = useRef(null);
@@ -155,8 +175,10 @@ export default function Timer() {
 
         } else {
             // Session over
-            alert(`Session "${activeSession?.title}" complete! Great job.`);
-            handleExitTimer();
+            showToast(`Session "${activeSession?.title}" complete! Great job. 🎉`, true);
+            setTimeout(() => {
+                handleExitTimer();
+            }, 3000);
         }
     };
 
@@ -539,6 +561,17 @@ export default function Timer() {
                 loop 
                 preload="auto" 
             />
+
+            {toastMsg && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {toastMsg}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

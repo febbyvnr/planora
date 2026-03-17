@@ -1,8 +1,34 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Calendar, Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, FileText, ChevronDown, Search, Copy, RefreshCw, CircleUserRound } from 'lucide-react';
-import { toast } from 'react-toastify';
+import { Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, FileText, ChevronDown, Search, Copy, RefreshCw, CircleUserRound, CheckCircle, XCircle } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToEdit }) {
+  const [toast, setToast] = useState(null);
+  const [errorToast, setErrorToast] = useState(null);
+
+  const showErrorToast = (message) => {
+    setErrorToast(message);
+    setTimeout(() => {
+      setErrorToast(null);
+    }, 2000);
+  };
+
+  const showToast = (message, conf) => {
+    setToast(message);
+
+    if (conf) {
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 },
+        zIndex: 9999
+      });
+    }
+
+    setTimeout(() => {
+      setToast(null);
+    }, 2000);
+  };
   const [currentStep, setCurrentStep] = useState(1);
   const [planTitle, setPlanTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -54,7 +80,7 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
     const file = e.target.files[0];
     if (file && activeUploadSessionId !== null) {
       handleSessionChange(activeUploadSessionId, 'material', file.name);
-      toast.success(`${file.name} attached!`);
+      showToast(`${file.name} attached!`);
     }
     if (fileInputRef.current) fileInputRef.current.value = '';
     setActiveUploadSessionId(null);
@@ -75,7 +101,7 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
      const link = window.prompt("Enter Video Link (e.g., YouTube URL):");
      if (link && link.trim() !== '') {
        handleSessionChange(sessionId, 'material', link.trim());
-       toast.success("Link attached!");
+       showToast('Link attached!');
        setOpenDropdown(null);
      }
   };
@@ -111,7 +137,7 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
 
   const handleNextStep1 = () => {
     if (!planTitle.trim() || !description.trim()) {
-      toast.error('All fields are required!');
+      showErrorToast('All fields are required!');
       return;
     }
     setCurrentStep(2);
@@ -119,13 +145,13 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
 
   const handleNextStep2 = () => {
     if (sessions.length === 0) {
-      toast.error('Please add at least one session!');
+      showErrorToast('Please add at least one session!');
       return;
     }
     const emptySession = sessions.find(s => !s.title.trim());
     if (emptySession) {
       const idx = sessions.indexOf(emptySession) + 1;
-      toast.error(`Session ${idx}: SESSION TITLE cannot be empty!`);
+      showErrorToast(`Session ${idx}: SESSION TITLE cannot be empty!`);
       return;
     }
     if (!joinCode) setJoinCode(generateJoinCode());
@@ -133,18 +159,20 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
   };
 
   const handleFinish = () => {
-    toast.success('New plan created successfully! 🎉');
-    onClose();
-    setCurrentStep(1);
-    setPlanTitle('');
-    setDescription('');
-    setSessions([{ id: 1, title: '', duration: '120 minutes', mode: 'Reading', material: 'Practice_Modul_Matrix.pdf' }]);
-    setTeamMembers([
-      { id: 2, name: 'Antonia', email: 'antonia@gmail.com', isOwner: false },
-      { id: 1, name: 'Olivia', email: 'olivia123@gmail.com', isOwner: true },
-    ]);
-    setFriendSearch('');
-    setSearchResult({ id: 99, name: 'Marcus Chen', email: 'marcus_study@gmail.com' });
+    showToast('New plan created successfully! 🎉', true);
+    setTimeout(() => {
+      onClose();
+      setCurrentStep(1);
+      setPlanTitle('');
+      setDescription('');
+      setSessions([{ id: 1, title: '', duration: '120 minutes', mode: 'Reading', material: 'Practice_Modul_Matrix.pdf' }]);
+      setTeamMembers([
+        { id: 2, name: 'Antonia', email: 'antonia@gmail.com', isOwner: false },
+        { id: 1, name: 'Olivia', email: 'olivia123@gmail.com', isOwner: true },
+      ]);
+      setFriendSearch('');
+      setSearchResult({ id: 99, name: 'Marcus Chen', email: 'marcus_study@gmail.com' });
+    }, 1500);
   };
 
   const handleSearchFriend = (query) => {
@@ -163,13 +191,13 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
 
   const handleAddToTeam = (member) => {
     if (teamMembers.find(m => m.id === member.id)) {
-      toast.error(`${member.name} is already in your team!`);
+      showToast(`${member.name} is already in your team!`);
       return;
     }
     setTeamMembers(prev => [...prev, member]);
     setSearchResult(null);
     setFriendSearch('');
-    toast.success(`${member.name} added to the team!`);
+    showToast(`${member.name} added to the team!`);
   };
 
   const handleRemoveFromTeam = (id) => {
@@ -200,7 +228,7 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
 
   const handleSaveDraft = () => {
     if (!planTitle.trim()) {
-      toast.error('Save failed! Plan Title cannot be empty.');
+      showErrorToast('Save failed! Plan Title cannot be empty.');
       return;
     }
     
@@ -221,7 +249,7 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
     };
 
     onSaveDraft?.(draftData);
-    toast.success('Draft saved successfully! ✏️');
+    showToast('Draft saved successfully! ✏️');
     closeModal();
   };
 
@@ -597,7 +625,7 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
                   onClick={() => {
                     if (joinCode) {
                       navigator.clipboard.writeText(joinCode);
-                      toast.success('Join code copied!');
+                      showToast('Join code copied!');
                     }
                   }}
                   disabled={!joinCode}
@@ -644,6 +672,28 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
         
       </div>
       <input type="file" className="hidden" ref={fileInputRef} onChange={handleFileUpload} />
+
+      {toast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+          <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+            <CheckCircle className="text-green-500" size={20}/>
+            <p className="text-sm font-medium text-gray-700">
+              {toast}
+            </p>
+          </div>
+        </div>
+      )}
+
+      {errorToast && (
+        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+          <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3 border-red-100">
+            <XCircle className="text-red-500" size={20}/>
+            <p className="text-sm font-medium text-gray-700">
+              {errorToast}
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

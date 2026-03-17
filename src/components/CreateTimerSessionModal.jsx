@@ -1,12 +1,39 @@
 import React, { useState } from 'react';
-import { Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, Music, X, Link as LinkIcon } from 'lucide-react';
-import { toast } from 'react-toastify';
+import { Plus, Check, Calculator, Brain, BookOpen, Sprout, FlaskConical, Microscope, Trash2, Clock, Music, X, Link as LinkIcon, CheckCircle, XCircle } from 'lucide-react';
+import confetti from 'canvas-confetti';
 
 export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
     const [title, setTitle] = useState('');
     const [selectedIcon, setSelectedIcon] = useState('book');
     const [ambienceType, setAmbienceType] = useState('none'); // 'none', 'lofi', 'rain', 'forest', 'custom'
     const [customLink, setCustomLink] = useState('');
+
+    const [toastMsg, setToastMsg] = useState(null);
+    const [errorToast, setErrorToast] = useState(null);
+
+    const showErrorToast = (message) => {
+        setErrorToast(message);
+        setTimeout(() => {
+            setErrorToast(null);
+        }, 2000);
+    };
+
+    const showToast = (message, conf) => {
+        setToastMsg(message);
+
+        if (conf) {
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 },
+                zIndex: 9999
+            });
+        }
+
+        setTimeout(() => {
+            setToastMsg(null);
+        }, 2000);
+    };
 
     // Timer Sequence (Sequential Phases)
     const [phases, setPhases] = useState([
@@ -59,11 +86,11 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
 
     const handleSave = () => {
         if (!title.trim()) {
-            toast.error('Session Title cannot be empty!');
+            showErrorToast('Session Title cannot be empty!');
             return;
         }
         if (phases.length === 0) {
-            toast.error('Please add at least one timer phase!');
+            showErrorToast('Please add at least one timer phase!');
             return;
         }
 
@@ -82,18 +109,21 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
             phases: [...phases]
         };
 
-        toast.success('Timer Session Created! 🎉');
-        onSave(sessionData);
+        showToast('Timer Session Created! 🎉', true);
+        
+        setTimeout(() => {
+            onSave(sessionData);
 
-        // Reset
-        setTitle('');
-        setSelectedIcon('book');
-        setAmbienceType('none');
-        setCustomLink('');
-        setPhases([
-            { id: 1, type: 'Focus', minutes: 25 },
-            { id: 2, type: 'Short Break', minutes: 5 }
-        ]);
+            // Reset
+            setTitle('');
+            setSelectedIcon('book');
+            setAmbienceType('none');
+            setCustomLink('');
+            setPhases([
+                { id: 1, type: 'Focus', minutes: 25 },
+                { id: 2, type: 'Short Break', minutes: 5 }
+            ]);
+        }, 1500);
     };
 
     if (!isOpen) return null;
@@ -274,6 +304,28 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
                 </div>
 
             </div>
+
+            {toastMsg && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {toastMsg}
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {errorToast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3 border-red-100">
+                        <XCircle className="text-red-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {errorToast}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

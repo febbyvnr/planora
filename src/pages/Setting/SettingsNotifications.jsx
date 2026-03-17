@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { User, Bell, Users } from 'lucide-react';
+import { User, Bell, Users, CheckCircle, XCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import confetti from 'canvas-confetti';
 import SettingsSidebar from '../../components/SettingsSidebar';
 
 const notificationSettings = [
@@ -62,6 +62,31 @@ export default function SettingsNotifications() {
     const navigate = useNavigate();
     const [settings, setSettings] = useState(notificationSettings);
 
+    const [toast, setToast] = useState(null);
+    const [errorToast, setErrorToast] = useState(null);
+
+    const showErrorToast = (message) => {
+        setErrorToast(message);
+        setTimeout(() => {
+            setErrorToast(null);
+        }, 2000);
+    };
+
+    const showToast = (message, conf) => {
+        setToast(message);
+        if (conf) {
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 },
+                zIndex: 9999
+            });
+        }
+        setTimeout(() => {
+            setToast(null);
+        }, 2000);
+    };
+
     const toggleSetting = (id) => {
         setSettings(prev =>
             prev.map(s => s.id === id ? { ...s, enabled: !s.enabled } : s)
@@ -69,14 +94,15 @@ export default function SettingsNotifications() {
     };
 
     const handleSendTest = () => {
-        toast.info('🔔 Test notification sent!', { icon: false });
+        showToast('🔔 Test notification sent!', false);
     };
 
     const handleSaveAll = () => {
-        toast.success('Notification preferences saved!');
+        showToast('Notification preferences saved!', true);
     };
 
     return (
+        <>
         <div className="flex flex-col md:flex-row bg-white rounded-[24px] border border-gray-200 shadow-sm w-full min-h-[650px] overflow-hidden m-0 p-0">
             {/* Setting Sidebar */}
             <SettingsSidebar />
@@ -127,5 +153,27 @@ export default function SettingsNotifications() {
                 </div>
             </div>
         </div>
+            {toast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {toast}
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {errorToast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3 border-red-100">
+                        <XCircle className="text-red-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {errorToast}
+                        </p>
+                    </div>
+                </div>
+            )}
+        </>
     );
 }

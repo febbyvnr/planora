@@ -1,12 +1,38 @@
 import { useState } from 'react';
-import { X, User, Bell, Users } from 'lucide-react';
+import { X, User, Bell, Users, CheckCircle, XCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import confetti from 'canvas-confetti';
 import SettingsSidebar from '../components/SettingsSidebar';
 
 export default function ChangePassword() {
     const navigate = useNavigate();
     const [focusedInput, setFocusedInput] = useState(null);
+    const [toastMsg, setToastMsg] = useState(null);
+    const [errorToast, setErrorToast] = useState(null);
+
+    const showErrorToast = (message) => {
+        setErrorToast(message);
+        setTimeout(() => {
+            setErrorToast(null);
+        }, 2000);
+    };
+
+    const showToast = (message, conf) => {
+        setToastMsg(message);
+
+        if (conf) {
+            confetti({
+                particleCount: 120,
+                spread: 70,
+                origin: { y: 0.6 },
+                zIndex: 9999
+            });
+        }
+
+        setTimeout(() => {
+            setToastMsg(null);
+        }, 2000);
+    };
     
     // Form State
     const [formData, setFormData] = useState({
@@ -22,22 +48,22 @@ export default function ChangePassword() {
 
     const validateForm = () => {
         if (!formData.currentPassword.trim() && !formData.newPassword.trim() && !formData.confirmPassword.trim()) {
-            toast.error('Please fill in all fields');
+            showErrorToast('Please fill in all fields');
             return false;
         }
 
         if (formData.newPassword.length < 6) {
-            toast.error('Password must be at least 6 characters');
+            showErrorToast('Password must be at least 6 characters');
             return false;
         }
 
         if (!formData.confirmPassword.trim()) {
-            toast.error('Please confirm your new password');
+            showErrorToast('Please confirm your new password');
             return false;
         }
         
         if (formData.newPassword !== formData.confirmPassword) {
-            toast.error('Passwords do not match');
+            showErrorToast('Passwords do not match');
             return false;
         }
 
@@ -47,9 +73,9 @@ export default function ChangePassword() {
     const handleSave = () => {
         if (validateForm()) {
             // Proceed with save logic here
-            toast.success('Password successfully updated!');
+            showToast('Password successfully updated! 🎉', true);
             // E.g. navigate back to settings upon success
-            // setTimeout(() => navigate('/settings'), 1500);
+            setTimeout(() => navigate('/settings'), 1500);
         }
     };
 
@@ -156,6 +182,28 @@ export default function ChangePassword() {
 
                 </div>
             </div>
+
+            {toastMsg && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3">
+                        <CheckCircle className="text-green-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {toastMsg}
+                        </p>
+                    </div>
+                </div>
+            )}
+
+            {errorToast && (
+                <div className="fixed top-6 left-1/2 -translate-x-1/2 z-[200] animate-toast">
+                    <div className="bg-white border shadow-2xl rounded-2xl px-6 py-4 flex items-center gap-3 border-red-100">
+                        <XCircle className="text-red-500" size={20}/>
+                        <p className="text-sm font-medium text-gray-700">
+                            {errorToast}
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
