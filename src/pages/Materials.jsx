@@ -180,12 +180,12 @@ export default function Materials() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <FileItem
                         icon={<FileText size={24}/>}
-                        name="Lecture_Notes.pdf"
+                        name="Class_Notes.pdf"
                         time="Modified 1h ago"
                         iconBg="bg-red-100"
                         iconColor="text-red-500"
-                        onEdit={() => setEditFile("Lecture_Notes.pdf")}
-                        onDelete={() => setDeleteFile("Lecture_Notes.pdf")}
+                        onEdit={() => setEditFile("Class.pdf")}
+                        onDelete={() => setDeleteFile("Class.pdf")}
                     />
                     <FileItem
                         icon={<Image size={24}/>}
@@ -207,48 +207,48 @@ export default function Materials() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                         <FileItem
                             icon={<FileText size={24} />}
-                            name="Mid_Exam_Prep.pdf"
+                            name="Exam_Prep.pdf"
                             time="Modified 2h ago"
                             iconBg="bg-red-100"
                             iconColor="text-red-500"
-                            onEdit={() => setEditFile("Mid_Exam_Prep.pdf")}
-                            onDelete={() => setDeleteFile("Mid_Exam_Prep.pdf")}
+                            onEdit={() => setEditFile("Exam_Prep.pdf")}
+                            onDelete={() => setDeleteFile("Exam_Prep.pdf")}
                         />
                         <FileItem
                             icon={<Image size={24} />}
-                            name="Mind_Map_Biology.png"
+                            name="Map_Bio.png"
                             time="Modified 5h ago"
                             iconBg="bg-orange-100"
                             iconColor="text-orange-500"
-                            onEdit={() => setEditFile("Mind_Map_Biology.png")}
-                            onDelete={() => setDeleteFile("Mind_Map_Biology.png")}
+                            onEdit={() => setEditFile("Map_Bio.png")}
+                            onDelete={() => setDeleteFile("Map_Bio.png")}
                         />
                         <FileItem
                             icon={<FileSpreadsheet size={24} />}
-                            name="Transaction_Log.xlsx"
+                            name="Trans_Log.xlsx"
                             time="Modified 1d ago"
                             iconBg="bg-green-100"
                             iconColor="text-green-600"
-                            onEdit={() => setEditFile("Transaction_Log_February.xlsx")}
-                            onDelete={() => setDeleteFile("Transaction_Log_February.xlsx")}
+                            onEdit={() => setEditFile("Trans_Log_February.xlsx")}
+                            onDelete={() => setDeleteFile("Trans_Log_February.xlsx")}
                         />
                         <FileItem
                             icon={<Video size={24} />}
-                            name="Meet_Record.mp4"
+                            name="Meet_Rec.mp4"
                             time="Modified 3d ago"
                             iconBg="bg-purple-100"
                             iconColor="text-purple-600"
-                            onEdit={() => setEditFile("Meet_Recording_12120.mp4")}
-                            onDelete={() => setDeleteFile("Meet_Record.mp4")}
+                            onEdit={() => setEditFile("Meet_Rec.mp4")}
+                            onDelete={() => setDeleteFile("Meet_Rec.mp4")}
                         />
                         <FileItem
                             icon={<FileText size={24} />}
-                            name="Biology_Notes.docx"
+                            name="Bio_Notes.docx"
                             time="Modified 2h ago"
                             iconBg="bg-blue-100"
                             iconColor="text-blue-500"
-                            onEdit={() => setEditFile("Biology_Notes.docx")}
-                            onDelete={() => setDeleteFile("Biology_Notes.docx")}
+                            onEdit={() => setEditFile("Bio_Notes.docx")}
+                            onDelete={() => setDeleteFile("Bio_Notes.docx")}
                         />
                         <FileItem
                             isUpload
