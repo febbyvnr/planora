@@ -323,33 +323,33 @@ export default function LearningPlan() {
       />
 
       {selectedPlan && (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
-          <div className="bg-white w-[480px] max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl flex flex-col">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-3 sm:p-4">
+          <div className="bg-white w-full max-w-[480px] max-h-[92vh] sm:max-h-[90vh] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl flex flex-col">
 
-            <div className={`${selectedPlan.headerBg} px-6 pt-6 pb-5 relative`}>
+            <div className={`${selectedPlan.headerBg} px-4 sm:px-6 pt-5 sm:pt-6 pb-4 sm:pb-5 relative`}>
               <button
-                onClick={() => setSelectedPlan(null)}
-                className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/60 hover:bg-white flex items-center justify-center text-gray-500 transition"
-              >
-                <X size={18} />
-              </button>
-              <p className="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-1">{selectedPlan.status}</p>
-              <div className="flex items-center gap-3 mb-3">
-                <div className={`w-12 h-12 rounded-2xl bg-white border border-white/50 flex items-center justify-center ${selectedPlan.iconColor}`}>
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
+                            onClick={() => setSelectedPlan(null)}
+                        >
+                            <X size={20} />
+                        </button>
+              <p className="text-[10px] sm:text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-1">{selectedPlan.status}</p>
+              <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                <div className={`w-10 h-10 sm:w-12 sm:h-12 shrink-0 rounded-xl sm:rounded-2xl bg-white border border-white/50 flex items-center justify-center ${selectedPlan.iconColor} p-2`}>
                   {selectedPlan.icon}
                 </div>
-                <h2 className="text-[26px] font-extrabold text-gray-900 leading-tight">{selectedPlan.title}</h2>
+                <h2 className="text-[18px] sm:text-[26px] font-extrabold text-gray-900 leading-tight">{selectedPlan.title}</h2>
               </div>
-              <span className="inline-flex items-center gap-1.5 bg-white px-3 py-1.5 rounded-full text-xs font-semibold text-gray-600 border border-gray-200">
-                <Clock size={12} className="text-yellow-500" />
-                Total : {selectedPlan.totalTime}
+              <span className="inline-flex items-center gap-1.5 bg-white px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[10px] sm:text-xs font-semibold text-gray-600 border border-gray-200">
+                <Clock size={12} className="text-yellow-500 shrink-0" />
+                <span className="truncate">Total : {selectedPlan.totalTime}</span>
               </span>
             </div>
 
-            <div className="overflow-y-auto flex-1 px-6 pt-5 pb-4 space-y-3">
-              <div className="flex items-center gap-2 mb-2">
-                <GitBranch size={20} className="text-blue-500" />
-                <h3 className="text-[18px] font-extrabold text-gray-900">Session Roadmap</h3>
+            <div className="overflow-y-auto flex-1 px-4 sm:px-6 pt-4 sm:pt-5 pb-3 sm:pb-4 space-y-2.5 sm:space-y-3">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-1 sm:mb-2">
+                <GitBranch size={18} className="text-blue-500 shrink-0 sm:w-5 sm:h-5" />
+                <h3 className="text-[16px] sm:text-[18px] font-extrabold text-gray-900">Session Roadmap</h3>
               </div>
 
               {selectedPlan.sessionRoadmap.map((s) => (
@@ -357,24 +357,24 @@ export default function LearningPlan() {
               ))}
             </div>
 
-            <div className="px-6 py-5 border-t border-gray-100">
-              <div className="flex items-center justify-between mb-4">
+            <div className="px-4 sm:px-6 py-4 sm:py-5 border-t border-gray-100">
+              <div className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm text-gray-400 font-medium">Resume with friends</span>
+                  <span className="text-xs sm:text-sm text-gray-400 font-medium">Resume with friends</span>
                   <div className="flex -space-x-2">
                     {(selectedPlan.collaborators || []).slice(0, 2).map((_, i) => {
                       const avatar = mockAvatars[i % mockAvatars.length];
                       return (
-                        <div key={i} className={`w-8 h-8 rounded-full flex items-center justify-center border-2 border-white ${avatar.bg}`}>
+                        <div key={i} className={`w-7 h-7 sm:w-8 h-8 rounded-full flex items-center justify-center border-2 border-white ${avatar.bg}`}>
                           <CircleUserRound size={32} className={avatar.text}/>
                         </div>
                       )
                     })}
                   </div>
                 </div>
-                <div className="text-right">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase tracking-wide">STATUS</p>
-                  <p className="text-[#4A72FF] font-extrabold text-[15px]">{selectedPlan.overallProgress}% Overall Progress</p>
+                <div className="text-left sm:text-right">
+                  <p className="text-[9px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-wide">STATUS</p>
+                  <p className="text-[#4A72FF] font-extrabold text-[13px] sm:text-[15px]">{selectedPlan.overallProgress}% Overall Progress</p>
                 </div>
               </div>
 
@@ -388,12 +388,12 @@ export default function LearningPlan() {
                   setSelectedPlan(null);
                   navigate('/study-session', { state: { plan: planToPass } });
                 }}
-                className="w-full py-4 rounded-2xl border-2 border-[#2BB67D] bg-[#E8FAF4] text-[#1FA96A] font-extrabold text-[16px] flex items-center justify-center gap-3 hover:bg-[#d2f5e8] transition-all duration-300"
+                className="w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl border-2 border-[#2BB67D] bg-[#E8FAF4] text-[#1FA96A] font-extrabold text-[14px] sm:text-[16px] flex items-center justify-center gap-2 sm:gap-3 hover:bg-[#d2f5e8] transition-all duration-300"
               >
-                <PlayCircle size={22} />
-                Continue Study Session
+                <PlayCircle size={20} className="shrink-0 sm:w-[22px] sm:h-[22px]" />
+                <span>Continue Study Session</span>
               </button>
-              <p className="text-center text-gray-400 text-xs mt-2">Picking up right where you left off!</p>
+              <p className="text-center text-gray-400 text-[10px] sm:text-xs mt-1.5 sm:mt-2">Picking up right where you left off!</p>
             </div>
 
           </div>

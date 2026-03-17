@@ -158,7 +158,7 @@ export default function Settings() {
                         {/* Password Section */}
                         <div className="border-[3px] border-[#93918D] rounded-2xl bg-white px-5 md:px-8 py-6 flex flex-col items-start w-full overflow-hidden">
                             <h2 className="text-xl md:text-2xl font-bold text-[#403B38] mb-5">Password</h2>
-                            <button onClick={() => navigate('/settings/change-password')} className="bg-[#4D63E6] hover:bg-[#3C4FB7] text-white font-semibold flex-1 w-full sm:w-auto sm:px-5 py-3 sm:py-2.5 rounded-[10px] flex justify-center items-center gap-2 text-[14px] transition shadow-sm">
+                            <button onClick={() => navigate('/change-password')} className="bg-[#4D63E6] hover:bg-[#3C4FB7] text-white font-semibold flex-1 w-full sm:w-auto sm:px-5 py-3 sm:py-2.5 rounded-[10px] flex justify-center items-center gap-2 text-[14px] transition shadow-sm">
                                 <Lock size={15} strokeWidth={2.5} />
                                 Change Password
                             </button>

@@ -99,12 +99,12 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[100] animate-in fade-in duration-200">
-            <div className="bg-white w-[560px] max-h-[90vh] rounded-3xl shadow-2xl relative flex flex-col">
+        <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-[100] animate-in fade-in duration-200 p-4 sm:p-0">
+            <div className="bg-white w-full sm:w-[560px] max-h-[90vh] rounded-3xl shadow-2xl relative flex flex-col">
                 
                 {/* ── FIXED HEADER ── */}
-                <div className="flex items-center justify-between px-8 pt-8 pb-4 shrink-0">
-                    <h2 className="text-[26px] font-bold text-gray-900 tracking-tight">Create Session</h2>
+                <div className="flex items-center justify-between px-6 sm:px-8 pt-6 sm:pt-8 pb-4 shrink-0">
+                    <h2 className="text-[22px] sm:text-[26px] font-bold text-gray-900 tracking-tight">Create Session</h2>
                    <button
                             className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
                             onClick={onClose}
@@ -115,7 +115,7 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
 
                 {/* ── SCROLLABLE BODY (no visible scrollbar) ── */}
                 <div
-                    className="flex-1 min-h-0 px-8 pb-2 overflow-y-auto space-y-6"
+                    className="flex-1 min-h-0 px-6 sm:px-8 pb-2 overflow-y-auto space-y-6"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
                 >
                     <style>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
@@ -205,7 +205,7 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
 
                         <div className="space-y-3">
                             {phases.map((phase, idx) => (
-                                <div key={phase.id} className="flex items-center gap-3">
+                                <div key={phase.id} className="flex items-center gap-2 sm:gap-3 flex-wrap sm:flex-nowrap">
                                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold text-white shrink-0 ${
                                         phase.type === 'Focus' ? 'bg-[#FC6C68]' : 
                                         phase.type === 'Short Break' ? 'bg-[#4A72FF]' : 'bg-[#2BB67D]'
@@ -262,7 +262,7 @@ export default function CreateTimerSessionModal({ isOpen, onClose, onSave }) {
                 </div>
 
                 {/* ── FIXED FOOTER ── */}
-                <div className="flex justify-end gap-3 px-8 py-5 shrink-0 border-t border-gray-100">
+                <div className="flex justify-end gap-3 px-6 sm:px-8 py-5 shrink-0 border-t border-gray-100">
                     
                     <button
                         onClick={handleSave}

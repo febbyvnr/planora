@@ -336,17 +336,17 @@ export default function StudySession() {
   // ── Render PDF / Reading Mode
   const renderReadingMode = () => (
     <div className="flex-1 flex flex-col min-w-0">
-      <div className="bg-[#2A2B35] border-b border-white/10 px-4 py-2.5 flex items-center justify-between shrink-0 z-20">
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/learning-plan')} className="flex items-center gap-1.5 text-gray-400 hover:text-white transition text-sm font-medium">
-            <ChevronLeft size={17}/> Back
+      <div className="bg-[#2A2B35] border-b border-white/10 px-3 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between shrink-0 z-20">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button onClick={() => navigate('/learning-plan')} className="flex items-center gap-1 sm:gap-1.5 text-gray-400 hover:text-white transition text-xs sm:text-sm font-medium">
+            <ChevronLeft size={16} className="sm:w-[17px] sm:h-[17px]"/> <span className="hidden sm:inline">Back</span>
           </button>
           <div className="w-px h-4 bg-white/10"/>
-          <BookOpen size={14} className="text-[#7C8CF8]"/>
-          <span className="text-sm text-gray-300 font-medium">Practice_Modul_Matrix.pdf</span>
+          <BookOpen size={14} className="text-[#7C8CF8] shrink-0"/>
+          <span className="text-xs sm:text-sm text-gray-300 font-medium truncate max-w-[120px] sm:max-w-none">Practice_Modul_Matrix.pdf</span>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="hidden sm:flex items-center gap-1.5">
           <button onClick={() => setPageNum(p => Math.max(1, p-1))} disabled={pageNum <= 1} className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition disabled:opacity-30"><ChevronLeft size={15}/></button>
           <div className="flex items-center gap-1 bg-[#1E1F26] rounded-lg px-2 py-1 border border-white/10">
             <span className="text-sm text-white font-mono">{pageNum}</span>
@@ -359,13 +359,13 @@ export default function StudySession() {
           <button onClick={() => setScale(s => Math.min(2, +(s+0.15).toFixed(2)))} className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition"><ZoomIn size={15}/></button>
         </div>
 
-        <div className="flex items-center gap-1.5">
+        <div className="flex items-center gap-1 sm:gap-1.5">
           <div className="relative" ref={colorPickerRef}>
             <div className="flex items-center rounded-lg border border-white/10 overflow-hidden">
-              <button onMouseDown={e => e.preventDefault()} onClick={() => { if (!activeHighlight) { setActiveHighlight(true); setShowColorPicker(true); } else setShowColorPicker(p => !p); }} className={`flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold transition ${activeHighlight ? 'bg-yellow-500/20 text-yellow-300' : 'hover:bg-white/10 text-gray-400'}`}>
-                <Highlighter size={14}/> Highlight {activeHighlight && <span className="w-3 h-3 rounded-full border border-white/30" style={{ background: highlightColor.value }}/>}
+              <button onMouseDown={e => e.preventDefault()} onClick={() => { if (!activeHighlight) { setActiveHighlight(true); setShowColorPicker(true); } else setShowColorPicker(p => !p); }} className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 text-[10px] sm:text-xs font-semibold transition ${activeHighlight ? 'bg-yellow-500/20 text-yellow-300' : 'hover:bg-white/10 text-gray-400'}`}>
+                <Highlighter size={12} className="sm:w-[14px] sm:h-[14px]"/> <span className="hidden sm:inline">Highlight</span> {activeHighlight && <span className="w-2 h-2 sm:w-3 sm:h-3 rounded-full border border-white/30" style={{ background: highlightColor.value }}/>}
               </button>
-              {activeHighlight && <button onMouseDown={e => e.preventDefault()} onClick={() => { setActiveHighlight(false); setShowColorPicker(false); setSavedSelection(null); }} className="px-2 py-1.5 border-l border-white/10 hover:bg-red-500/20 text-gray-500 hover:text-red-400 transition"><X size={12}/></button>}
+              {activeHighlight && <button onMouseDown={e => e.preventDefault()} onClick={() => { setActiveHighlight(false); setShowColorPicker(false); setSavedSelection(null); }} className="px-1.5 sm:px-2 py-1 sm:py-1.5 border-l border-white/10 hover:bg-red-500/20 text-gray-500 hover:text-red-400 transition"><X size={10} className="sm:w-[12px] sm:h-[12px]"/></button>}
             </div>
 
             {showColorPicker && (
@@ -383,17 +383,31 @@ export default function StudySession() {
               </div>
             )}
           </div>
-          <button onClick={() => setFullDocView(p => !p)} className="p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition">
-            {fullDocView ? <Minimize2 size={15}/> : <Maximize2 size={15}/>}
+          <button onClick={() => setFullDocView(p => !p)} className="p-1 sm:p-1.5 rounded-lg hover:bg-white/10 text-gray-400 hover:text-white transition">
+            {fullDocView ? <Minimize2 size={14} className="sm:w-[15px] sm:h-[15px]"/> : <Maximize2 size={14} className="sm:w-[15px] sm:h-[15px]"/>}
           </button>
         </div>
       </div>
 
-      <div className="flex-1 overflow-auto flex flex-col items-center py-8 px-6 gap-4" onMouseUp={() => activeHighlight && saveSelection()}>
-        <div className="bg-white shadow-2xl rounded-sm select-text" style={{ width: `${595 * scale}px`, minHeight: `${842 * scale}px`, padding: `${48 * scale}px`, transformOrigin: 'top center', fontSize: `${scale}em`, boxSizing: 'border-box' }}>
+      {/* Mobile PDF Controls */}
+      <div className="sm:hidden flex items-center justify-between bg-[#1E1F26] border-b border-white/5 px-4 py-2 z-10">
+        <div className="flex items-center gap-3">
+          <button onClick={() => setPageNum(p => Math.max(1, p-1))} disabled={pageNum <= 1} className="p-1 rounded-lg hover:bg-white/10 text-gray-400 transition disabled:opacity-30"><ChevronLeft size={16}/></button>
+          <span className="text-xs text-white font-mono">{pageNum} / {numPages}</span>
+          <button onClick={() => setPageNum(p => Math.min(numPages, p+1))} disabled={pageNum >= numPages} className="p-1 rounded-lg hover:bg-white/10 text-gray-400 transition disabled:opacity-30"><ChevronRight size={16}/></button>
+        </div>
+        <div className="flex items-center gap-2">
+          <button onClick={() => setScale(s => Math.max(0.4, +(s-0.15).toFixed(2)))} className="p-1 rounded-lg hover:bg-white/10 text-gray-400 transition"><ZoomOut size={16}/></button>
+          <span className="text-[10px] text-gray-400 w-8 text-center font-mono">{Math.round(scale*100)}%</span>
+          <button onClick={() => setScale(s => Math.min(2, +(s+0.15).toFixed(2)))} className="p-1 rounded-lg hover:bg-white/10 text-gray-400 transition"><ZoomIn size={16}/></button>
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-auto flex flex-col items-center py-4 sm:py-8 px-2 sm:px-6 gap-4" onMouseUp={() => activeHighlight && saveSelection()}>
+        <div className="bg-white shadow-2xl rounded-sm select-text sm:scale-100 origin-top" style={{ width: `${595 * scale}px`, minHeight: `${842 * scale}px`, padding: `${48 * scale}px`, transform: `scale(${window.innerWidth < 640 ? Math.min(1, (window.innerWidth - 16) / (595 * scale)) : 1})`, fontSize: `${scale}em`, boxSizing: 'border-box' }}>
           {currentPage.content}
         </div>
-        <div className="text-gray-600 text-xs font-mono">— {pageNum} —</div>
+        <div className="text-gray-600 text-xs font-mono mb-4 sm:mb-0">— {pageNum} —</div>
       </div>
     </div>
   );
@@ -521,40 +535,41 @@ export default function StudySession() {
   // ── Render Video Mode
   const renderVideoMode = () => (
     <div className="flex-1 flex flex-col min-w-0 bg-[#0F1015]">
-      <div className="bg-[#181920] border-b border-white/5 px-6 py-4 flex items-center justify-between shrink-0 z-20">
-        <div className="flex items-center gap-3">
-          <button onClick={() => navigate('/learning-plan')} className="flex items-center gap-1.5 text-gray-400 hover:text-white transition text-sm font-medium">
-            <ChevronLeft size={18}/> Back
+      <div className="bg-[#181920] border-b border-white/5 px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between shrink-0 z-20">
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button onClick={() => navigate('/learning-plan')} className="flex items-center gap-1 sm:gap-1.5 text-gray-400 hover:text-white transition text-xs sm:text-sm font-medium">
+            <ChevronLeft size={16} className="sm:w-[18px] sm:h-[18px]"/> <span className="hidden sm:inline">Back</span>
           </button>
-          <div className="w-px h-5 bg-white/10"/>
-          <PlayCircle size={18} className="text-[#5D6BDE]"/>
-          <span className="text-sm font-bold text-gray-200 block">{VIDEO_DATA.title}</span>
+          <div className="w-px h-4 sm:h-5 bg-white/10"/>
+          <PlayCircle size={16} className="sm:w-[18px] sm:h-[18px] text-[#5D6BDE] shrink-0"/>
+          <span className="text-xs sm:text-sm font-bold text-gray-200 truncate max-w-[150px] sm:max-w-none block">{VIDEO_DATA.title}</span>
         </div>
-        <button onClick={() => setFullDocView(p => !p)} className="p-2 rounded-lg hover:bg-white/10 text-gray-400 transition">
-          {fullDocView ? <Minimize2 size={18}/> : <Maximize2 size={18}/>}
+        <button onClick={() => setFullDocView(p => !p)} className="p-1.5 sm:p-2 rounded-lg hover:bg-white/10 text-gray-400 transition">
+          {fullDocView ? <Minimize2 size={16} className="sm:w-[18px] sm:h-[18px]"/> : <Maximize2 size={16} className="sm:w-[18px] sm:h-[18px]"/>}
         </button>
       </div>
 
-      <div className="flex-1 overflow-auto p-8 flex flex-col items-center justify-center">
+      <div className="flex-1 overflow-auto p-4 sm:p-8 flex flex-col items-center justify-center">
         <div className="w-full max-w-4xl">
-          <div className="relative aspect-video bg-black rounded-2xl overflow-hidden shadow-2xl mb-6 group border border-white/10">
+          <div className="relative aspect-video bg-black rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl mb-4 sm:mb-6 group border border-white/10">
             {/* Native video element */}
             <video 
               controls 
               className="w-full h-full object-contain"
               poster="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+              playsInline
             >
               <source src={VIDEO_DATA.src} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           </div>
           
-          <div className="bg-[#181920] p-6 rounded-2xl border border-white/5">
-            <div className="flex justify-between items-start mb-2">
-              <h2 className="text-xl font-bold text-white tracking-wide">{VIDEO_DATA.title}</h2>
-              <span className="px-3 py-1 bg-white/10 text-gray-300 text-xs font-mono rounded-lg">{VIDEO_DATA.duration}</span>
+          <div className="bg-[#181920] p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-white/5">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-2 gap-2 sm:gap-0">
+              <h2 className="text-lg sm:text-xl font-bold text-white tracking-wide">{VIDEO_DATA.title}</h2>
+              <span className="px-2.5 py-1 bg-white/10 text-gray-300 text-[10px] sm:text-xs font-mono rounded-lg">{VIDEO_DATA.duration}</span>
             </div>
-            <p className="text-gray-400 text-sm leading-relaxed max-w-3xl">
+            <p className="text-gray-400 text-xs sm:text-sm leading-relaxed max-w-3xl">
               {VIDEO_DATA.description}
             </p>
           </div>
@@ -564,28 +579,32 @@ export default function StudySession() {
   );
 
   return (
-    <div className="flex bg-[#1E1F26] overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8 -my-4 sm:-my-6 lg:-my-8" style={{ height: 'calc(100vh - 80px)' }}>
+    <div className="flex flex-col sm:flex-row bg-[#1E1F26] overflow-hidden -mx-4 sm:-mx-6 lg:-mx-8 -my-4 sm:-my-6 lg:-my-8" style={{ height: 'calc(100vh - 80px)' }}>
 
-      {activeSession.type === 'reading' && renderReadingMode()}
-      {activeSession.type === 'quiz' && renderQuizMode()}
-      {activeSession.type === 'video' && renderVideoMode()}
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-h-0 sm:min-w-0 overflow-y-auto sm:overflow-hidden">
+        {activeSession.type === 'reading' && renderReadingMode()}
+        {activeSession.type === 'quiz' && renderQuizMode()}
+        {activeSession.type === 'video' && renderVideoMode()}
+      </div>
 
+      {/* Sidebar - Stacks below main content on mobile if fullDocView is false */}
       {!fullDocView && (
-        <div className="w-[272px] shrink-0 bg-white border-l border-gray-200 flex flex-col overflow-hidden">
-          <div className="px-5 pt-5 pb-3">
-            <div className="flex justify-between text-xs text-gray-400 mb-1">
+        <div className="w-full sm:w-[272px] shrink-0 bg-white border-t sm:border-t-0 sm:border-l border-gray-200 flex flex-col max-h-[45vh] sm:max-h-none z-30">
+          <div className="px-4 sm:px-5 pt-4 sm:pt-5 pb-2 sm:pb-3 shrink-0">
+            <div className="flex justify-between text-[10px] sm:text-xs text-gray-400 mb-1">
               <span className="font-semibold">Plan Progress</span><span>20%</span>
             </div>
-            <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden">
+            <div className="w-full h-2 sm:h-2.5 bg-gray-100 rounded-full overflow-hidden">
               <div className="h-full rounded-full bg-gradient-to-r from-[#E84D4D] to-[#FF8C42]" style={{ width: '20%' }}/>
             </div>
           </div>
 
-          <div className="flex-1 overflow-y-auto px-5 pb-5 space-y-5">
+          <div className="flex-1 overflow-y-auto px-4 sm:px-5 pb-4 sm:pb-5 space-y-4 sm:space-y-5">
             <div>
-              <div className="flex items-center gap-2 mb-3">
-                <GitBranch size={15} className="text-[#5D6BDE]"/>
-                <span className="text-[11px] font-extrabold text-[#5D6BDE] uppercase tracking-widest">Session Roadmap</span>
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                <GitBranch size={13} className="sm:w-[15px] sm:h-[15px] text-[#5D6BDE]"/>
+                <span className="text-[10px] sm:text-[11px] font-extrabold text-[#5D6BDE] uppercase tracking-widest">Session Roadmap</span>
               </div>
               <div className="space-y-2">
                 {sessions.map((s, idx) => {
@@ -599,37 +618,37 @@ export default function StudySession() {
                       key={s.num} 
                       onClick={() => handleSwitchSession(idx)} 
                       disabled={isLocked}
-                      className={`w-full text-left border rounded-2xl p-3 transition-colors ${
+                      className={`w-full text-left border rounded-xl sm:rounded-2xl p-2.5 sm:p-3 transition-colors ${
                         isActive ? 'border-[#5D6BDE] bg-[#EEF0FD] shadow-sm' : 
                         isLocked ? 'border-[#E8EBFF]/60 bg-[#FAFBFF]/50 opacity-60 cursor-not-allowed' :
                         'border-[#E8EBFF] bg-[#FAFBFF] hover:border-[#A6B2F5]'
                       }`}
                     >
-                      <div className="flex items-start gap-3">
-                        <div className={`w-9 h-9 rounded-xl flex items-center justify-center font-extrabold text-xs shrink-0 ${
+                      <div className="flex items-start gap-2.5 sm:gap-3">
+                        <div className={`w-8 h-8 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl flex items-center justify-center font-extrabold text-[10px] sm:text-xs shrink-0 ${
                           isActive ? 'bg-[#5D6BDE] text-white' : 
                           isCompleted ? 'bg-[#2BB67D] text-white' :
                           'bg-gray-700 text-white'
                         }`}>
-                          {isCompleted && !isActive ? <CheckCircle2 size={16}/> : s.num}
+                          {isCompleted && !isActive ? <CheckCircle2 size={14} className="sm:w-[16px] sm:h-[16px]"/> : s.num}
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex justify-between items-start gap-1">
-                            <p className={`font-bold text-[13px] leading-tight ${
+                            <p className={`font-bold text-xs sm:text-[13px] leading-tight flex-1 line-clamp-2 ${
                               isActive ? 'text-[#5D6BDE]' : 
                               isLocked ? 'text-gray-400' : 'text-gray-900'
                             }`}>{s.title}</p>
-                            <span className={`flex items-center gap-1 text-[9px] font-semibold px-1.5 py-0.5 rounded-full shrink-0 ${
+                            <span className={`flex items-center gap-0.5 sm:gap-1 text-[8px] sm:text-[9px] font-semibold px-1 sm:px-1.5 py-0.5 rounded-full shrink-0 ${
                               isActive ? 'text-[#5D6BDE] bg-[#D4DBF9]' : 
                               isLocked ? 'text-gray-400 bg-gray-100/50' : 
                               isCompleted ? 'text-[#2BB67D] bg-green-100' : 'text-gray-500 bg-gray-100'
                             }`}>
-                              {isLocked && <Lock size={10} className="mb-0.5"/>}
+                              {isLocked && <Lock size={8} className="sm:w-[10px] sm:h-[10px] mb-0.5"/>}
                               {isActive ? 'CURRENT' : isLocked ? 'LOCKED' : isCompleted ? 'DONE' : 'NEXT UP'}
                             </span>
                           </div>
-                          <p className={`text-[11px] mt-0.5 mb-1.5 ${isActive ? 'text-[#5D6BDE]/80' : isLocked ? 'text-gray-300' : 'text-gray-400'}`}>Est. Time: {s.estTime}</p>
-                          <span className={`inline-flex items-center gap-1 text-[10px] font-semibold border rounded-lg px-2 py-0.5 ${badgeClass(s.badgeColor)} ${isLocked ? 'opacity-50 grayscale' : ''}`}>
+                          <p className={`text-[9px] sm:text-[11px] mt-0.5 mb-1 sm:mb-1.5 ${isActive ? 'text-[#5D6BDE]/80' : isLocked ? 'text-gray-300' : 'text-gray-400'}`}>Est. Time: {s.estTime}</p>
+                          <span className={`inline-flex items-center gap-1 text-[9px] sm:text-[10px] font-semibold border rounded-md sm:rounded-lg px-1.5 sm:px-2 py-0.5 ${badgeClass(s.badgeColor)} ${isLocked ? 'opacity-50 grayscale' : ''}`}>
                             {badgeIcon(s.badge.icon)} {s.badge.label}
                           </span>
                         </div>
@@ -640,46 +659,48 @@ export default function StudySession() {
               </div>
             </div>
 
-            <div className="bg-[#F6F7FF] rounded-2xl p-4 border border-[#E0E4F8]">
-              <div className="flex items-center gap-2 mb-3">
-                <Target size={14} className="text-[#5D6BDE] animate-pulse"/>
-                <span className="text-[11px] font-extrabold text-[#5D6BDE] uppercase tracking-widest">Deep Focus Active</span>
+            <div className="bg-[#F6F7FF] rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-[#E0E4F8]">
+              <div className="flex items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                <Target size={12} className="sm:w-[14px] sm:h-[14px] text-[#5D6BDE] animate-pulse"/>
+                <span className="text-[9px] sm:text-[11px] font-extrabold text-[#5D6BDE] uppercase tracking-widest">Deep Focus Active</span>
               </div>
-              <div className="bg-white rounded-xl p-3 mb-3 text-center border border-[#E8EBFF]">
-                <p className="text-[11px] text-gray-400 mb-0.5">Time Remaining</p>
-                <p className="text-3xl font-extrabold text-gray-900 font-mono tracking-wide">{formatTime(seconds)}</p>
-              </div>
-              <div className="flex gap-2">
-                <button onClick={toggleTimer} className={`flex-1 py-2 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 ${timerRunning?'bg-orange-100 text-orange-600 hover:bg-orange-200':'bg-[#5D6BDE] text-white hover:bg-[#4C5AC7]'}`}>
-                  {timerRunning?<><span className="w-3 h-3 border-2 border-orange-500 rounded-sm"/> Pause</>:<><PlayCircle size={13}/> Resume</>}
-                </button>
-                <button onClick={resetTimer} className="p-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-500 transition"><RotateCcw size={13}/></button>
+              <div className="flex flex-row sm:flex-col items-center sm:items-stretch gap-3 sm:gap-0">
+                <div className="flex-1 bg-white rounded-lg sm:rounded-xl p-2 sm:p-3 sm:mb-3 text-center border border-[#E8EBFF] flex flex-col justify-center">
+                  <p className="hidden sm:block text-[11px] text-gray-400 mb-0.5">Time Remaining</p>
+                  <p className="text-xl sm:text-3xl font-extrabold text-gray-900 font-mono tracking-wide">{formatTime(seconds)}</p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-1.5 sm:gap-2">
+                  <button onClick={toggleTimer} className={`flex-1 py-1.5 sm:py-2 px-3 sm:px-0 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold transition flex items-center justify-center gap-1 sm:gap-1.5 ${timerRunning?'bg-orange-100 text-orange-600 hover:bg-orange-200':'bg-[#5D6BDE] text-white hover:bg-[#4C5AC7]'}`}>
+                    {timerRunning?<><span className="w-2.5 h-2.5 sm:w-3 sm:h-3 border-2 border-orange-500 rounded-sm"/> Pause</>:<><PlayCircle size={11} className="sm:w-[13px] sm:h-[13px]"/> Resume</>}
+                  </button>
+                  <button onClick={resetTimer} className="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-500 transition"><RotateCcw size={11} className="sm:w-[13px] sm:h-[13px]"/></button>
+                </div>
               </div>
             </div>
 
             {activeSession.type !== 'quiz' && (
               <div>
-                <div className="flex justify-between text-xs mb-1.5">
+                <div className="flex justify-between text-[10px] sm:text-xs mb-1.5">
                   <span className="font-bold text-gray-700">Session Progress</span>
                   <span className="font-bold text-gray-700">{Math.round(progress)}%</span>
                 </div>
-                <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+                <div className="w-full h-2.5 sm:h-3 bg-gray-100 rounded-full overflow-hidden">
                   <div className={`h-full rounded-full transition-all duration-500 ${sessionComplete?'bg-gradient-to-r from-green-400 to-emerald-500':'bg-gradient-to-r from-[#E84D4D] to-[#FF8C42]'}`} style={{ width:`${Math.round(progress)}%` }}/>
                 </div>
-                {sessionComplete && <p className="text-xs text-green-600 font-semibold mt-1.5 flex items-center gap-1"><CheckCircle2 size={12}/> Session complete!</p>}
+                {sessionComplete && <p className="text-[10px] sm:text-xs text-green-600 font-semibold mt-1.5 flex items-center gap-1"><CheckCircle2 size={10} className="sm:w-[12px] sm:h-[12px]"/> Session complete!</p>}
               </div>
             )}
 
             {activeSession.type === 'quiz' && (
-              <div className="bg-[#EBF0FF] rounded-xl p-4 border border-[#D4DBF9] text-center">
-                <Target size={24} className="mx-auto text-[#5D6BDE] mb-2" />
-                <p className="font-bold text-[#5D6BDE] text-sm mb-1">{sessionComplete ? 'Quiz Passed!' : 'Pass the Quiz'}</p>
-                <p className="text-[11px] text-[#5D6BDE]/80 leading-relaxed">
+              <div className="bg-[#EBF0FF] rounded-lg sm:rounded-xl p-3 sm:p-4 border border-[#D4DBF9] text-center">
+                <Target size={18} className="sm:w-[24px] sm:h-[24px] mx-auto text-[#5D6BDE] mb-1 sm:mb-2" />
+                <p className="font-bold text-[#5D6BDE] text-xs sm:text-sm mb-0.5 sm:mb-1">{sessionComplete ? 'Quiz Passed!' : 'Pass the Quiz'}</p>
+                <p className="text-[9px] sm:text-[11px] text-[#5D6BDE]/80 leading-relaxed">
                   {sessionComplete 
                     ? 'Excellent job. You have unlocked the next session.' 
                     : 'Wait for the timer to finish or answer all questions correctly to unlock the next session.'}
                 </p>
-                {sessionComplete && <CheckCircle2 size={20} className="mx-auto text-green-500 mt-2" />}
+                {sessionComplete && <CheckCircle2 size={16} className="sm:w-[20px] sm:h-[20px] mx-auto text-green-500 mt-1.5 sm:mt-2" />}
               </div>
             )}
 
@@ -691,10 +712,10 @@ export default function StudySession() {
                     setShowCongratsModal(true);
                   }
                 }}
-                className={`w-full py-3 rounded-2xl flex items-center justify-center gap-2 font-bold text-sm transition-all duration-300 ${sessionComplete?'bg-[#5D6BDE] text-white hover:bg-[#4C5AC7] shadow-md':'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>
-                {currentSessionIdx < sessions.length - 1 ? 'Go to Next Session' : 'Finish All Sessions'} <ArrowRight size={16}/>
+                className={`w-full py-2.5 sm:py-3 rounded-xl sm:rounded-2xl flex items-center justify-center gap-1.5 sm:gap-2 font-bold text-xs sm:text-sm transition-all duration-300 ${sessionComplete?'bg-[#5D6BDE] text-white hover:bg-[#4C5AC7] shadow-md':'bg-gray-100 text-gray-400 cursor-not-allowed'}`}>
+                {currentSessionIdx < sessions.length - 1 ? 'Go to Next Session' : 'Finish All Sessions'} <ArrowRight size={14} className="sm:w-[16px] sm:h-[16px]"/>
               </button>
-              {!sessionComplete && <p className="text-[10px] text-gray-400 text-center mt-1.5">Complete the session to unlock the next one</p>}
+              {!sessionComplete && <p className="text-[9px] sm:text-[10px] text-gray-400 text-center mt-1 sm:mt-1.5">Complete the session to unlock the next one</p>}
             </div>
           </div>
         </div>
@@ -702,20 +723,20 @@ export default function StudySession() {
 
       {showCongratsModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-gray-900/60 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-white rounded-3xl w-full max-w-sm p-8 shadow-2xl relative animate-in zoom-in-95 duration-300 flex flex-col items-center text-center">
+          <div className="bg-white rounded-2xl sm:rounded-3xl w-full max-w-sm p-6 sm:p-8 shadow-2xl relative animate-in zoom-in-95 duration-300 flex flex-col items-center text-center">
             
-            <div className="w-20 h-20 bg-gradient-to-tr from-[#5D6BDE] to-[#8A98F7] rounded-full flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
-              <Trophy size={40} className="text-white fill-white/20" />
+            <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-tr from-[#5D6BDE] to-[#8A98F7] rounded-full flex items-center justify-center mb-4 sm:mb-6 shadow-lg shadow-blue-500/30">
+              <Trophy size={32} className="sm:w-[40px] sm:h-[40px] text-white fill-white/20" />
             </div>
 
-            <h2 className="text-2xl font-black text-gray-900 mb-2">Awesome Work!</h2>
-            <p className="text-gray-500 text-sm mb-8 leading-relaxed">
+            <h2 className="text-xl sm:text-2xl font-black text-gray-900 mb-1.5 sm:mb-2">Awesome Work!</h2>
+            <p className="text-gray-500 text-xs sm:text-sm mb-6 sm:mb-8 leading-relaxed">
               You've successfully completed all study sessions in this learning plan. Keep up the great momentum!
             </p>
 
             <button
               onClick={() => navigate('/learning-plan')}
-              className="w-full bg-[#5D6BDE] hover:bg-[#4C5AC7] text-white font-bold py-3.5 rounded-2xl transition-colors shadow-md shadow-[#5D6BDE]/20"
+              className="w-full bg-[#5D6BDE] hover:bg-[#4C5AC7] text-white font-bold py-3 sm:py-3.5 rounded-xl sm:rounded-2xl transition-colors shadow-md shadow-[#5D6BDE]/20 text-sm"
             >
               Return to Plan
             </button>

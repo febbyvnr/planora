@@ -344,7 +344,7 @@ export default function Dashboard() {
                                             </div>
                                         </div>
 
-                                        <div className={`${theme.gradient} border-2 ${theme.border} border-t-0 rounded-b-lg p-5 relative overflow-hidden flex flex-col justify-between h-[155px]`}>
+                                        <div className={`${theme.gradient} border-2 ${theme.border} border-t-0 rounded-b-lg p-5 relative overflow-hidden flex flex-col justify-between min-h-[155px]`}>
 
                                             <div className="flex items-center justify-between">
                                                 <div className="flex-1 pr-6 pb-2">
@@ -398,8 +398,8 @@ export default function Dashboard() {
                                 <div className={`${streak.theme.bgTop} text-white font-bold px-4 py-1.5 text-sm w-full rounded-t-lg flex justify-between items-center`}>
                                     <span>{streak.category}</span>
                                 </div>
-                                <div className={`${streak.theme.gradient} border-2 ${streak.theme.border} border-t-0 rounded-b-lg p-5 flex justify-between relative overflow-hidden h-[155px]`}>
-                                    <div className="w-3/4 z-10">
+                                <div className={`${streak.theme.gradient} border-2 ${streak.theme.border} border-t-0 rounded-b-lg p-5 flex justify-between relative overflow-hidden min-h-[155px]`}>
+                                    <div className="w-3/4 z-10 flex flex-col items-start h-full">
                                         <h3 className="font-bold text-gray-800 text-[16px] mb-1.5">{streak.title}</h3>
                                         <span className="inline-flex items-center gap-1 text-[11px] font-bold px-2 py-0.5 rounded-full bg-white/70 border border-gray-200 text-gray-600 mb-2">🔥 {streak.days} days</span>
 

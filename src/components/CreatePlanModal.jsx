@@ -236,40 +236,40 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div 
-        className="bg-white w-[620px] max-h-[90vh] overflow-y-auto rounded-3xl p-8 shadow-2xl no-scrollbar"
+        className="bg-white w-full max-w-[620px] max-h-[90vh] overflow-y-auto rounded-2xl sm:rounded-3xl p-5 sm:p-8 shadow-2xl no-scrollbar"
         style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
       >
         <style>{`.no-scrollbar::-webkit-scrollbar { display: none; }`}</style>
-        <h2 className="text-[28px] font-bold text-gray-900 mb-6">Create New Plan</h2>
+        <h2 className="text-[24px] sm:text-[28px] font-bold text-gray-900 mb-4 sm:mb-6">Create New Plan</h2>
         
-        <div className="flex gap-3 mb-8">
-           <div className="h-[6px] flex-1 bg-[#4A72FF] rounded-full"></div>
-           <div className={`h-[6px] flex-1 rounded-full ${currentStep >= 2 ? 'bg-[#4A72FF]' : 'bg-gray-200'}`}></div>
-           <div className={`h-[6px] flex-1 rounded-full ${currentStep >= 3 ? 'bg-[#4A72FF]' : 'bg-gray-200'}`}></div>
+        <div className="flex gap-2 sm:gap-3 mb-6 sm:mb-8">
+           <div className="h-[4px] sm:h-[6px] flex-1 bg-[#4A72FF] rounded-full"></div>
+           <div className={`h-[4px] sm:h-[6px] flex-1 rounded-full ${currentStep >= 2 ? 'bg-[#4A72FF]' : 'bg-gray-200'}`}></div>
+           <div className={`h-[4px] sm:h-[6px] flex-1 rounded-full ${currentStep >= 3 ? 'bg-[#4A72FF]' : 'bg-gray-200'}`}></div>
         </div>
 
-        <div className="flex items-center justify-between px-12 mb-10 relative z-0">
-          <div className="absolute top-5 left-[15%] right-[15%] h-[2px] bg-gray-300 z-[-1]"></div>
+        <div className="flex items-center justify-between px-2 sm:px-12 mb-8 sm:mb-10 relative z-0">
+          <div className="absolute top-4 sm:top-5 left-[15%] right-[15%] h-[2px] bg-gray-300 z-[-1]"></div>
           
-          <div className="flex flex-col items-center gap-2 bg-white px-4">
-            <div className={`w-10 h-10 rounded-full flex justify-center items-center text-xl font-bold text-white ${currentStep > 1 ? 'bg-[#5D6BDE]' : 'bg-[#5D6BDE]'}`}>
-              {currentStep > 1 ? <Check size={22} strokeWidth={3} /> : '1'}
+          <div className="flex flex-col items-center gap-1.5 sm:gap-2 bg-white px-2 sm:px-4">
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center text-lg sm:text-xl font-bold text-white ${currentStep > 1 ? 'bg-[#5D6BDE]' : 'bg-[#5D6BDE]'}`}>
+              {currentStep > 1 ? <Check size={18} strokeWidth={3} className="sm:w-[22px] sm:h-[22px]" /> : '1'}
             </div>
-            <span className="text-[#5D6BDE] text-xs font-bold tracking-wider">PLAN BASICS</span>
+            <span className="text-[#5D6BDE] text-[10px] sm:text-xs font-bold tracking-wider text-center">PLAN<br className="sm:hidden" /> BASICS</span>
           </div>
           
-          <div className="flex flex-col items-center gap-2 bg-white px-4">
-            <div className={`w-10 h-10 rounded-full flex justify-center items-center text-xl font-bold ${currentStep >= 2 ? 'bg-[#5D6BDE] text-white' : 'bg-gray-200 text-gray-500'}`}>
-              {currentStep > 2 ? <Check size={22} strokeWidth={3} /> : '2'}
+          <div className="flex flex-col items-center gap-1.5 sm:gap-2 bg-white px-2 sm:px-4">
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center text-lg sm:text-xl font-bold ${currentStep >= 2 ? 'bg-[#5D6BDE] text-white' : 'bg-gray-200 text-gray-500'}`}>
+              {currentStep > 2 ? <Check size={18} strokeWidth={3} className="sm:w-[22px] sm:h-[22px]" /> : '2'}
             </div>
-            <span className={`text-xs font-bold tracking-wider ${currentStep >= 2 ? 'text-[#5D6BDE]' : 'text-gray-300'}`}>SESSIONS</span>
+            <span className={`text-[10px] sm:text-xs font-bold tracking-wider ${currentStep >= 2 ? 'text-[#5D6BDE]' : 'text-gray-300'}`}>SESSIONS</span>
           </div>
           
-          <div className="flex flex-col items-center gap-2 bg-white px-4">
-            <div className={`w-10 h-10 rounded-full flex justify-center items-center text-xl font-bold ${currentStep >= 3 ? 'bg-[#5D6BDE] text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
-            <span className={`text-xs font-bold tracking-wider ${currentStep >= 3 ? 'text-[#5D6BDE]' : 'text-gray-300'}`}>TEAM</span>
+          <div className="flex flex-col items-center gap-1.5 sm:gap-2 bg-white px-2 sm:px-4">
+            <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-full flex justify-center items-center text-lg sm:text-xl font-bold ${currentStep >= 3 ? 'bg-[#5D6BDE] text-white' : 'bg-gray-200 text-gray-500'}`}>3</div>
+            <span className={`text-[10px] sm:text-xs font-bold tracking-wider ${currentStep >= 3 ? 'text-[#5D6BDE]' : 'text-gray-300'}`}>TEAM</span>
           </div>
         </div>
 
@@ -359,17 +359,17 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-2">DURATION</p>
+                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-1.5 sm:mb-2">DURATION</p>
                       <div className="relative">
                         <button
                           type="button"
                           onClick={() => toggleDropdown(session.id, 'duration')}
-                          className="w-full flex items-center gap-2 px-4 py-3 rounded-xl border border-[#A6B2F5] bg-white text-sm text-gray-700 hover:border-[#5D6BDE] transition text-left"
+                          className="w-full flex items-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-[10px] sm:rounded-xl border border-[#A6B2F5] bg-white text-sm text-gray-700 hover:border-[#5D6BDE] transition text-left"
                         >
                           <Clock size={16} className="text-gray-400 shrink-0" />
-                          <span className="flex-1">{session.duration}</span>
+                          <span className="flex-1 text-sm">{session.duration}</span>
                           <ChevronDown size={14} className={`text-gray-400 shrink-0 transition-transform ${openDropdown?.id === session.id && openDropdown?.field === 'duration' ? 'rotate-180' : ''}`} />
                         </button>
                         {openDropdown?.id === session.id && openDropdown?.field === 'duration' && (
@@ -394,14 +394,14 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
                     </div>
 
                     <div>
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-2">MODE</p>
+                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-1.5 sm:mb-2">MODE</p>
                       <div className="relative">
                         <button
                           type="button"
                           onClick={() => toggleDropdown(session.id, 'mode')}
-                          className="w-full flex items-center justify-between px-4 py-3 rounded-xl border border-[#A6B2F5] bg-white text-sm text-gray-700 hover:border-[#5D6BDE] transition text-left"
+                          className="w-full flex items-center justify-between px-3 sm:px-4 py-2.5 sm:py-3 rounded-[10px] sm:rounded-xl border border-[#A6B2F5] bg-white text-sm text-gray-700 hover:border-[#5D6BDE] transition text-left"
                         >
-                          <span className="flex-1">{session.mode}</span>
+                          <span className="flex-1 text-sm">{session.mode}</span>
                           <ChevronDown size={14} className={`text-gray-400 shrink-0 transition-transform ${openDropdown?.id === session.id && openDropdown?.field === 'mode' ? 'rotate-180' : ''}`} />
                         </button>
                         {openDropdown?.id === session.id && openDropdown?.field === 'mode' && (
@@ -425,16 +425,16 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
                       </div>
                     </div>
 
-                    <div className="col-span-2">
-                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-2">Material</p>
+                    <div className="col-span-1 sm:col-span-2">
+                      <p className="text-gray-400 text-xs font-bold uppercase tracking-wide mb-1.5 sm:mb-2">Material</p>
                       <div className="relative">
                         <button
                           type="button"
                           onClick={() => toggleDropdown(session.id, 'material')}
-                          className="w-full flex items-center gap-2 px-4 py-3 rounded-xl border border-[#A6B2F5] bg-white text-sm text-gray-700 hover:border-[#5D6BDE] transition text-left"
+                          className="w-full flex items-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-[10px] sm:rounded-xl border border-[#A6B2F5] bg-white text-sm text-gray-700 hover:border-[#5D6BDE] transition text-left"
                         >
                           <FileText size={16} className="text-gray-400 shrink-0" />
-                          <span className="flex-1 truncate">{session.material}</span>
+                          <span className="flex-1 truncate text-sm">{session.material}</span>
                           <ChevronDown size={14} className={`text-gray-400 shrink-0 transition-transform ${openDropdown?.id === session.id && openDropdown?.field === 'material' ? 'rotate-180' : ''}`} />
                         </button>
                         {openDropdown?.id === session.id && openDropdown?.field === 'material' && (
@@ -498,13 +498,13 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
         )}
 
         {currentStep === 3 && (
-          <div className="space-y-5">
-            <div className="flex items-center justify-between">
+          <div className="space-y-4 sm:space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-4">
               <div>
-                <h3 className="text-xl font-bold text-gray-900">Collaborators</h3>
-                <p className="text-gray-400 text-sm mt-0.5">Invite friends to study together and track progress</p>
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900">Collaborators</h3>
+                <p className="text-gray-400 text-xs sm:text-sm mt-0.5 sm:mt-0.5">Invite friends to study together and track progress</p>
               </div>
-              <span className="text-[#E89B35] bg-[#FFF8EC] border border-[#F5D99E] px-4 py-1.5 rounded-full text-sm font-semibold">Social Learning</span>
+              <span className="self-start sm:self-auto text-[#E89B35] bg-[#FFF8EC] border border-[#F5D99E] px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-sm font-semibold">Social Learning</span>
             </div>
 
             <div className="relative">
@@ -611,21 +611,21 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
           </div>
         )}
 
-        <div className="flex justify-between items-center mt-8">
+        <div className="flex flex-col sm:flex-row justify-between items-center sm:items-center mt-6 sm:mt-8 gap-4 sm:gap-0">
           <button
             onClick={() => {
               if (currentStep === 1) closeModal();
               else setCurrentStep(currentStep - 1);
             }}
-            className="text-gray-600 font-medium hover:text-gray-900 transition px-2"
+            className="text-gray-600 font-medium hover:text-gray-900 transition px-2 order-2 sm:order-1"
           >
             {currentStep === 1 ? 'Cancel' : 'Back'}
           </button>
           
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 w-full sm:w-auto order-1 sm:order-2">
             <button 
               onClick={handleSaveDraft}
-              className="px-6 py-3 rounded-[14px] bg-[#FBA834] hover:bg-[#F29F2B] text-white font-bold transition"
+              className="px-6 py-3 rounded-xl sm:rounded-[14px] bg-[#FBA834] hover:bg-[#F29F2B] text-white font-bold transition w-full sm:w-auto"
             >
               Save Draft
             </button>
@@ -635,7 +635,7 @@ export default function CreatePlanModal({ isOpen, onClose, onSaveDraft, draftToE
                 else if (currentStep === 2) handleNextStep2();
                 else handleFinish();
               }}
-              className="px-6 py-3 rounded-[14px] bg-[#5D6BDE] hover:bg-[#4C5AC7] text-white font-bold transition"
+              className="px-6 py-3 rounded-xl sm:rounded-[14px] bg-[#5D6BDE] hover:bg-[#4C5AC7] text-white font-bold transition w-full sm:w-auto"
             >
               {currentStep < 3 ? 'Next' : 'Finish & Create'}
             </button>

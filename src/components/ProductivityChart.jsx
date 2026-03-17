@@ -113,7 +113,7 @@ export default function ProductivityChart() {
             </div>
 
             {/* Chart Display */}
-            <div className="relative w-full flex-1">
+            <div className="relative w-full flex-1 min-h-0 min-w-0">
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart data={currentData.data} margin={{ top: 15, right: 10, left: 10, bottom: 0 }}>
                         <defs>

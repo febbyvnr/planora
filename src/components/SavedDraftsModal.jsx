@@ -40,31 +40,31 @@ export default function SavedDraftsModal({ isOpen, onClose, drafts = [], onDelet
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-200">
-      <div className="bg-white w-[560px] max-h-[85vh] flex flex-col rounded-3xl shadow-2xl relative animate-in zoom-in-95 duration-200">
+      <div className="bg-white w-[90%] max-w-[560px] max-h-[85vh] flex flex-col rounded-3xl shadow-2xl relative animate-in zoom-in-95 duration-200">
         
         {/* Header */}
-        <div className="px-8 pt-8 pb-5 border-b border-gray-100 flex justify-between items-center shrink-0">
+        <div className="px-5 sm:px-8 pt-6 sm:pt-8 pb-4 sm:pb-5 border-b border-gray-100 flex justify-between items-center shrink-0">
           <div>
-            <h2 className="text-[24px] font-bold text-gray-900 flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#FBA834] to-[#F59E0B] flex items-center justify-center shadow-sm shadow-amber-200">
-                <FileEdit className="text-white" size={20} />
+            <h2 className="text-[20px] sm:text-[24px] font-bold text-gray-900 flex items-center gap-2 sm:gap-2.5">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-[#FBA834] to-[#F59E0B] flex items-center justify-center shadow-sm shadow-amber-200">
+                <FileEdit className="text-white w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               Saved Drafts
             </h2>
             <p className="text-gray-500 text-[14px] mt-1.5">Continue building your incomplete learning plans</p>
           </div>
-          <button 
-            onClick={onClose}
-            className="p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <X size={20} />
-          </button>
+         <button
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
+                            onClick={onClose}
+                        >
+                            <X size={20} />
+                        </button>
         </div>
 
         {/* Draft Count Badge */}
         {drafts.length > 0 && (
-          <div className="px-8 pt-4 pb-0 shrink-0">
-            <span className="inline-flex items-center gap-1.5 text-[12px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
+          <div className="px-5 sm:px-8 pt-4 pb-0 shrink-0">
+            <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-[12px] font-bold text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-full">
               <AlertCircle size={13} />
               {drafts.length} draft{drafts.length !== 1 ? 's' : ''} waiting to be completed
             </span>
@@ -72,7 +72,7 @@ export default function SavedDraftsModal({ isOpen, onClose, drafts = [], onDelet
         )}
 
         {/* List */}
-        <div className="p-6 px-8 overflow-y-auto flex-1 rounded-b-3xl">
+        <div className="p-5 sm:p-6 px-4 sm:px-8 overflow-y-auto flex-1 rounded-b-3xl">
           {drafts.length === 0 ? (
             <div className="text-center py-14">
               <div className="w-20 h-20 bg-gray-50 rounded-2xl flex items-center justify-center mx-auto mb-5 border-2 border-dashed border-gray-200">
@@ -162,10 +162,10 @@ export default function SavedDraftsModal({ isOpen, onClose, drafts = [], onDelet
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="flex gap-2">
+                      <div className="flex gap-1.5 sm:gap-2">
                         <button 
                           onClick={() => handleResume(draft)}
-                          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#5D6BDE] hover:bg-[#4C5AC7] text-white text-[11px] font-bold transition-colors shadow-sm"
+                          className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-xl bg-[#5D6BDE] hover:bg-[#4C5AC7] text-white text-[10px] sm:text-[11px] font-bold transition-colors shadow-sm"
                         >
                           <PlayCircle size={13} />
                           Continue

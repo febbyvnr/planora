@@ -1,6 +1,13 @@
 import BenefitCard from "./Card/BenefitCard";
 import DotGrid from "../ReactBits/DotGrid";
 import AnimatedContent from "../ReactBits/AnimatedContent";
+import img1 from "../../assets/imagesForLanding/1.png";
+import img2 from "../../assets/imagesForLanding/2.png";
+import img3 from "../../assets/imagesForLanding/3.png";
+import img4 from "../../assets/imagesForLanding/4.png";
+import img5 from "../../assets/imagesForLanding/5.png";
+import img6 from "../../assets/imagesForLanding/6.png";
+import img7 from "../../assets/imagesForLanding/7.png";
 
 export default function WhySection() {
     return (
@@ -54,11 +61,11 @@ export default function WhySection() {
                     color="bg-indigo-700"
                     images={[
                         {
-                        src: "src/assets/imagesForLanding/1.png",
+                        src: img1,
                         className: "w-72 rotate-0"
                         },
                         {
-                        src: "src/assets/imagesForLanding/2.png",
+                        src: img2,
                         className: "w-60 -rotate-12 -left-10 top-10"
                         }
                     ]}
@@ -84,15 +91,15 @@ export default function WhySection() {
                     reverse
                     images={[
                         {
-                        src: "src/assets/imagesForLanding/5.png",
+                        src: img5,
                         className: "w-72"
                         },
                         {
-                        src: "src/assets/imagesForLanding/4.png",
+                        src: img4,
                         className: "w-56 -rotate-12 top-20 left-10"
                         },
                         {
-                        src: "src/assets/imagesForLanding/3.png",
+                        src: img3,
                         className: "w-60 rotate-6 -top-10 -left-10"
                         }
                     ]}
@@ -117,11 +124,11 @@ export default function WhySection() {
                     color="bg-emerald-600"
                     images={[
                         {
-                        src: "src/assets/imagesForLanding/6.png",
+                        src: img6,
                         className: "w-72"
                         },
                         {
-                        src: "src/assets/imagesForLanding/7.png",
+                        src: img7,
                         className: "w-64 -rotate-12 left-10"
                         }
                     ]}

@@ -67,42 +67,41 @@ export default function JoinPlanModal({ isOpen, onClose }) {
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 animate-in fade-in duration-200">
-      <div className="bg-white w-[440px] rounded-3xl shadow-2xl relative animate-in zoom-in-95 duration-200 overflow-hidden">
+      <div className="bg-white w-[90%] max-w-[440px] rounded-3xl shadow-2xl relative animate-in zoom-in-95 duration-200 overflow-hidden">
 
-        {/* Top accent bar */}
         <div className="h-1.5 bg-gradient-to-r from-[#5D6BDE] via-[#8A98F7] to-[#5D6BDE]" />
 
-        <div className="p-8 pt-6">
-          {/* Close button */}
-          <button 
-            onClick={onClose}
-            className="absolute top-5 right-5 p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            <X size={18} />
-          </button>
+        <div className="p-6 sm:p-8 pt-5 sm:pt-6">
+         <button
+                            className="absolute top-4 right-4 text-gray-400 hover:text-gray-800 hover:rotate-90 transition-all duration-200"
+                            onClick={onClose}
+                        >
+                            <X size={20} />
+                        </button>
+
 
           {/* Header */}
-          <div className="flex flex-col items-center text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-[#5D6BDE] to-[#8A98F7] rounded-2xl flex items-center justify-center mb-4 shadow-lg shadow-[#5D6BDE]/25">
-              <Users size={28} className="text-white" />
+          <div className="flex flex-col items-center text-center mb-6 sm:mb-8">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-[#5D6BDE] to-[#8A98F7] rounded-2xl flex items-center justify-center mb-3 sm:mb-4 shadow-lg shadow-[#5D6BDE]/25">
+              <Users size={24} className="text-white sm:w-7 sm:h-7" />
             </div>
-            <h2 className="text-[22px] font-extrabold text-gray-900 leading-tight mb-1.5">Join a Learning Plan</h2>
+            <h2 className="text-[20px] sm:text-[22px] font-extrabold text-gray-900 leading-tight mb-1.5">Join a Learning Plan</h2>
             <p className="text-gray-400 text-[13px] px-2 leading-relaxed">
               Enter the 6-character invite code shared by the plan owner
             </p>
           </div>
 
           {/* Code Input */}
-          <div className="mb-6">
-            <label className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-3 block text-center">
+          <div className="mb-5 sm:mb-6">
+            <label className="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-2 sm:mb-3 block text-center">
               INVITE CODE
             </label>
-            <div className="flex justify-center gap-2.5" onPaste={handlePaste}>
+            <div className="flex justify-center gap-1.5 sm:gap-2.5" onPaste={handlePaste}>
               {codeDigits.map((digit, idx) => (
                 <React.Fragment key={idx}>
                   {idx === 3 && (
-                    <div className="flex items-center px-0.5">
-                      <div className="w-2.5 h-[3px] bg-gray-300 rounded-full" />
+                    <div className="flex items-center px-0 sm:px-0.5">
+                      <div className="w-1.5 sm:w-2.5 h-[3px] bg-gray-300 rounded-full" />
                     </div>
                   )}
                   <input
@@ -112,7 +111,7 @@ export default function JoinPlanModal({ isOpen, onClose }) {
                     value={digit}
                     onChange={e => handleChange(idx, e.target.value)}
                     onKeyDown={e => handleKeyDown(idx, e)}
-                    className={`w-12 h-14 text-center text-xl font-bold font-mono rounded-xl border-2 outline-none transition-all duration-200 
+                    className={`w-9 h-12 sm:w-12 sm:h-14 text-center text-lg sm:text-xl font-bold font-mono rounded-xl border-2 outline-none transition-all duration-200 
                       ${digit 
                         ? 'border-[#5D6BDE] bg-[#F5F7FF] text-[#5D6BDE] shadow-sm shadow-[#5D6BDE]/10' 
                         : 'border-gray-200 bg-gray-50 text-gray-700 focus:border-[#5D6BDE] focus:bg-white focus:shadow-sm focus:shadow-[#5D6BDE]/10'

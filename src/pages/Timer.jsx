@@ -354,32 +354,33 @@ export default function Timer() {
     // ==========================================
     return (
         <div className="flex flex-col w-full min-h-[calc(100vh-120px)] text-gray-800 animate-in fade-in zoom-in-95 duration-500 rounded-3xl pb-10">
-            <header className="relative z-10 w-full flex justify-between items-center mb-10">
-                <div className="flex items-center gap-4">
+            <header className="relative z-10 w-full flex flex-wrap sm:flex-nowrap justify-between items-center gap-4 mb-8 sm:mb-10">
+                <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-between sm:justify-start">
                     <button 
                         onClick={handleExitTimer}
-                        className="group flex items-center gap-2 px-4 py-2 hover:px-5 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm text-gray-600 font-semibold text-sm transition-all duration-300"
+                        className="group flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 sm:hover:px-5 rounded-xl bg-white hover:bg-gray-50 border border-gray-200 shadow-sm text-gray-600 font-semibold text-xs sm:text-sm transition-all duration-300"
                     >
-                        <ArrowLeft size={18} />
-                        <span>Sessions</span>
+                        <ArrowLeft size={16} className="sm:w-[18px] sm:h-[18px]" />
+                        <span className="hidden sm:inline">Sessions</span>
+                        <span className="sm:hidden">Back</span>
                     </button>
                     
-                    <div className="hidden sm:flex items-center gap-3 ml-4">
-                        <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${MODES[activeMode]?.theme || MODES['Focus'].theme} flex items-center justify-center shadow-md animate-pulse`}>
+                    <div className="flex sm:flex items-center gap-2 sm:gap-3 ml-0 sm:ml-4">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br ${MODES[activeMode]?.theme || MODES['Focus'].theme} flex items-center justify-center shadow-md animate-pulse`}>
                             {activeSession?.icon ? (
-                                <span className="text-white scale-[0.9]">
+                                <span className="text-white scale-[0.7] sm:scale-[0.9]">
                                     {activeSession.icon}
                                 </span>
                             ) : (
-                                <CheckCircle size={22} className="text-white" />
+                                <CheckCircle size={18} className="text-white sm:w-[22px] sm:h-[22px]" />
                             )}
                         </div>
                         
                         <div>
-                            <h1 className="text-xl font-black tracking-wider text-gray-900 drop-shadow-sm line-clamp-1">
-                                {activeSession?.title || 'Freestyle Focus'}
+                            <h1 className="text-base sm:text-xl font-black tracking-wider text-gray-900 drop-shadow-sm line-clamp-1 max-w-[120px] sm:max-w-none">
+                                {activeSession?.title || 'Freestyle'}
                             </h1>
-                            <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">{activeMode} SESSION</p>
+                            <p className="text-[9px] sm:text-[10px] font-bold text-gray-500 uppercase tracking-widest">{activeMode}</p>
                         </div>
                     </div>
                 </div>
@@ -409,7 +410,7 @@ export default function Timer() {
                     </button>
                     <button 
                         onClick={toggleFullscreen}
-                        className="w-10 h-10 rounded-xl bg-white hover:bg-gray-50 flex items-center justify-center border border-gray-200 transition-all text-gray-600 shadow-sm"
+                        className="w-10 h-10 rounded-xl bg-white hover:bg-gray-50 hidden sm:flex items-center justify-center border border-gray-200 transition-all text-gray-600 shadow-sm"
                         title="Toggle Fullscreen"
                     >
                         {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
@@ -426,7 +427,7 @@ export default function Timer() {
                 <div className="w-full max-w-lg relative group">
                     <div className={`absolute -inset-0.5 rounded-[2.5rem] blur-lg opacity-20 transition-all duration-1000 bg-gradient-to-r ${MODES[activeMode]?.theme || MODES['Focus'].theme}`}></div>
 
-                    <div className="relative bg-white border border-gray-100 rounded-[2.5rem] p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] overflow-hidden">
+                    <div className="relative bg-white border border-gray-100 rounded-[2.5rem] p-6 sm:p-8 md:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] overflow-hidden">
                         
                         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gray-100">
                             <div 
@@ -435,15 +436,14 @@ export default function Timer() {
                             ></div>
                         </div>
 
-                        {/* Hidden if using sequential phases, we drive mode auto */}
                         {(!activeSession?.phases || activeSession.phases.length <= 1) && (
-                            <div className="flex justify-center">
-                                <div className="flex gap-2 mb-10 p-1.5 bg-gray-50 rounded-full border border-gray-100 shrink-0">
+                            <div className="flex justify-center w-full overflow-x-auto no-scrollbar pb-2">
+                                <div className="flex gap-1 sm:gap-2 mb-8 sm:mb-10 p-1 sm:p-1.5 bg-gray-50 rounded-full border border-gray-100 shrink-0 min-w-max">
                                     {Object.keys(MODES).map((mode) => (
                                         <button
                                             key={mode}
                                             onClick={() => handleModeSwitch(mode)}
-                                            className={`relative px-4 py-2 rounded-full text-sm font-bold transition-all duration-300 outline-none flex items-center gap-1 ${
+                                            className={`relative px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-sm font-bold transition-all duration-300 outline-none flex items-center gap-1 ${
                                                 activeMode === mode 
                                                     ? "text-white shadow-md scale-105" 
                                                     : "text-gray-500 hover:text-gray-800 hover:bg-gray-200/50"
@@ -460,7 +460,7 @@ export default function Timer() {
                         )}
 
                         {activeSession?.phases && activeSession.phases.length > 1 && (
-                            <div className="flex justify-center items-center gap-2 mb-10">
+                            <div className="flex justify-center items-center gap-1 sm:gap-2 mb-8 sm:mb-10">
                                 {activeSession.phases.map((p, idx) => (
                                     <div key={p.id} className="flex items-center">
                                         <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold border-2 transition-all ${
@@ -480,16 +480,16 @@ export default function Timer() {
                             </div>
                         )}
 
-                        <div className="flex flex-col items-center justify-center mb-10">
-                            <div className="text-[7rem] md:text-[9rem] font-bold leading-none tracking-tighter text-gray-900 drop-shadow-sm select-none" style={{ fontVariantNumeric: 'tabular-nums' }}>
+                        <div className="flex flex-col items-center justify-center mb-6 sm:mb-10">
+                            <div className="text-[5rem] sm:text-[7rem] md:text-[9rem] font-bold leading-none tracking-tighter text-gray-900 drop-shadow-sm select-none" style={{ fontVariantNumeric: 'tabular-nums' }}>
                                 {formatTime(timeLeft)}
                             </div>
-                            <p className="text-gray-500 font-medium tracking-wide mt-2 text-lg">
+                            <p className="text-gray-500 font-medium tracking-wide mt-2 text-base sm:text-lg text-center">
                                 {isRunning ? (MODES[activeMode]?.msg || "Focus on the task.") : "Ready when you are."}
                             </p>
                         </div>
 
-                        <div className="flex items-center justify-center gap-6">
+                        <div className="flex items-center justify-center gap-4 sm:gap-6">
                             <button 
                                 onClick={resetTimer}
                                 className={`w-14 h-14 rounded-2xl bg-gray-50 hover:bg-gray-100 flex items-center justify-center border border-gray-200 transition-all text-gray-500 hover:text-gray-800 hover:-rotate-45 ${isRunning ? 'opacity-50 pointer-events-none' : 'opacity-100'}`}
